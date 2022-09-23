@@ -5,10 +5,13 @@ import { useGlobalUserState } from "../../Modules/User/User";
 function RatingPage() {
     const user = useGlobalUserState();
 
-    const posRef = React.createRef<HTMLDivElement>();
-    const scoreRef = React.createRef<HTMLDivElement>();
+    const [userStat, setUserStat] = useState({pos:<div className="spinner-grow text-light" role="status">
+    <span className="visually-hidden">Loading...</span>
+</div>,score:<div className="spinner-grow text-light" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>})
 
-    const [ratingTableBody, setRatingTableBody] =useState([<></>]);
+    const [ratingTableBody, setRatingTableBody] =useState([<tr key={`${new Date().getTime()}`}></tr>]);
 
     function arrayToTable(array:{name: string, surname: string, score: number}[]){
         let tableRows:JSX.Element[] = [];
@@ -34,8 +37,7 @@ function RatingPage() {
             method: "POST",
             body: JSON.stringify({ token: user.userParams.token })
         }).then((result) => result.json()).then(({ position, score }) => {
-            posRef.current!.innerHTML = position;
-            scoreRef.current!.innerHTML = score;
+            setUserStat({pos:position, score:score})
         })
 
 
@@ -54,20 +56,16 @@ function RatingPage() {
                 <div className="row justify-content-center fs-5 g-2">
                     <div className="col-6">
                         <div className="text-center">
-                            <div ref={posRef}>
-                                <div className="spinner-grow text-light" role="status">
-                                    <span className="visually-hidden">Loading...</span>
-                                </div>
+                            <div>
+                                {userStat.pos}
                             </div>
                             Позиция
                         </div>
                     </div>
                     <div className="col-6">
                         <div className="text-center">
-                            <div ref={scoreRef}>
-                                <div className="spinner-grow text-light" role="status">
-                                    <span className="visually-hidden">Loading...</span>
-                                </div>
+                            <div>
+                                {userStat.score}
                             </div>
                             Баллов
                         </div>
