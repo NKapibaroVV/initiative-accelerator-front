@@ -26,7 +26,7 @@ function RatingPage() {
         return tableRows;
     }
     useEffect(() => {
-        fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/get_personal_rating`, {
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_personal_rating`, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -38,7 +38,7 @@ function RatingPage() {
         })
 
 
-        fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/get_global_rating`
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_global_rating`
         ).then(response=>response.json()).then((ratingArray)=>{setRatingTableBody(arrayToTable(ratingArray))})
     }, [])
 

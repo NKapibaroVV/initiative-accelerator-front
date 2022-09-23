@@ -30,7 +30,7 @@ function VKAuthPage() {
                     let firstName = user["first_name"];
                     let secondName = user["last_name"];
                     let login = user["id"];
-                    fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/reg`, {
+                    fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg`, {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json'

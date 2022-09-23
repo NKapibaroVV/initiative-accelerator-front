@@ -29,13 +29,13 @@ function CabinetPage() {
             let userStartedInitiatives: { [id: string]: { category: initiativeCategories, title: string, deadLine: number, offcanvasContent: string, income: number } } = {};
             let userCompletedInitiatives: { [id: string]: { category: initiativeCategories, title: string, deadLine: number, offcanvasContent: string, income: number } } = {};
 
-            await fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/get_all_initiatives`).then(
+            await fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_all_initiatives`).then(
                 (result) => result.json()).then((allInitiativesJson: any) => {
                     allInitiativesJson.forEach((initiative: { category: initiativeCategories, id: string, title: string, deadLine: number, offcanvasContent: string, income: number }) => {
                         allInitiatives[initiative.id] = { category: initiative.category, title: initiative.title, deadLine: initiative.deadLine, offcanvasContent: initiative.offcanvasContent, income: initiative.income }
                     });
 
-                    fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/get_user_initiatives`, {
+                    fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_user_initiatives`, {
                         headers: {
                             'Content-Type': 'application/json'
                         },
@@ -56,7 +56,7 @@ function CabinetPage() {
                         for (const initiativeId in userCompletedInitiatives) {
                             if (Object.prototype.hasOwnProperty.call(userCompletedInitiatives, initiativeId)) {
                                 const element = userCompletedInitiatives[initiativeId];
-                                completedInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.completed} income={element.income} key={initiativeId} />)
+                                completedInitiativesBricks.push(<InitiativeBrick key={`${element.category}${element.deadLine}${element.title}`} category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.completed} income={element.income} key={initiativeId} />)
                             }
                         }
                         setCompletedInitiatives([completedInitiativesBricks[0], completedInitiativesBricks[1]]);
@@ -68,7 +68,7 @@ function CabinetPage() {
                         for (const initiativeId in userStartedInitiatives) {
                             if (Object.prototype.hasOwnProperty.call(userStartedInitiatives, initiativeId)) {
                                 const element = userStartedInitiatives[initiativeId];
-                                inProgressInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.started} income={element.income} key={initiativeId} />)
+                                inProgressInitiativesBricks.push(<InitiativeBrick key={`${element.category}${element.deadLine}${element.title}`} category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.started} income={element.income} key={initiativeId} />)
                             }
                         }
                         setInPropressInitiatives(inProgressInitiativesBricks);
@@ -77,7 +77,7 @@ function CabinetPage() {
                             if (Object.prototype.hasOwnProperty.call(allInitiatives, initiativeId)) {
                                 const element = allInitiatives[initiativeId];
                                 if (element.deadLine > new Date().getTime()) {
-                                    notStartedInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.notStarted} income={element.income} key={initiativeId} />)
+                                    notStartedInitiativesBricks.push(<InitiativeBrick key={`${element.category}${element.deadLine}${element.title}`} category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.notStarted} income={element.income} key={initiativeId} />)
                                 }
                             }
                         }

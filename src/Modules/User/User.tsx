@@ -58,7 +58,7 @@ export const GlobalUserStateContextProvider = (props: IUserProviderProps) => {
     
     const [state, dispatch] = useState(defaultUserParams);
     async function updateUserFromServer() {
-        await fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/get_me`, {
+        await fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_me`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
