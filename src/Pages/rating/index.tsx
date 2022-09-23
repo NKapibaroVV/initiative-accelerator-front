@@ -15,7 +15,7 @@ function RatingPage() {
 
         let pos:number = 1;
         array.forEach(user => {
-            tableRows.push(<tr>
+            tableRows.push(<tr key={`${user.name}-${user.score}-${pos}`}>
                 <th scope="row">{pos}</th>
                 <td>{user.name}</td>
                 <td>{user.surname}</td>
