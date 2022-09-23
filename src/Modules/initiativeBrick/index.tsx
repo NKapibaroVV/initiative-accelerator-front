@@ -55,7 +55,7 @@ function InitiativeBrick(props: IBrickProps) {
 
     function pressSecondButton() {
         if (props.progress == initiativeProgress.notStarted) {
-            fetch("/api/start_initiative", {
+            fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/start_initiative`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -127,7 +127,7 @@ function InitiativeBrick(props: IBrickProps) {
                     <div className="col-12 col-md-6">
                         <button className="btn-outline-dark w-100 btn" onClick={(clickedElement) => {
                             clickedElement.currentTarget.disabled = true;
-                            fetch("/api/complete_initiative", {
+                            fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/complete_initiative`, {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json'

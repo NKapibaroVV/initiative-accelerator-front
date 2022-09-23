@@ -29,13 +29,13 @@ function CabinetPage() {
             let userStartedInitiatives: { [id: string]: { category: initiativeCategories, title: string, deadLine: number, offcanvasContent: string, income: number } } = {};
             let userCompletedInitiatives: { [id: string]: { category: initiativeCategories, title: string, deadLine: number, offcanvasContent: string, income: number } } = {};
 
-            await fetch("/api/get_all_initiatives").then(
+            await fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/get_all_initiatives`).then(
                 (result) => result.json()).then((allInitiativesJson: any) => {
                     allInitiativesJson.forEach((initiative: { category: initiativeCategories, id: string, title: string, deadLine: number, offcanvasContent: string, income: number }) => {
                         allInitiatives[initiative.id] = { category: initiative.category, title: initiative.title, deadLine: initiative.deadLine, offcanvasContent: initiative.offcanvasContent, income: initiative.income }
                     });
 
-                    fetch("/api/get_user_initiatives", {
+                    fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/get_user_initiatives`, {
                         headers: {
                             'Content-Type': 'application/json'
                         },

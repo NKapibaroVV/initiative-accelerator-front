@@ -20,7 +20,7 @@ function AddInitiativePage() {
         let deadLine: number = new Date(`${dayRef.current!.value}T${timeRef.current!.value}`).getTime()
 
         if (deadLine > new Date().getTime()&&parseInt(scoreRef.current!.value)>0&&commentRef.current!.value.length>0&& titleRef.current!.value.length>0) {
-            fetch("/api/add_initiative", {
+            fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/add_initiative`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },

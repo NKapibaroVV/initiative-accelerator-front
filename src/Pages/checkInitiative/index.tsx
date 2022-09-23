@@ -26,7 +26,7 @@ function CheckInitiative() {
                     return { token: user.userParams.token, user_id:props.userId, initiative_id:props.id }
                 }
             }
-            fetch("/api/award_user", {
+            fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/award_user`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -66,7 +66,7 @@ function CheckInitiative() {
     }
 
     useEffect(() => {
-        fetch("/api/get_initiative_results", {
+        fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/get_initiative_results`, {
             headers: {
                 'Content-Type': 'application/json'
             },

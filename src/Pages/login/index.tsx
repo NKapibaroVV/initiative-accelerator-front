@@ -12,7 +12,7 @@ function LoginPage() {
     function authorize(){
         let login:string = loginRef.current!.value;
         let password:string = crypto.SHA3(passwordRef.current!.value,{outputLength: 256}).toString(crypto.enc.Hex)
-        fetch("/api/get_me",{
+        fetch(`${process.env.BACKEND_SERVER_DOMAIN}/api/get_me`,{
             headers: {
                 'Content-Type': 'application/json'
               },
