@@ -57,11 +57,12 @@ function CabinetPage() {
                                 completedInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.completed} income={element.income} key={initiativeId} />)
                             }
                         }
-                        setCompletedInitiatives([completedInitiativesBricks[0], completedInitiativesBricks[1]]);
+                        setCompletedInitiatives([!!completedInitiativesBricks[0]?completedInitiativesBricks[0]:<div key={"0-1"}></div>, 
+                            !!completedInitiativesBricks[1]?completedInitiativesBricks[1]:<div key={"0104-2"}></div>]);
                         delete completedInitiativesBricks[0];
                         delete completedInitiativesBricks[0];
                         let moreCompletedInitiativesRef = React.createRef<HTMLDivElement>();
-                        setCompletedInitiatives((prev)=>[...prev, <div key={`com-0`} className="btn btn-success" onClick={(clickedElement)=>{moreCompletedInitiativesRef.current!.classList.remove("d-none"); clickedElement.currentTarget.classList.add("d-none")}}>Показать ещё {completedInitiativesBricks.length}</div>,<div key={`sus-0`} className="d-none" ref={moreCompletedInitiativesRef}>{completedInitiativesBricks}</div>]);
+                        setCompletedInitiatives((prev)=>[...prev, <div key={`com-0`} className={`btn btn-success ${completedInitiativesBricks.length>0?"":"d-none"}`} onClick={(clickedElement)=>{moreCompletedInitiativesRef.current!.classList.remove("d-none"); clickedElement.currentTarget.classList.add("d-none")}}>Показать ещё {completedInitiativesBricks.length}</div>,<div key={`sus-0`} className="d-none" ref={moreCompletedInitiativesRef}>{completedInitiativesBricks}</div>]);
 
                         for (const initiativeId in userStartedInitiatives) {
                             if (Object.prototype.hasOwnProperty.call(userStartedInitiatives, initiativeId)) {
