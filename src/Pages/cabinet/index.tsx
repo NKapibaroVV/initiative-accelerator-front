@@ -8,13 +8,11 @@ function CabinetPage() {
 
     const user = useGlobalUserState();
 
-    let preloader = <>
-        <div style={{ width: "fit-content" }} className="mx-auto">
+    let preloader = <div key={`preloader-${new Date().getTime()}`} style={{ width: "fit-content" }} className="mx-auto">
             <div className="spinner-grow text-info mx-2" role="status" />
             <div className="spinner-grow text-info mx-2" role="status" />
             <div className="spinner-grow text-info mx-2" role="status" />
         </div>
-    </>
 
     let [completedInitiatives, setCompletedInitiatives] = useState<Array<JSX.Element>>([preloader]);
     let [inPropressInitiatives, setInPropressInitiatives] = useState<Array<JSX.Element>>([preloader]);
@@ -56,19 +54,19 @@ function CabinetPage() {
                         for (const initiativeId in userCompletedInitiatives) {
                             if (Object.prototype.hasOwnProperty.call(userCompletedInitiatives, initiativeId)) {
                                 const element = userCompletedInitiatives[initiativeId];
-                                completedInitiativesBricks.push(<InitiativeBrick key={`${element.category}${element.deadLine}${element.title}`} category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.completed} income={element.income} key={initiativeId} />)
+                                completedInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.completed} income={element.income} key={initiativeId} />)
                             }
                         }
                         setCompletedInitiatives([completedInitiativesBricks[0], completedInitiativesBricks[1]]);
                         delete completedInitiativesBricks[0];
                         delete completedInitiativesBricks[0];
                         let moreCompletedInitiativesRef = React.createRef<HTMLDivElement>();
-                        setCompletedInitiatives((prev)=>[...prev, <div className="btn btn-success" onClick={(clickedElement)=>{moreCompletedInitiativesRef.current!.classList.remove("d-none"); clickedElement.currentTarget.classList.add("d-none")}}>Показать ещё {completedInitiativesBricks.length}</div>,<div className="d-none" ref={moreCompletedInitiativesRef}>{completedInitiativesBricks}</div>]);
+                        setCompletedInitiatives((prev)=>[...prev, <div key={`com-0`} className="btn btn-success" onClick={(clickedElement)=>{moreCompletedInitiativesRef.current!.classList.remove("d-none"); clickedElement.currentTarget.classList.add("d-none")}}>Показать ещё {completedInitiativesBricks.length}</div>,<div key={`sus-0`} className="d-none" ref={moreCompletedInitiativesRef}>{completedInitiativesBricks}</div>]);
 
                         for (const initiativeId in userStartedInitiatives) {
                             if (Object.prototype.hasOwnProperty.call(userStartedInitiatives, initiativeId)) {
                                 const element = userStartedInitiatives[initiativeId];
-                                inProgressInitiativesBricks.push(<InitiativeBrick key={`${element.category}${element.deadLine}${element.title}`} category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.started} income={element.income} key={initiativeId} />)
+                                inProgressInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.started} income={element.income} key={initiativeId} />)
                             }
                         }
                         setInPropressInitiatives(inProgressInitiativesBricks);
@@ -77,7 +75,7 @@ function CabinetPage() {
                             if (Object.prototype.hasOwnProperty.call(allInitiatives, initiativeId)) {
                                 const element = allInitiatives[initiativeId];
                                 if (element.deadLine > new Date().getTime()) {
-                                    notStartedInitiativesBricks.push(<InitiativeBrick key={`${element.category}${element.deadLine}${element.title}`} category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.notStarted} income={element.income} key={initiativeId} />)
+                                    notStartedInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.notStarted} income={element.income} key={initiativeId} />)
                                 }
                             }
                         }
