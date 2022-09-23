@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import CheckAuth from "../../Modules/Check/CheckAuthorized";
 import { useGlobalUserState } from "../../Modules/User/User";
 
 function RatingPage() {
@@ -44,7 +45,8 @@ function RatingPage() {
 
 
     return <>
-        <div className="py-4">
+    <CheckAuth>
+    <div className="py-4">
             <div className="fs-4 text-center">
                 Рейтинг
             </div>
@@ -89,6 +91,7 @@ function RatingPage() {
                 </table>
             </div>
         </div>
+    </CheckAuth>
     </>
 }
 

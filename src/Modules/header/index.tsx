@@ -32,9 +32,14 @@ function Header() {
                                     <a className="nav-link" href="/viewInitiatives">Открыть все задания</a>
                                 </li>
                             </> : <></>}
-                        {user.userParams.role != userRoles.default ? <li className="nav-item">
-                            <a className="nav-link" onClick={() => { removeCookie("userData"); window.location.assign("/"); }}>Выйти</a>
-                        </li> : <></>}
+                        {user.userParams.role != userRoles.default ? <>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/rating">Рейтинг</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" onClick={() => { removeCookie("userData"); window.location.assign("/"); }}>Выйти</a>
+                            </li>
+                        </> : <></>}
                     </ul>
                 </div>
             </div>
