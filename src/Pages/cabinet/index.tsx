@@ -37,7 +37,6 @@ function CabinetPage() {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        mode:"cors",
                         method: "POST",
                         body: JSON.stringify({ token: user.userParams.token })
                     }).then((result) => result.json()).then((userInitiativesJson) => {
