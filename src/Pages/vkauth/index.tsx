@@ -9,12 +9,17 @@ function VKAuthPage() {
 
     const userState = useGlobalUserState();
     
-    let appId = '51433761'
+    let appId = '51433826'
+
+    let [timeCounter, setTimeCounter] = useState(105);
 
     let preloaderTextRef = createRef<HTMLDivElement>();
     let preloaderSpinnerRef = createRef<HTMLDivElement>();
 
-    let globalAny: any = global;
+    useEffect(()=>{
+        setInterval(()=>{setTimeCounter(prev=>prev-1)},1000)
+
+        let globalAny: any = global;
     if (document.location.href.includes("cotinue_auth")) {
         let token = document.location.href.split("access_token=")[1].split("&")[0];
         let email = document.location.href.split("email=")[1].split("&")[0];
@@ -54,6 +59,9 @@ function VKAuthPage() {
         window.location.assign(url);
     }
 
+    },[])
+
+    
     return <>
         <div className="py-4">
             <div className="mx-auto fs-3" style={{ width: "fit-content" }}>
@@ -64,7 +72,10 @@ function VKAuthPage() {
             <div className="mx-auto fs-5" style={{ width: "fit-content" }} ref={preloaderTextRef}>
                 Не закрывайте это окно!
             </div>
-            <p>Ваш браузер может блокировать открытие диалоговых окон, если это произошло, то для успешной регистрации/авторизации необходимо разрешить и открыть <a href="/vkauth">эту страницу</a>.</p>
+            <div className="mx-auto fs-6" style={{ width: "fit-content", color:"#dce1e6" }} ref={preloaderTextRef}>
+                Загрузка может занять {timeCounter} сек
+            </div>
+            <p className="text-center pt-4">Ваш браузер может блокировать открытие диалоговых окон, если это произошло, то для успешной регистрации/авторизации необходимо разрешить и открыть <a href="/vkauth">эту страницу</a>.</p>
         </div>
     </>
 }
