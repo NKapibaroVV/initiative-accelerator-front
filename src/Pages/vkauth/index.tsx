@@ -19,9 +19,12 @@ function VKAuthPage() {
     useEffect(()=>{
         setInterval(()=>{setTimeCounter((prev:number)=>{
             if (prev<0) {
-                document.location.href="/vkauth";
+                preloaderTextRef.current!.innerHTML = `<div className="text-danger fs-4">Проверьте Ваше интернет-соединение!<br/>Слишком низкая скорость!</div>`
+                return prev
+            }else{
+                return prev-1
             }
-            return prev-1
+            
         })},1000)
 
         let globalAny: any = global;
@@ -74,7 +77,7 @@ function VKAuthPage() {
                     <span className="visually-hidden">Loading...</span>
                 </div>
             </div>
-            <div className="mx-auto fs-5" style={{ width: "fit-content" }} ref={preloaderTextRef}>
+            <div className="mx-auto fs-5" style={{ width: "fit-content" }}>
                 Не закрывайте это окно!
             </div>
             <div className="mx-auto fs-6" style={{ width: "fit-content", color:"#dce1e6" }} ref={preloaderTextRef}>
