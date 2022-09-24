@@ -11,13 +11,18 @@ function VKAuthPage() {
     
     let appId = '51433826'
 
-    let [timeCounter, setTimeCounter] = useState(105);
+    let [timeCounter, setTimeCounter] = useState(300);
 
     let preloaderTextRef = createRef<HTMLDivElement>();
     let preloaderSpinnerRef = createRef<HTMLDivElement>();
 
     useEffect(()=>{
-        setInterval(()=>{setTimeCounter(prev=>prev-1)},1000)
+        setInterval(()=>{setTimeCounter((prev:number)=>{
+            if (prev<0) {
+                document.location.href="/vkauth";
+            }
+            return prev-1
+        })},1000)
 
         let globalAny: any = global;
     if (document.location.href.includes("cotinue_auth")) {
