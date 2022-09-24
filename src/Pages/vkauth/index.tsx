@@ -35,7 +35,6 @@ function VKAuthPage() {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        mode:"cors",
                         body: JSON.stringify({ "first_name": firstName, "second_name": secondName, "login": login, "email": email })
                     }).then((resp) => resp.json()).then((jsonResponse) => {
                         try {
