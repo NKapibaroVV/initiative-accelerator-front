@@ -31,6 +31,7 @@ function CheckInitiative() {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
+                mode:"cors",
                 body: JSON.stringify(awardBody())
             }).then((result) => result.json()).then((respJson) => {
                 if(respJson["success"]){
@@ -71,6 +72,7 @@ function CheckInitiative() {
                 'Content-Type': 'application/json'
             },
             method: "POST",
+            mode:"cors",
             body: JSON.stringify({ token: user.userParams.token, "id": currentInitiative.id })
         }).then((result) => result.json()).then((userInitiativeJson) => {
             if (Object.keys(userInitiativeJson).length > 0) {
