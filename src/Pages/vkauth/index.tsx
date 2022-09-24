@@ -6,7 +6,7 @@ import { getCookie, setCookie, removeCookie } from 'typescript-cookie'
 function VKAuthPage() {
 
     const userState = useGlobalUserState();
-
+    
     let appId = '51429194'
 
     let preloaderTextRef = createRef<HTMLDivElement>();
@@ -39,18 +39,17 @@ function VKAuthPage() {
                     }).then((resp) => resp.json()).then((jsonResponse) => {
                         try {
                             let userParams: IUser = jsonResponse[0];
-
+                            
                             userState.UpdateUser(userParams)
-
-                            setCookie("userData", JSON.stringify(userParams), { expires: new Date(new Date().getTime() + 60 * 60000) });
+                            
+                            setCookie("userData", JSON.stringify(userParams),{expires:new Date(new Date().getTime()+60*60000)});
                             window.location.assign("/cab");
                         } catch (error: any) {
                             console.log(error.message)
                         }
                     })
                 } else {
-                    preloaderSpinnerRef.current!.innerHTML = "Ошибка";
-                    preloaderTextRef.current!.innerHTML = "Ваш браузер заблокировал всплывающее окно авторизации! Разрешите показ вспылвающих окон и <a href='/vkauth'>нажмите здесь</a>"
+                    /* Пользователь нажал кнопку Отмена в окне авторизации */
                 }
             });
         }, 2000)
@@ -63,18 +62,15 @@ function VKAuthPage() {
 
     return <>
         <div className="py-4">
-            <div className="mx-auto fs-3" style={{ width: "fit-content" }} ref={preloaderSpinnerRef}>
-                <div className="spinner-border text-info text-center" role="status" >
+            <div className="mx-auto fs-3" style={{ width: "fit-content" }}>
+                <div className="spinner-border text-info" role="status" ref={preloaderSpinnerRef}>
                     <span className="visually-hidden">Loading...</span>
                 </div>
             </div>
-            <div className="text-center" ref={preloaderTextRef}>
-                <div className="mx-auto fs-5" style={{ width: "fit-content" }}>
-                    Открытие окна авторизации
-                </div>
-                <p className="text-center">Ваш браузер может блокировать открытие диалоговых окон, если это произошло, то для успешной регистрации/авторизации необходимо разрешить и открыть <a href="/vkauth">эту страницу</a>.</p>
-
+            <div className="mx-auto fs-5" style={{ width: "fit-content" }} ref={preloaderTextRef}>
+                Открытие окна авторизации
             </div>
+            <p>Ваш браузер может блокировать открытие диалоговых окон, если это произошло, то для успешной регистрации/авторизации необходимо разрешить и открыть <a href="/vkauth">эту страницу</a>.</p>
         </div>
     </>
 }
