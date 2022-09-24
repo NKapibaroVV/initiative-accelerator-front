@@ -67,7 +67,7 @@ export const GlobalUserStateContextProvider = (props: IUserProviderProps) => {
             body: JSON.stringify({ "token":defaultUserParams.token })
         }).then((resp=>resp.json())).then((user:IUser)=>{
             if (state!=user) {
-                setCookie("userData", JSON.stringify(user),{expires:new Date(new Date().getTime()+60*60000)});
+                setCookie("userData", JSON.stringify(user));
             }
         })
     }

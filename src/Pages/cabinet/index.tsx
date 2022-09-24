@@ -62,7 +62,7 @@ function CabinetPage() {
                         delete completedInitiativesBricks[0];
                         delete completedInitiativesBricks[0];
                         let moreCompletedInitiativesRef = React.createRef<HTMLDivElement>();
-                        setCompletedInitiatives((prev)=>[...prev, <div key={`com-0`} className={`btn btn-success ${completedInitiativesBricks.length>0?"":"d-none"}`} onClick={(clickedElement)=>{moreCompletedInitiativesRef.current!.classList.remove("d-none"); clickedElement.currentTarget.classList.add("d-none")}}>Показать ещё {completedInitiativesBricks.length}</div>,<div key={`sus-0`} className="d-none" ref={moreCompletedInitiativesRef}>{completedInitiativesBricks}</div>]);
+                        setCompletedInitiatives((prev)=>[...prev, <div key={`com-0`} className={`btn btn-success ${completedInitiativesBricks.length>2?"":"d-none"}`} onClick={(clickedElement)=>{moreCompletedInitiativesRef.current!.classList.remove("d-none"); clickedElement.currentTarget.classList.add("d-none")}}>Показать ещё {completedInitiativesBricks.length-2}</div>,<div key={`sus-0`} className="d-none" ref={moreCompletedInitiativesRef}>{completedInitiativesBricks}</div>]);
 
                         for (const initiativeId in userStartedInitiatives) {
                             if (Object.prototype.hasOwnProperty.call(userStartedInitiatives, initiativeId)) {

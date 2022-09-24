@@ -51,7 +51,7 @@ function VKAuthPage() {
                         
                         userState.UpdateUser(userParams)
                         
-                        setCookie("userData", JSON.stringify(userParams),{expires:new Date(new Date().getTime()+60*60000)});
+                        setCookie("userData", JSON.stringify(userParams));
                         window.location.assign("/cab");
                     } catch (error: any) {
                         console.log(error.message)
