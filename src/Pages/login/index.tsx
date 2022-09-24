@@ -16,7 +16,7 @@ function LoginPage() {
             headers: {
                 'Content-Type': 'application/json'
               },
-              mode:"cors",
+              
               method: "POST",
               body: JSON.stringify({"login":login, "password":password})
         }).then((result)=>result.json()).then((jsonResult:IUser)=>{

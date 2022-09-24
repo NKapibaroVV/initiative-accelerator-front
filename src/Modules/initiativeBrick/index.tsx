@@ -60,7 +60,7 @@ function InitiativeBrick(props: IBrickProps) {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-                mode:"cors",
+                
                 body: JSON.stringify({ token: user.userParams.token, id: props.id })
             }).then(() => { document.location.reload() })
         } else if (props.progress == initiativeProgress.started) {
@@ -133,7 +133,7 @@ function InitiativeBrick(props: IBrickProps) {
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
-                                mode:"cors",
+                                
                                 body: JSON.stringify({
                                     "token": user.userParams.token,
                                     "message": messageRef.current!.value,

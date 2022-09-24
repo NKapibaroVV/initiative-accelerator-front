@@ -63,7 +63,7 @@ export const GlobalUserStateContextProvider = (props: IUserProviderProps) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            mode:"cors",
+            
             body: JSON.stringify({ "token":defaultUserParams.token })
         }).then((resp=>resp.json())).then((user:IUser)=>{
             if (state!=user) {

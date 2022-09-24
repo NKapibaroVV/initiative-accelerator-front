@@ -25,7 +25,7 @@ function AddInitiativePage() {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-                mode:"cors",
+                
                 body: JSON.stringify({
                     "token": user.userParams.token,
                     "score": scoreRef.current!.value,
