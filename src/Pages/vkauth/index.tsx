@@ -1,6 +1,8 @@
 import React, { createRef, useEffect, useRef, useState } from "react";
 import { IUser, useGlobalUserState } from "../../Modules/User/User";
 import { getCookie, setCookie, removeCookie } from 'typescript-cookie'
+import jsonp from "./jsonp";
+
 
 
 function VKAuthPage() {
@@ -17,6 +19,33 @@ function VKAuthPage() {
         let token = document.location.href.split("access_token=")[1].split("&")[0];
         let email = document.location.href.split("email=")[1].split("&")[0];
         let userId = document.location.href.split("user_id=")[1].split("&")[0];
+
+        jsonp(
+            'https://api.vk.com/method/users.get?' + `user_ids=${userId}&access_token=${token}&v=5.131`,
+            (response:any) => {
+
+                let firstName = response.response[0].first_name;
+                let surname = response.response[0].last_name;
+                fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg`, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ "first_name": firstName, "second_name": surname, "login": userId, "email": email })
+                }).then((resp) => resp.json()).then((jsonResponse) => {
+                    try {
+                        let userParams: IUser = jsonResponse[0];
+                        
+                        userState.UpdateUser(userParams)
+                        
+                        setCookie("userData", JSON.stringify(userParams),{expires:new Date(new Date().getTime()+60*60000)});
+                        window.location.assign("/cab");
+                    } catch (error: any) {
+                        console.log(error.message)
+                    }
+                })
+            }
+          );
         
     } else {
 
