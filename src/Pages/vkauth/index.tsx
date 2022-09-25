@@ -1,7 +1,6 @@
 import React, { createRef, useEffect, useRef, useState } from "react";
 import { IUser, useGlobalUserState } from "../../Modules/User/User";
-import { getCookie, setCookie, removeCookie } from 'typescript-cookie'
-import jsonp from "./jsonp";
+import { getCookie, setCookie, removeCookie } from 'typescript-cookie';
 
 
 
@@ -33,36 +32,40 @@ function VKAuthPage() {
         let email = document.location.href.split("email=")[1].split("&")[0];
         let userId = document.location.href.split("user_id=")[1].split("&")[0];
 
-        jsonp(
-            'https://api.vk.com/method/users.get?' + `user_ids=${userId}&access_token=${token}&v=5.131`,
-            (response:any) => {
+        globalAny.VK.init({
+            apiId: appId
+          });
 
-                let firstName = response.response[0].first_name;
-                let surname = response.response[0].last_name;
-                fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg`, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ "first_name": firstName, "second_name": surname, "login": userId, "email": email })
-                }).then((resp) => resp.json()).then((jsonResponse) => {
-                    try {
-                        let userParams: IUser = jsonResponse[0];
-                        
-                        userState.UpdateUser(userParams)
-                        setCookie("userData", JSON.stringify(userParams));
-                        if (!!getCookie("userData")) {
-                            window.location.assign("/cab");
-                        }else{
-                            preloaderTextRef.current!.innerHTML=`<div class="fs-4 text-danger">Ваш браузер не поддерживает cookie</div>`
-                        }
-                        
-                    } catch (error: any) {
-                        console.log(error.message)
+          globalAny.VK.Api.call('users.get', { user_ids: userId, v:"5.131" }, function(r:any) {
+            if(r.response) {
+            let jsonResponse = r.response[0]
+            let firstName = jsonResponse["first_name"]
+            let surname = jsonResponse["last_name"]
+
+            fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "first_name": firstName, "second_name": surname, "login": userId, "email": email })
+            }).then((resp) => resp.json()).then((jsonResponse) => {
+                try {
+                    let userParams: IUser = jsonResponse[0];
+                    
+                    userState.UpdateUser(userParams)
+                    setCookie("userData", JSON.stringify(userParams));
+                    if (!!getCookie("userData")) {
+                        window.location.assign("/cab");
+                    }else{
+                        preloaderTextRef.current!.innerHTML=`<div class="fs-4 text-danger">Ваш браузер не поддерживает cookie</div>`
                     }
-                })
+                    
+                } catch (error: any) {
+                    console.log(error.message)
+                }
+            })
             }
-          );
+            });
         
     } else {
 
@@ -78,7 +81,7 @@ function VKAuthPage() {
         <div className="py-4">
             <div className="mx-auto fs-3" style={{ width: "fit-content" }}>
                 <div className="spinner-border text-info" role="status" ref={preloaderSpinnerRef}>
-                    <span className="visually-hidden">Loading...</span>
+                    <span className="visually-hidden"></span>
                 </div>
             </div>
             <div className="mx-auto fs-5" style={{ width: "fit-content" }}>

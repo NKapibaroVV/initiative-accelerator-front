@@ -17,14 +17,18 @@ function RatingPage() {
         let tableRows:JSX.Element[] = [];
 
         let pos:number = 1;
+        let prevScore:number = array[0].score;
         array.forEach(user => {
+            if (prevScore!=user.score) {
+                prevScore = user.score
+                pos++;
+            }
             tableRows.push(<tr key={`${user.name}-${user.score}-${pos}`}>
                 <th scope="row">{pos}</th>
                 <td>{user.name}</td>
                 <td>{user.surname}</td>
                 <td>{user.score}</td>
             </tr>)
-            pos++;
         });
 
         return tableRows;
