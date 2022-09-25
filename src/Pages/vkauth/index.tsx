@@ -19,7 +19,7 @@ function VKAuthPage() {
     useEffect(()=>{
         setInterval(()=>{setTimeCounter((prev:number)=>{
             if (prev<0) {
-                preloaderTextRef.current!.innerHTML = `<div className="text-danger fs-4">Проверьте Ваше интернет-соединение!<br/>Слишком низкая скорость!</div>`
+                preloaderTextRef.current!.innerHTML = `<div class="text-danger fs-4">Проверьте Ваше интернет-соединение!<br/>Слишком низкая скорость!</div>`
                 return prev
             }else{
                 return prev-1
@@ -50,9 +50,13 @@ function VKAuthPage() {
                         let userParams: IUser = jsonResponse[0];
                         
                         userState.UpdateUser(userParams)
-                        
                         setCookie("userData", JSON.stringify(userParams));
-                        window.location.assign("/cab");
+                        if (!!getCookie("userData")) {
+                            window.location.assign("/cab");
+                        }else{
+                            preloaderTextRef.current!.innerHTML=`<div class="fs-4 text-danger">Ваш браузер не поддерживает cookie</div>`
+                        }
+                        
                     } catch (error: any) {
                         console.log(error.message)
                     }
