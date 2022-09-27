@@ -1,4 +1,5 @@
 import React from 'react';
+import {createRoot} from "react-dom/client"
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
@@ -41,4 +42,6 @@ function Index() {
   </>
 }
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+let rootElement = createRoot(document.getElementById('root')!);
+
+rootElement.render(<Index />);
