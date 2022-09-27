@@ -5,7 +5,7 @@ function CheckAuth(props:{children:JSX.Element}){
     if (user.userParams.role!=userRoles.default) {
         return props.children
     }else{
-        window.location.assign("/vkauth");
+        window.location.assign("/auth");
         return<></>
     }
 }

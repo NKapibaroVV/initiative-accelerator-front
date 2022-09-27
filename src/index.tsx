@@ -8,14 +8,13 @@ import MainPage from './Pages/index';
 import CabinetPage from './Pages/cabinet';
 import "./index.css";
 import { GlobalUserStateContextProvider } from './Modules/User/User';
-import LoginPage from './Pages/login';
-import VKAuthPage from './Pages/vkauth';
 import AddInitiativePage from './Pages/addInitiative';
 import Header from './Modules/header';
 import ViewInitiativesPage from './Pages/viewInitiatives';
 import CheckInitiative from './Pages/checkInitiative';
 import Footer from './Modules/footer';
 import RatingPage from "./Pages/rating";
+import AuthPage from './Pages/auth';
 
 function Index() {
 
@@ -28,7 +27,7 @@ function Index() {
           <Routes>
             <Route path='/' element={<MainPage />}></Route>
             {/*<Route path='/login' element={<LoginPage />}></Route>*/}
-            <Route path='/vkauth' element={<VKAuthPage />}></Route>
+            <Route path='/auth' element={<AuthPage />}></Route>
             <Route path='/cab' element={<CabinetPage />}></Route>
             <Route path='/rating' element={<RatingPage />}></Route>
             <Route path='/addInitiative' element={<AddInitiativePage />}></Route>
