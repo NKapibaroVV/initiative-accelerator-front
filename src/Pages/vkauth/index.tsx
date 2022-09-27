@@ -34,22 +34,6 @@ function VKAuthPage() {
             let email = document.location.href.split("email=")[1].split("&")[0];
             let userId = document.location.href.split("user_id=")[1].split("&")[0];
 
-            if (!!email) {
-                authorize(email)
-            }else{
-                authorize(`emailAccessDenied-${new Date().getTime()}`)
-            }
-
-        } else {
-
-            let redirectUri = document.location.href;
-            let url = 'https://oauth.vk.com/authorize?client_id=' + appId + '&display=mobile&redirect_uri=' + redirectUri + '&response_type=token&scope=4194304&response_type=token&state=cotinue_auth'
-            window.location.assign(url);
-        }
-
-
-
-        function authorize(email:string){
             globalAny.VK.init({
                 apiId: appId
             });
@@ -59,7 +43,11 @@ function VKAuthPage() {
                 console.log(response)
                 if (response.status == "connected") {
 
+                    
                     let session = response.session;
+                    if (!email) {
+                        email = `emailAccessDenied-${session.user.id}`
+                    }
                     const firstName = session.user["first_name"];
                     let surname = session.user["last_name"];
                     fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg`, {
@@ -67,7 +55,7 @@ function VKAuthPage() {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ "first_name": firstName, "second_name": surname, "login": session.user["id"], "email": email })
+                        body: JSON.stringify({ "first_name": firstName, "second_name": surname, "login": userId, "email": email })
                     }).then((resp) => resp.json()).then((jsonResponse) => {
                         try {
                             console.log({ "jsonResponse": jsonResponse })
@@ -92,6 +80,12 @@ function VKAuthPage() {
 
 
             }, 4194304)
+
+        } else {
+
+            let redirectUri = document.location.href;
+            let url = 'https://oauth.vk.com/authorize?client_id=' + appId + '&display=mobile&redirect_uri=' + redirectUri + '&response_type=token&scope=4194304&response_type=token&state=cotinue_auth'
+            window.location.assign(url);
         }
 
     }, [])
