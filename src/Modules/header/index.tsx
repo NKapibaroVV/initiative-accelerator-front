@@ -18,26 +18,26 @@ function Header() {
                 <div className="offcanvas-body">
                     <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/">Главная</a>
+                            <a className="nav-link btn p-1 text-start" aria-current="page" href="/">Главная</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/cab">Кабинет</a>
+                            <a className="nav-link btn p-1 text-start" href="/cab">Кабинет</a>
                         </li>
                         {user.userParams.role == userRoles.Модератор || user.userParams.role == userRoles.Администратор ?
                             <>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/addInitiative">Создать задание</a>
+                                    <a className="nav-link btn p-1 text-start" href="/addInitiative">Создать задание</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/viewInitiatives">Открыть все задания</a>
+                                    <a className="nav-link btn p-1 text-start" href="/viewInitiatives">Открыть все задания</a>
                                 </li>
                             </> : <></>}
                         {user.userParams.role != userRoles.default ? <>
                             <li className="nav-item">
-                                <a className="nav-link" href="/rating">Рейтинг</a>
+                                <a className="nav-link btn p-1 text-start" href="/rating">Рейтинг</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" onClick={() => { removeCookie("userData"); window.location.assign("/"); }}>Выйти</a>
+                                <a className="nav-link btn p-1 text-start" onClick={() => { removeCookie("userData"); window.location.assign("/"); }}>Выйти</a>
                             </li>
                         </> : <></>}
                     </ul>

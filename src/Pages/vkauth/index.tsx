@@ -31,7 +31,6 @@ function VKAuthPage() {
 
         let globalAny: any = global;
         if (document.location.href.includes("cotinue_auth")) {
-            let token = document.location.href.split("access_token=")[1].split("&")[0];
             let email = document.location.href.split("email=")[1].split("&")[0];
             let userId = document.location.href.split("user_id=")[1].split("&")[0];
 
@@ -39,12 +38,14 @@ function VKAuthPage() {
                 apiId: appId
             });
 
-            globalAny.VK.Api.call('users.get', { user_ids: userId, v: "5.131" }, function (r: any) {
-                if (r.response) {
-                    let jsonResponse = r.response[0]
-                    let firstName = jsonResponse["first_name"]
-                    let surname = jsonResponse["last_name"]
+            globalAny.VK.Auth.login((response: any) => {
 
+                console.log(response)
+                if (response.status == "connected") {
+
+                    let session = response.session;
+                    const firstName = session.user["first_name"];
+                    let surname = session.user["last_name"];
                     fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg`, {
                         method: "POST",
                         headers: {
@@ -53,11 +54,13 @@ function VKAuthPage() {
                         body: JSON.stringify({ "first_name": firstName, "second_name": surname, "login": userId, "email": email })
                     }).then((resp) => resp.json()).then((jsonResponse) => {
                         try {
+                            console.log({ "jsonResponse": jsonResponse })
                             let userParams: IUser = jsonResponse[0];
 
-                            userState.UpdateUser(userParams)
+
                             setCookie("userData", JSON.stringify(userParams));
                             if (!!getCookie("userData")) {
+                                userState.UpdateUser(userParams)
                                 window.location.assign("/cab");
                             } else {
                                 preloaderTextRef.current!.innerHTML = `<div class="fs-4 text-danger">Ваш браузер не поддерживает cookie</div>`
@@ -67,8 +70,12 @@ function VKAuthPage() {
                             console.log(error.message)
                         }
                     })
+                } else if (response.status=="unknown"){
+                    preloaderTextRef.current!.innerHTML = `<div class="fs-4 text-danger">Ошибка! Не используйте режим инкогнито!</div>`
                 }
-            });
+
+
+            }, 4194304)
 
         } else {
 
