@@ -17,8 +17,13 @@ function AuthPage() {
             body: JSON.stringify({"email":loginFieldRef.current!.value, "password":passwordFieldRef.current!.value})
         }).then(resp=>resp.json()).then((userData)=>{
             let user:IUser = userData[0];
-            setCookie("userData", JSON.stringify(user));
-            document.location.assign("/cab")
+            if(!!user&&!!user.id&&!!user.role&&user.role!="default"){
+                setCookie("userData", JSON.stringify(user));
+                document.location.assign("/cab")
+            }else{
+                alert("Неверный логин или пароль")
+            }
+            
         })
     }
 
