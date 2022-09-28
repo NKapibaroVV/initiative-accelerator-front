@@ -35,7 +35,10 @@ function AuthPage() {
                 <div className="col-md-7 col-10">
                     <div className="row">
                         <div className="col-6">
-                            <input type="button" className="form-control btn btn-info" value="Войти" />
+                            <input type="button" className="form-control btn btn-info" onClick={(event) => {
+                        event.currentTarget.innerHTML = `<div class="spinner-border text-light" role="status"/>`;
+                        authorize();
+                    }} value="Войти" />
                         </div>
                         <div className="col-6">
                             <a className="form-control btn btn-outline-info" href="/register">Регистрация</a>
