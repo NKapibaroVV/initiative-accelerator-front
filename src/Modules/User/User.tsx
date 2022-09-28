@@ -10,7 +10,6 @@ export interface IUser {
     name: string,
     surname: string,
     email: string,
-    login:string,
     id:string,
     token:string,
     birth:Date,
@@ -23,15 +22,14 @@ export enum userRoles{
 
 /**Параметры пользователя по умолчанию*/
 export let defaultUserParams: IUser = {
-    name:"default",
-    surname:"default",
-    email:"default",
-    login:"default",
-    id:"default",
-    token:"default",
-    role:userRoles.default,
-    birth:new Date("2000-01-01"),
-    score:0
+    name: "default",
+    surname: "default",
+    email: "default",
+    id: "default",
+    token: "default",
+    role: userRoles.default,
+    birth: new Date("2000-01-01"),
+    score: 0
 }
 
 /**Интерфейс для контекста пользователя */

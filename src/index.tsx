@@ -15,6 +15,7 @@ import CheckInitiative from './Pages/checkInitiative';
 import Footer from './Modules/footer';
 import RatingPage from "./Pages/rating";
 import AuthPage from './Pages/auth';
+import RegPage from './Pages/register';
 
 function Index() {
 
@@ -26,8 +27,8 @@ function Index() {
         <div className='container'>
           <Routes>
             <Route path='/' element={<MainPage />}></Route>
-            {/*<Route path='/login' element={<LoginPage />}></Route>*/}
             <Route path='/auth' element={<AuthPage />}></Route>
+            <Route path='/register' element={<RegPage />}></Route>
             <Route path='/cab' element={<CabinetPage />}></Route>
             <Route path='/rating' element={<RatingPage />}></Route>
             <Route path='/addInitiative' element={<AddInitiativePage />}></Route>
