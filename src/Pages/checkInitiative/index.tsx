@@ -36,7 +36,7 @@ function CheckInitiative() {
             }).then((result) => result.json()).then((respJson) => {
                 if(respJson["success"]){
                     console.log(props.message)
-                    alert("Баллы выданы пользователю! Рекомендуем сохранить текст его ответа, он более не будет доступен!")
+                    alert("Баллы выданы пользователю!")
                     document.location.reload();
                 }else{
                     alert("Не удалось назначить пользователю награду!")

@@ -49,7 +49,7 @@ export const globalUserContext = React.createContext<IUserContext>({ userParams:
  */
 export const GlobalUserStateContextProvider = (props: IUserProviderProps) => {
     
-    if (getCookie("userData")) {
+    if (!!getCookie("userData")) {
         defaultUserParams = JSON.parse(decodeURI(getCookie("userData")!))
     }
 
