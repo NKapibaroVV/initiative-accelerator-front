@@ -28,8 +28,13 @@ function RegPage() {
                 body: JSON.stringify({"first_name":firstNameRef.current!.value, "second_name":secondNameRef.current!.value, "email":emailRef.current!.value, "birth":birthRef.current!.value, "password":passwordRef.current!.value})
             }).then(resp=>resp.json()).then((userData)=>{
                 let user:IUser = userData[0];
-                setCookie("userData", JSON.stringify(user));
-                document.location.assign("/cab")
+
+                if(!!user&&!!user.id&&!!user.role&&user.role!="default"){
+                    setCookie("userData", JSON.stringify(user));
+                    document.location.assign("/cab")
+                }else{
+                    alert("Такой пользователь уже зарегистрирован, попробуйте еще раз или выполните вход")
+                }
             })
         }
     }
