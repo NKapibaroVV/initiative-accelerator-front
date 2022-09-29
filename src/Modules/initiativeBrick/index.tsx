@@ -136,7 +136,7 @@ function InitiativeBrick(props: IBrickProps) {
                                 
                                 body: JSON.stringify({
                                     "token": user.userParams.token,
-                                    "message": messageRef.current!.value,
+                                    "message": messageRef.current!.value.replace("\n","<br/>"),
                                     "initiative_id": props.id
                                 })
                             }).then(result => result.json()).then((json) => { if (json["success"]) { document.location.reload() } })
