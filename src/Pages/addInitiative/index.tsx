@@ -30,7 +30,7 @@ function AddInitiativePage() {
                     "token": user.userParams.token,
                     "score": scoreRef.current!.value,
                     "title": titleRef.current!.value,
-                    "comment": commentRef.current!.value,
+                    "comment": commentRef.current!.value.replace("\n","<br/>"),
                     "deadLine": deadLine,
                     "category":categoryRef.current!.value
                 })
