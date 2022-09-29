@@ -53,7 +53,13 @@ function InitiativeBrick(props: IBrickProps) {
 
     const messageRef = createRef<HTMLTextAreaElement>();
 
-    function pressSecondButton() {
+    let offcanvasContent = props.offcanvasContent
+    while(offcanvasContent.indexOf("\n")>-1){
+        offcanvasContent = offcanvasContent.replace("\n","<br></br>");
+    }
+
+
+    function pressActionButton() {
         if (props.progress == initiativeProgress.notStarted) {
             fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/start_initiative`, {
                 headers: {
@@ -92,7 +98,7 @@ function InitiativeBrick(props: IBrickProps) {
                             <button className="btn-info btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target={`#msg${props.id}`} aria-controls={`msg${props.id}`}>
                                 Описание
                             </button>
-                            <div className={`btn ms-auto ${props.progress == initiativeProgress.notStarted ? "btn-outline-info" : props.progress == initiativeProgress.started ? "btn-outline-success text-white border-white" : props.progress==initiativeProgress.admin?"btn-outline-info":"d-none"}`} onClick={(clickedElement)=>{clickedElement.currentTarget.classList.add("disabled");pressSecondButton();}}>
+                            <div className={`btn ms-auto ${props.progress == initiativeProgress.notStarted ? "btn-outline-info" : props.progress == initiativeProgress.started ? "btn-outline-success text-white border-white" : props.progress==initiativeProgress.admin?"btn-outline-info":"d-none"}`} onClick={(clickedElement)=>{clickedElement.currentTarget.classList.add("disabled");pressActionButton();}}>
                                 {props.progress == initiativeProgress.notStarted ? "Начать" : props.progress == initiativeProgress.started ? "Сдать" : props.progress==initiativeProgress.admin?"Проверить":""}
                             </div>
                         </div>
@@ -105,7 +111,7 @@ function InitiativeBrick(props: IBrickProps) {
                 <h5 className="offcanvas-title" id={`msg${props.id}Label`}>{`${props.title} - до ${new Date(props.deadLine).toLocaleDateString()} `}</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div className="offcanvas-body small" dangerouslySetInnerHTML={{ __html: props.offcanvasContent }}>
+            <div className="offcanvas-body small" dangerouslySetInnerHTML={{ __html: offcanvasContent}}>
             </div>
         </div>
 
@@ -136,7 +142,7 @@ function InitiativeBrick(props: IBrickProps) {
                                 
                                 body: JSON.stringify({
                                     "token": user.userParams.token,
-                                    "message": messageRef.current!.value.replaceAll(/^/,"<br/>"),
+                                    "message": messageRef.current!.value,
                                     "initiative_id": props.id
                                 })
                             }).then(result => result.json()).then((json) => { if (json["success"]) { document.location.reload() } })
