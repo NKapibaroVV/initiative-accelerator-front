@@ -35,13 +35,13 @@ function Header() {
                                     <a className="nav-link btn p-1 text-start" href="/shop/edit">Редактировать магазин баллов</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/addPublicInitiative">Создать задание всем</a>
+                                    <a className="nav-link btn p-1 text-start" href="/addPublicInitiative">Создать открытое задание</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/addPrivateInitiative">Создать задание пользователям</a>
+                                    <a className="nav-link btn p-1 text-start" href="/addPrivateInitiative">Создать приватное задание</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/initiatives/results">Открыть все задания</a>
+                                    <a className="nav-link btn p-1 text-start" href="/initiatives/results">Проверка заданий</a>
                                 </li>
                             </> : <></>}
                         {user.userParams.role != userRoles.default ? <>
