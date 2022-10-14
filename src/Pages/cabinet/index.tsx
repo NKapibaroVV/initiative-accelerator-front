@@ -1,109 +1,206 @@
 import React, { useEffect, useState } from "react";
-import InitiativeBrick, { initiativeCategories, initiativeProgress } from "../../Modules/initiativeBrick";
+import InitiativeBrick, { initiativeProgress } from "../../Modules/initiativeBrick";
 import { useGlobalUserState } from "../../Modules/User/User";
 import CheckAuth from "../../Modules/Check/CheckAuthorized";
 import "./index.css";
 import { initializeTooltips } from "../../Modules/bootstrapUtilities/initializeTooltips";
+import Iinitiative, { initiativeCategory } from "../../interfaces/initiative";
+import preloader from "../../Modules/preloader";
 
 function CabinetPage() {
     initializeTooltips();
 
     const user = useGlobalUserState();
 
-    let preloader = <div key={`preloader-${new Date().getTime()}`} style={{ width: "fit-content" }} className="mx-auto">
-        <div className="spinner-grow text-info mx-2" role="status" />
-        <div className="spinner-grow text-info mx-2" role="status" />
-        <div className="spinner-grow text-info mx-2" role="status" />
-    </div>
 
-    let [completedInitiatives, setCompletedInitiatives] = useState<Array<JSX.Element>>([preloader]);
-    let [inPropressInitiatives, setInPropressInitiatives] = useState<Array<JSX.Element>>([preloader]);
-    let [notStartedInitiatives, setNotStartedInitiatives] = useState<Array<JSX.Element>>([preloader]);
+    const [completedInitiativesBriks, setCompletedInitiativesBriks] = useState([preloader])
+    const [startedInitiativesBriks, setStartedInitiativesBriks] = useState([preloader])
+    const [notStartedInitiativesBriks, setNotStartedInitiativesBriks] = useState([preloader])
 
-    let completedInitiativesBricks: Array<JSX.Element> = [];
-    let inProgressInitiativesBricks: Array<JSX.Element> = [];
-    let notStartedInitiativesBricks: Array<JSX.Element> = [];
+    const [indicators, setIndicators] = useState(<></>)
+
+
+    let allInitiatives: { [id: string]: Iinitiative } = {};
+    let takenInitiatives: { [id: string]: Iinitiative } = {};
+    let completedInitiatives: { [id: string]: Iinitiative } = {};
     useEffect(() => {
-        (async function getInitiatives() {
-            let allInitiatives: { [id: string]: { category: initiativeCategories, title: string, deadLine: number, offcanvasContent: string, income: number } } = {};
-            let userStartedInitiatives: { [id: string]: { category: initiativeCategories, title: string, deadLine: number, offcanvasContent: string, income: number } } = {};
-            let userCompletedInitiatives: { [id: string]: { category: initiativeCategories, title: string, deadLine: number, offcanvasContent: string, income: number } } = {};
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_initiatives/`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
 
-            await fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_all_initiatives`).then(
-                (result) => result.json()).then((allInitiativesJson: any) => {
-                    allInitiativesJson.forEach((initiative: { category: initiativeCategories, id: string, title: string, deadLine: number, offcanvasContent: string, income: number }) => {
-                        allInitiatives[initiative.id] = { category: initiative.category, title: initiative.title, deadLine: initiative.deadLine, offcanvasContent: initiative.offcanvasContent, income: initiative.income }
-                    });
+            body: JSON.stringify({ token: user.userParams.token })
+        }).then(resp => resp.json().then((response: Iinitiative[]) => {
+            response.forEach((element: Iinitiative) => {
+                allInitiatives[element.id] = element
+            });;
 
-                    fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_user_initiatives`, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        method: "POST",
-                        body: JSON.stringify({ token: user.userParams.token })
-                    }).then((result) => result.json()).then((userInitiativesJson) => {
-                        userInitiativesJson.forEach((initiative: { id: string, state: initiativeProgress }) => {
-                            if (allInitiatives[initiative.id]) {
-                                if (initiative.state == initiativeProgress.started) {
-                                    userStartedInitiatives[initiative.id] = allInitiatives[initiative.id];
-                                } else if (initiative.state == initiativeProgress.completed) {
-                                    userCompletedInitiatives[initiative.id] = allInitiatives[initiative.id];
-                                }
-                                delete allInitiatives[initiative.id];
-                            }
-                        });
-                    }).then(() => {
-                        for (const initiativeId in userCompletedInitiatives) {
-                            if (Object.prototype.hasOwnProperty.call(userCompletedInitiatives, initiativeId)) {
-                                const element = userCompletedInitiatives[initiativeId];
-                                completedInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.completed} income={element.income} key={initiativeId} />)
-                            }
+            fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_taken_initiatives/`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+
+                body: JSON.stringify({ token: user.userParams.token })
+            }).then(resp => resp.json().then((response) => {
+                response.forEach((element: Iinitiative) => {
+                    takenInitiatives[element.id] = element
+                });;
+
+
+                fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_completed_initiatives/`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+
+                    body: JSON.stringify({ token: user.userParams.token })
+                }).then(resp => resp.json().then((response) => {
+                    response.forEach((element: Iinitiative) => {
+                        completedInitiatives[element.id] = element
+                    });;
+
+                    for (const key in takenInitiatives) {
+                        if (Object.prototype.hasOwnProperty.call(allInitiatives, key)) {
+                            delete allInitiatives[key]
                         }
-                        setCompletedInitiatives([!!completedInitiativesBricks[0] ? completedInitiativesBricks[0] : <div key={"0-1"}></div>,
-                        !!completedInitiativesBricks[1] ? completedInitiativesBricks[1] : <div key={"0104-2"}></div>]);
-                        delete completedInitiativesBricks[0];
-                        delete completedInitiativesBricks[0];
-                        let moreCompletedInitiativesRef = React.createRef<HTMLDivElement>();
-                        setCompletedInitiatives((prev) => [...prev, <div key={`com-0`} className={`btn btn-success ${completedInitiativesBricks.length > 2 ? "" : "d-none"}`} onClick={(clickedElement) => { moreCompletedInitiativesRef.current!.classList.remove("d-none"); clickedElement.currentTarget.classList.add("d-none") }}>Показать ещё {completedInitiativesBricks.length - 2}</div>, <div key={`sus-0`} className="d-none" ref={moreCompletedInitiativesRef}>{completedInitiativesBricks}</div>]);
+                    }
 
-                        for (const initiativeId in userStartedInitiatives) {
-                            if (Object.prototype.hasOwnProperty.call(userStartedInitiatives, initiativeId)) {
-                                const element = userStartedInitiatives[initiativeId];
-                                inProgressInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.started} income={element.income} key={initiativeId} />)
-                            }
+                    for (const key in completedInitiatives) {
+                        if (Object.prototype.hasOwnProperty.call(takenInitiatives, key)) {
+                            delete takenInitiatives[key]
                         }
-                        setInPropressInitiatives(inProgressInitiativesBricks);
+                    }
 
-                        for (const initiativeId in allInitiatives) {
-                            if (Object.prototype.hasOwnProperty.call(allInitiatives, initiativeId)) {
-                                const element = allInitiatives[initiativeId];
-                                if (element.deadLine > new Date().getTime()) {
-                                    notStartedInitiativesBricks.push(<InitiativeBrick category={element.category} title={element.title} deadLine={element.deadLine} id={initiativeId} offcanvasContent={element.offcanvasContent} progress={initiativeProgress.notStarted} income={element.income} key={initiativeId} />)
-                                }
-                            }
+                    console.log({ allInitiatives, takenInitiatives, completedInitiatives })
+
+
+                    setNotStartedInitiativesBriks([])
+                    for (const key in allInitiatives) {
+                        if (Object.prototype.hasOwnProperty.call(allInitiatives, key)) {
+                            const element = allInitiatives[key];
+                            setNotStartedInitiativesBriks((prev) => [...prev, InitiativeBrick(element, initiativeProgress.notStarted)])
                         }
-                        setNotStartedInitiatives(notStartedInitiativesBricks);
-                    })
-                })
-        })()
+                    }
+
+                    setStartedInitiativesBriks([])
+                    for (const key in takenInitiatives) {
+                        if (Object.prototype.hasOwnProperty.call(takenInitiatives, key)) {
+                            const element = takenInitiatives[key];
+                            setStartedInitiativesBriks((prev) => [...prev, InitiativeBrick(element, initiativeProgress.started)])
+                        }
+                    }
+
+                    setCompletedInitiativesBriks([])
+                    for (const key in completedInitiatives) {
+                        if (Object.prototype.hasOwnProperty.call(completedInitiatives, key)) {
+                            const element = completedInitiatives[key];
+                            setCompletedInitiativesBriks((prev) => [...prev, InitiativeBrick(element, initiativeProgress.completed)])
+                        }
+                    }
+
+                    setIndicators(<div className="row gx-0">
+                        <div className="col-md-2 col-12 hover-info-to-white">
+                            <div className="row justify-content-center">
+                                <div className="row">
+                                    <div className=" d-flex justify-content-center">
+                                        <i className="bi bi-heart-fill fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ответственность"></i>
+                                    </div>
+
+                                    <div className="d-block mx-auto p-0 text-center  text-white">{getCountOfCompletedCategories(initiativeCategory.Ответственность)}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-2 col-12 hover-info-to-white">
+                            <div className="row justify-content-center">
+                                <div className="row">
+                                    <div className=" d-flex justify-content-center">
+                                        <i className="bi bi-dribbble fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Целеустремлённость"></i>
+                                    </div>
+
+                                    <div className="d-block mx-auto p-0 text-center text-white">{getCountOfCompletedCategories(initiativeCategory.Целеустремлённость)}</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-2 col-12 hover-info-to-white">
+                            <div className="row justify-content-center">
+                                <div className="row">
+                                    <div className=" d-flex justify-content-center">
+                                        <i className="bi bi-mic fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Конкурентоспособность"></i>
+                                    </div>
+                                    <div className="d-block mx-auto p-0 text-center text-white">{getCountOfCompletedCategories(initiativeCategory.Конкурентоспособность)}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-2 col-12 hover-info-to-white">
+                            <div className="row justify-content-center">
+                                <div className="row">
+                                    <div className=" d-flex justify-content-center">
+                                        <i className="bi bi-journal-bookmark fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Грамотность"></i>
+                                    </div>
+
+                                    <div className="d-block mx-auto p-0 text-center text-white">{getCountOfCompletedCategories(initiativeCategory.Грамотность)}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-2 col-12 hover-info-to-white">
+                            <div className="row justify-content-center">
+                                <div className="row">
+                                    <div className=" d-flex justify-content-center">
+                                        <i className="bi bi-eye fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Инициативность"></i>
+                                    </div>
+
+                                    <div className="d-block mx-auto p-0 text-center text-white">{getCountOfCompletedCategories(initiativeCategory.Инициативность)}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-2 col-12 hover-info-to-white">
+                            <div className="row justify-content-center">
+                                <div className="row">
+                                    <div className=" d-flex justify-content-center">
+                                        <i className="bi bi-camera-fill fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Креативность"></i>
+                                    </div>
+
+                                    <div className="d-block mx-auto p-0 text-center text-white">{getCountOfCompletedCategories(initiativeCategory.Креативность)}</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>)
+                }))
+
+
+            }))
+
+
+        }))
     }, [])
 
-
-    function getCompletedInitiativesCountByCategory(category: initiativeCategories) {
-
-        let count: number = 0;
-        completedInitiatives.forEach((e) => {
-            if (e.props.category == category) {
-                count++;
+    function getCountOfCompletedCategories(category: initiativeCategory) {
+        let counter = 0;
+        for (const key in completedInitiatives) {
+            if (Object.prototype.hasOwnProperty.call(completedInitiatives, key)) {
+                const initiative = completedInitiatives[key];
+                if (initiative.category == category) {
+                    counter += 1;
+                }
             }
-        });
-        return <>{count}</>;
-
+        }
+        return counter
     }
+
+
     return <>
         <CheckAuth>
             <div className="pt-4">
-
                 <div className="mx-2" style={{ minHeight: "80px" }}>
                     <div className="row py-3 gx-2 px-2 gy-2">
                         <div className="col-md-5 col-12 justify-content-center">
@@ -138,82 +235,7 @@ function CabinetPage() {
                         <div className="col-md-7 col-12">
                             <div className="border-white border-3 rounded-4 h-100 p-2" style={{ borderStyle: "dashed" }}>
                                 <div className="m-auto">
-                                    <div className="row gx-0">
-                                        <div className="col-md-2 col-12 hover-info-to-white">
-                                            <div className="row justify-content-center">
-                                                <div className="row">
-                                                    <div className=" d-flex justify-content-center">
-                                                        <i className="bi bi-heart-fill fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ответственность"></i>
-                                                    </div>
-
-                                                    <div className="d-block mx-auto p-0 text-center  text-white">{getCompletedInitiativesCountByCategory(initiativeCategories.Ответственность)}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-2 col-12 hover-info-to-white">
-                                            <div className="row justify-content-center">
-                                                <div className="row">
-                                                    <div className=" d-flex justify-content-center">
-                                                        <i className="bi bi-dribbble fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Целеустремлённость"></i>
-                                                    </div>
-
-                                                    <div className="d-block mx-auto p-0 text-center text-white">{getCompletedInitiativesCountByCategory(initiativeCategories.Целеустремлённость)}</div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-2 col-12 hover-info-to-white">
-                                            <div className="row justify-content-center">
-                                                <div className="row">
-                                                    <div className=" d-flex justify-content-center">
-                                                        <i className="bi bi-mic fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Конкурентоспособность"></i>
-                                                    </div>
-
-                                                    <div className="d-block mx-auto p-0 text-center text-white">{getCompletedInitiativesCountByCategory(initiativeCategories.Конкурентоспособность)}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-2 col-12 hover-info-to-white">
-                                            <div className="row justify-content-center">
-                                                <div className="row">
-                                                    <div className=" d-flex justify-content-center">
-                                                        <i className="bi bi-journal-bookmark fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Грамотность"></i>
-                                                    </div>
-
-                                                    <div className="d-block mx-auto p-0 text-center text-white">{getCompletedInitiativesCountByCategory(initiativeCategories.Грамотность)}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-2 col-12 hover-info-to-white">
-                                            <div className="row justify-content-center">
-                                                <div className="row">
-                                                    <div className=" d-flex justify-content-center">
-                                                        <i className="bi bi-eye fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Инициативность"></i>
-                                                    </div>
-
-                                                    <div className="d-block mx-auto p-0 text-center text-white">{getCompletedInitiativesCountByCategory(initiativeCategories.Инициативность)}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-2 col-12 hover-info-to-white">
-                                            <div className="row justify-content-center">
-                                                <div className="row">
-                                                    <div className=" d-flex justify-content-center">
-                                                        <i className="bi bi-camera-fill fs-icon-4" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Креативность"></i>
-                                                    </div>
-
-                                                    <div className="d-block mx-auto p-0 text-center text-white">{getCompletedInitiativesCountByCategory(initiativeCategories.Креативность)}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
+                                    {indicators}
                                 </div>
                             </div>
                         </div>
@@ -222,15 +244,15 @@ function CabinetPage() {
 
                     <div className="py-3">
                         <h3 className="border-bottom border-3 border-white">Завершенные инициативы</h3>
-                        <>{completedInitiatives}</>
+                        <>{completedInitiativesBriks}</>
                     </div>
                     <div className="py-3">
                         <h3 className="border-bottom border-3 border-white">Начатые инициативы</h3>
-                        <>{inPropressInitiatives}</>
+                        <>{startedInitiativesBriks}</>
                     </div>
                     <div className="py-3">
                         <h3 className="border-bottom border-3 border-white">Не начатые инициативы</h3>
-                        <>{notStartedInitiatives}</>
+                        <>{notStartedInitiativesBriks}</>
                     </div>
 
                 </div>

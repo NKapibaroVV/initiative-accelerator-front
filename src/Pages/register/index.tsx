@@ -19,7 +19,7 @@ function RegPage() {
         }else if(emailRef.current!.value.indexOf("@")<1||emailRef.current!.value.indexOf("@")>emailRef.current!.value.lastIndexOf(".")){
 
         }else{
-            fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg`, {
+            fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg/`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },

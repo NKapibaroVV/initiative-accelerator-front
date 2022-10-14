@@ -1,82 +1,68 @@
 import React, { createRef } from "react";
+import Iinitiative from "../../interfaces/initiative";
 import { useGlobalUserState } from "../User/User";
 
 export enum initiativeProgress {
     "notStarted" = "notStarted",
     "started" = "started",
     "completed" = "completed",
-    "admin"="admin"
-}
-
-export enum initiativeCategories {
-    "Ответственность" = "Ответственность",
-    "Целеустремлённость" = "Целеустремлённость",
-    "Конкурентоспособность" = "Конкурентоспособность",
-    "Грамотность" = "Грамотность",
-    "Инициативность" = "Инициативность",
-    "Креативность" = "Креативность"
-}
-
-export interface IBrickProps {
-    title: string,
-    deadLine: number,
-    id: string,
-    offcanvasContent: string,
-    progress: initiativeProgress,
-    income: number,
-    category: initiativeCategories
+    "admin" = "admin"
 }
 
 
 
-function InitiativeBrick(props: IBrickProps) {
-    function categoryIndicator() {
-        switch (props.category) {
-            case initiativeCategories.Ответственность:
-                return <i className="bi bi-heart-fill mx-auto text-white"></i>
-            case initiativeCategories.Целеустремлённость:
-                return <i className="bi bi-dribbble ma-auto text-white"></i>
-            case initiativeCategories.Конкурентоспособность:
-                return <i className="bi bi-mic mx-auto text-white"></i>
-            case initiativeCategories.Грамотность:
-                return <i className="bi bi-journal-bookmark mx-auto text-white"></i>
-            case initiativeCategories.Инициативность:
-                return <i className="bi bi-eye mx-auto text-white"></i>
-            case initiativeCategories.Креативность:
-                return <i className="bi bi-camera-fill mx-auto text-white"></i>
-            default:
-                return <></>
-        }
-    }
-    let sendOffcanvasBtnRef = React.createRef<HTMLButtonElement>()
+function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
     const user = useGlobalUserState();
 
-    const messageRef = createRef<HTMLTextAreaElement>();
+    let sendCanvasRef = React.createRef<HTMLDivElement>();
+    let sendInputRef = React.createRef<HTMLTextAreaElement>();
 
-    let offcanvasContent = props.offcanvasContent
-    while(offcanvasContent.indexOf("\n")>-1){
-        offcanvasContent = offcanvasContent.replace("\n","<br></br>");
+    let startInitiative = () => {
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/start_initiative/`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+
+            body: JSON.stringify({ token: user.userParams.token, initiative_id: props.id })
+        }).then(resp => resp.text().then((response)=>{
+            alert(response)
+            document.location.reload();
+        }))
     }
 
+    let sendInitiative = () => {
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/complete_initiative/`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
 
-    function pressActionButton() {
-        if (props.progress == initiativeProgress.notStarted) {
-            fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/start_initiative`, {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                
-                body: JSON.stringify({ token: user.userParams.token, id: props.id })
-            }).then(() => { document.location.reload() })
-        } else if (props.progress == initiativeProgress.started) {
-            sendOffcanvasBtnRef.current!.click();
-        }else if(props.progress == initiativeProgress.admin){
-            window.location.assign(`/check_i/${encodeURI(JSON.stringify(props))}`);
+            body: JSON.stringify({ token: user.userParams.token, initiative_id: props.id, comment: `${sendInputRef.current!.value}` })
+        }).then((resp) => {
+            console.log(resp);
+            document.location.reload();
+        })
+    }
+
+    let secondButtonAction = () => {
+        switch (progress) {
+            case initiativeProgress.notStarted:
+                startInitiative();
+                break;
+            case initiativeProgress.started:
+                sendCanvasRef.current?.classList.add("show");
+                break;
+            case initiativeProgress.completed:
+                alert("completed")
+                break;
+            case initiativeProgress.admin:
+                document.location.assign(`/initiatives/check/${props.id}`)
+                break;
         }
     }
 
-    return <div>
+    return <div key={props.id}>
         <div className="row text-black g-2 py-4">
             <div className="col-12">
                 <div className="bg-info rounded-4 w-100 h-100 p-2">
@@ -87,7 +73,10 @@ function InitiativeBrick(props: IBrickProps) {
                         +{props.income} баллов
                     </div>
                     <div className="text-end fs-6 fst-italic">
-                        <>{categoryIndicator()} до {new Date(props.deadLine).toLocaleDateString()}</>
+                        <>Выполнить до {new Date(props.deadline_complete).toLocaleDateString()} {new Date(props.deadline_complete).toLocaleTimeString()}</>
+                    </div>
+                    <div className="text-end fs-6 fst-italic">
+                        <>Взяли {props.users_taken} из {!!props.users_limit?props.users_limit:"∞"} пользователей</>
                     </div>
                 </div>
             </div>
@@ -95,11 +84,11 @@ function InitiativeBrick(props: IBrickProps) {
                 <div className="d-block">
                     <div className="w-100 h-100">
                         <div className="d-block ms-auto" style={{ width: "fit-content" }}>
-                            <button className="btn-info btn mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target={`#msg${props.id}`} aria-controls={`msg${props.id}`}>
+                            <button className={`btn-info btn mx-3 ${progress == initiativeProgress.completed ? "me-0" : ""}`} type="button" data-bs-toggle="offcanvas" data-bs-target={`#msg${props.id}`} aria-controls={`msg${props.id}`}>
                                 Описание
                             </button>
-                            <div className={`btn ms-auto ${props.progress == initiativeProgress.notStarted ? "btn-outline-info" : props.progress == initiativeProgress.started ? "btn-outline-success text-white border-white" : props.progress==initiativeProgress.admin?"btn-outline-info":"d-none"}`} onClick={(clickedElement)=>{clickedElement.currentTarget.classList.add("disabled");pressActionButton();}}>
-                                {props.progress == initiativeProgress.notStarted ? "Начать" : props.progress == initiativeProgress.started ? "Сдать" : props.progress==initiativeProgress.admin?"Проверить":""}
+                            <div className={`btn ms-auto btn-outline-info ${progress == initiativeProgress.completed ? "d-none" : ""}`} onClick={secondButtonAction}>
+                                {progress == initiativeProgress.completed ? "Просмотреть" : progress == initiativeProgress.started ? "Сдать" : progress == initiativeProgress.notStarted ? "Начать" : "Проверить"}
                             </div>
                         </div>
                     </div>
@@ -108,46 +97,32 @@ function InitiativeBrick(props: IBrickProps) {
         </div>
         <div className="offcanvas offcanvas-bottom text-black offcanvas-60vh" tabIndex={-1} id={`msg${props.id}`} aria-labelledby={`msg${props.id}Label`}>
             <div className="offcanvas-header">
-                <h5 className="offcanvas-title" id={`msg${props.id}Label`}>{`${props.title} - до ${new Date(props.deadLine).toLocaleDateString()} `}</h5>
+                <h5 className="offcanvas-title" id={`msg${props.id}Label`}>{`${props.title}`}</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div className="offcanvas-body small" dangerouslySetInnerHTML={{ __html: offcanvasContent}}>
+            <div className="offcanvas-body small">{props.content}
             </div>
         </div>
 
-        <button className="d-none" ref={sendOffcanvasBtnRef} type="button" data-bs-toggle="offcanvas" data-bs-target={`#res${props.id}Send`} aria-controls={`res${props.id}Send`}>
+        <button className="d-none" type="button" data-bs-toggle="offcanvas" data-bs-target={`#res${props.id}Send`} aria-controls={`res${props.id}Send`}>
             Отправить
         </button>
-        <div className="offcanvas offcanvas-bottom text-black offcanvas-60vh" tabIndex={-1} id={`res${props.id}Send`} aria-labelledby={`res${props.id}SendLabel`}>
+        <div className="offcanvas offcanvas-bottom text-black offcanvas-60vh" ref={sendCanvasRef} tabIndex={-1} id={`res${props.id}Send`} aria-labelledby={`res${props.id}SendLabel`}>
             <div className="offcanvas-header">
-                <h5 className="offcanvas-title" id={`res${props.id}SendLabel`}>{`${props.title} - до ${new Date(props.deadLine).toLocaleDateString()} `}</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <h5 className="offcanvas-title" id={`res${props.id}SendLabel`}>{`${props.title}`}</h5>
+                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" onClick={() => { sendCanvasRef.current?.classList.remove("show"); }} aria-label="Close"></button>
             </div>
             <div className="offcanvas-body small">
                 <div className="row g-2 justify-content-center">
                     <div className="col-12 col-md-6">
                         <div className="form-floating">
-                            <textarea ref={messageRef} className="form-control w-100" placeholder="Ваше сообщение" id={`res${props.id}Comment`} style={{ height: "200px" }}></textarea>
+                            <textarea className="form-control w-100" ref={sendInputRef} placeholder="Ваше сообщение" id={`res${props.id}Comment`} style={{ height: "200px" }}></textarea>
                             <label htmlFor={`res${props.id}Comment`}>Ваше сообщение</label>
                         </div>
                     </div>
                     <div className="col-12 col-md-6">
-                        <button className="btn-outline-dark w-100 btn" onClick={(clickedElement) => {
-                            clickedElement.currentTarget.disabled = true;
-                            fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/complete_initiative`, {
-                                method: "POST",
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                
-                                body: JSON.stringify({
-                                    "token": user.userParams.token,
-                                    "message": messageRef.current!.value,
-                                    "initiative_id": props.id
-                                })
-                            }).then(result => result.json()).then((json) => { if (json["success"]) { document.location.reload() } })
-                        }}>
-                            Отправить
+                        <button className="btn-outline-dark w-100 btn" onClick={sendInitiative}>
+                            Отправить!
                         </button>
                     </div>
                 </div>

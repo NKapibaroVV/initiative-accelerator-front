@@ -8,7 +8,7 @@ function AuthPage() {
     const passwordFieldRef = React.createRef<HTMLInputElement>();
 
     function authorize(){
-        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/auth`, {
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/auth/`, {
             headers: {
                 'Content-Type': 'application/json'
             },
