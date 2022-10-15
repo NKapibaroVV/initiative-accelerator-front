@@ -119,7 +119,7 @@ export default function CheckInitiativePage() {
                 <th scope="row">{counter}</th>
                 <td>{row.name}</td>
                 <td>{row.surname}</td>
-                <td>{!!row.edu_group?row.edu_group:"Не указано"}</td>
+                <td>{!!row.edu_group&&row.edu_group?.length>1?row.edu_group:"Не указано"}</td>
                 <td>{row.email}</td>
                 <td>{openResultButton(row)}</td>
             </tr>)
