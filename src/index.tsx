@@ -17,11 +17,13 @@ import RegPage from './Pages/register';
 import ListInitiativesResultsPage from './Pages/listInitiativesResults';
 import CheckInitiativePage from './Pages/checkInitiative';
 import AddPublicInitiativePage from './Pages/addPublicInitiative';
-import EditShopPage from './Pages/editShop';
+import AddShopItemPage from './Pages/addShopItemPage';
 import ShopPage from './Pages/shopPage';
 import MyShopLogsPage from './Pages/MyShopLogsPage';
 import EditInitiativePage from './Pages/editInitiative';
 import ListOfAllInitiativesPage from './Pages/listOfAllInitiatives';
+import ShopItemsListPage from './Pages/ShopItemsList';
+import EditShopItemPage from './Pages/EditShopItemPage';
 
 function Index() {
 
@@ -39,7 +41,9 @@ function Index() {
             <Route path='/rating' element={<RatingPage />}></Route>
             <Route path='/shop' element={<ShopPage />}></Route>
             <Route path='/shop/story' element={<MyShopLogsPage />}></Route>
-            <Route path='/shop/edit' element={<EditShopPage />}></Route>
+            <Route path='/shop/edit/:item_id' element={<EditShopItemPage />}></Route>
+            <Route path='/shop/edit' element={<ShopItemsListPage />}></Route>
+            <Route path='/shop/add' element={<AddShopItemPage />}></Route>
             <Route path='/initiatives/edit' element={<ListOfAllInitiativesPage />}></Route>
             <Route path='/initiatives/results' element={<ListInitiativesResultsPage />}></Route>
             <Route path='/initiatives/edit/:initiative_id' element={<EditInitiativePage />}></Route>

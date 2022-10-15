@@ -31,7 +31,7 @@ export default function EditInitiativePage() {
             method: "POST",
 
             body: JSON.stringify({
-                initiative_id:initiative_id,
+                initiative_id: initiative_id,
                 token: user.userParams.token,
                 title: titleRef.current?.value,
                 income: incomeRef.current?.value,
@@ -138,7 +138,9 @@ export default function EditInitiativePage() {
                     *Укажите ограничение по кол-ву пользователей = 0 для снятия ограничения.
                 </div>
                 <div className="col-12">
-                    <div className="btn btn-outline-info rounded-4 p-2 w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); updateInitiative() }}>Обновить до текущих значений</div>
+                    <div className="btn btn-outline-info rounded-4 p-2 w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); updateInitiative() }}>
+                        Обновить до текущих значений
+                    </div>
                 </div>
 
             </div>

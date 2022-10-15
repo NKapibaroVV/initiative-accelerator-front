@@ -32,7 +32,10 @@ function Header() {
                         {user.userParams.role == userRoles.Модератор || user.userParams.role == userRoles.Администратор ?
                             <>
                                 <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/shop/edit">Редактировать магазин баллов</a>
+                                    <a className="nav-link btn p-1 text-start" href="/shop/edit">Редактировать магазин</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link btn p-1 text-start" href="/shop/add">Создать предмет магазина</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link btn p-1 text-start" href="/addPublicInitiative">Создать открытое задание</a>

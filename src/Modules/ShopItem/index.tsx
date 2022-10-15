@@ -1,7 +1,7 @@
 import { IShopItem } from "../../interfaces/shopItem";
 import { useGlobalUserState } from "../User/User";
 
-export default function ShopItem(props: IShopItem) {
+export default function ShopItem(props: IShopItem, editButton?: boolean) {
     const user = useGlobalUserState();
 
     function secondButtonAction() {
@@ -11,8 +11,8 @@ export default function ShopItem(props: IShopItem) {
             },
             method: "POST",
 
-            body: JSON.stringify({ token: user.userParams.token, shop_item_id:props.id})
-        }).then(res=>res.text().then((response)=>{
+            body: JSON.stringify({ token: user.userParams.token, shop_item_id: props.id })
+        }).then(res => res.text().then((response) => {
             alert(response);
             document.location.reload();
         }))
@@ -43,9 +43,19 @@ export default function ShopItem(props: IShopItem) {
                             <button className={`btn-info btn mx-3`} type="button" data-bs-toggle="offcanvas" data-bs-target={`#msg${props.id}`} aria-controls={`msg${props.id}`}>
                                 Описание
                             </button>
-                            <div className={`btn ms-auto btn-outline-info `} onClick={secondButtonAction}>
-                                Обменять баллы
-                            </div>
+
+                            {!!editButton ? <></> : <>
+                                <div className={`btn ms-auto btn-outline-info `} onClick={secondButtonAction}>
+                                    Обменять баллы
+                                </div>
+                            </>}
+
+                            {!!editButton ? <>
+                                <div className={`btn ms-auto btn-outline-info `} onClick={() => { document.location.assign(`/shop/edit/${props.id}`) }}>
+                                    Редактировать
+                                </div>
+                            </> : <></>}
+
                         </div>
                     </div>
                 </div>
