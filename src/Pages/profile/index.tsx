@@ -60,6 +60,7 @@ export default function ProfilePage() {
     return <CheckAuth>
         <div className="py-3">
             <h4 className="text-center px-2 mb-3 pb-2">Изменение профиля</h4>
+            <p className="text-center px-2 mb-3 pb-2">(Вводите значения только в те поля, которые хотите изменить!)</p>
             <div className="row justify-content-center gy-4 gx-2">
                 <div className="col-md-7 col-10">
                     <label>Имя</label>
