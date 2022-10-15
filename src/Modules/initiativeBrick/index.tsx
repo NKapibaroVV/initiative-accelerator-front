@@ -6,7 +6,8 @@ export enum initiativeProgress {
     "notStarted" = "notStarted",
     "started" = "started",
     "completed" = "completed",
-    "admin" = "admin"
+    "admin" = "admin",
+    "edit"="edit"
 }
 
 
@@ -59,6 +60,9 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
             case initiativeProgress.admin:
                 document.location.assign(`/initiatives/check/${props.id}`)
                 break;
+                case initiativeProgress.edit:
+                    document.location.assign(`/initiatives/edit/${props.id}`)
+                    break;
         }
     }
 
@@ -88,7 +92,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                                 Описание
                             </button>
                             <div className={`btn ms-auto btn-outline-info ${progress == initiativeProgress.completed ? "d-none" : ""}`} onClick={secondButtonAction}>
-                                {progress == initiativeProgress.completed ? "Просмотреть" : progress == initiativeProgress.started ? "Сдать" : progress == initiativeProgress.notStarted ? "Начать" : "Проверить"}
+                                {progress == initiativeProgress.edit?"Редактировать":progress == initiativeProgress.completed ? "Просмотреть" : progress == initiativeProgress.started ? "Сдать" : progress == initiativeProgress.notStarted ? "Начать" : "Проверить"}
                             </div>
                         </div>
                     </div>

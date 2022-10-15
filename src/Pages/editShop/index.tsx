@@ -1,4 +1,5 @@
 import React from "react";
+import CheckModerator from "../../Modules/Check/CheckModerator";
 import { useGlobalUserState } from "../../Modules/User/User";
 
 export default function EditShopPage() {
@@ -39,7 +40,7 @@ export default function EditShopPage() {
         
     }
 
-    return <div>
+    return <CheckModerator><div>
         <h3>Создание новой траты баллов</h3>
         <div className="row g-2">
             <div className="col-12">
@@ -69,5 +70,5 @@ export default function EditShopPage() {
                 </div>
             </div>
         </div>
-    </div>
+    </div></CheckModerator>
 }

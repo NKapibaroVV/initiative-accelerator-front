@@ -25,7 +25,16 @@ export default function AddPublicInitiativePage() {
             },
             method: "POST",
 
-            body: JSON.stringify({ token: user.userParams.token, title: titleRef.current?.value, income: incomeRef.current?.value, take_deadline: new Date(`${takeDayRef.current?.value} ${takeTimeRef.current?.value}`).getTime(), complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(), content: contentRef.current?.value, category: categoryRef.current?.value, users_limit: usersCountRef.current?.value == "" || usersCountRef.current?.value == "0" ? null : usersCountRef.current?.value })
+            body: JSON.stringify({
+                token: user.userParams.token,
+                title: titleRef.current?.value,
+                income: incomeRef.current?.value,
+                take_deadline: new Date(`${takeDayRef.current?.value} ${takeTimeRef.current?.value}`).getTime(),
+                complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
+                content: contentRef.current?.value,
+                category: categoryRef.current?.value,
+                users_limit: usersCountRef.current?.value == "" || usersCountRef.current?.value == "0" ? null : usersCountRef.current?.value
+            })
         }).then(res => res.json().then((response: any) => {
             console.log(response)
             alert("Создано!");
@@ -96,7 +105,9 @@ export default function AddPublicInitiativePage() {
                             <label htmlFor="floatingTextarea2">Описание</label>
                         </div>
                     </div>
-
+                    <div className="col-12 fs-6">
+                        *Укажите ограничение по кол-ву пользователей = 0 для снятия ограничения.
+                    </div>
                     <div className="col-12">
                         <div className="btn btn-outline-info rounded-4 p-2 w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); createInitiative() }}>Создать</div>
                     </div>

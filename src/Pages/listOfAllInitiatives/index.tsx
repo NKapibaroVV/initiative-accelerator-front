@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react";
 import Iinitiative from "../../interfaces/initiative";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import InitiativeBrick, { initiativeProgress } from "../../Modules/initiativeBrick";
 import preloader from "../../Modules/preloader";
 import { useGlobalUserState } from "../../Modules/User/User";
 
-export default function ListInitiativesResultsPage() {
+export default function ListOfAllInitiativesPage() {
     const user = useGlobalUserState();
     const [results, setResults] = useState([preloader])
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_initiatives_results/`, {
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_all_initiatives/`, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -23,7 +23,7 @@ export default function ListInitiativesResultsPage() {
                 response.forEach((element: Iinitiative) => {
                     setResults((prev) => [...prev, InitiativeBrick(element, initiativeProgress.edit)])
                 });
-            }else{
+            } else {
                 setResults([<>На данный момент нечего проверить!</>])
             }
 
@@ -31,6 +31,9 @@ export default function ListInitiativesResultsPage() {
     }, [])
     return <CheckModerator>
         <>
+        <div className="fs-3 text-center text-white">
+            Редактирование заданий
+        </div>
             {results}
         </>
     </CheckModerator>

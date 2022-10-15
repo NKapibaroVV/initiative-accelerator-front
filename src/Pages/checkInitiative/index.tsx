@@ -68,9 +68,10 @@ export default function CheckInitiativePage() {
             }))
         }
 
-        return <><button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target={`#ofcanv${props.initiative_id}-${props.login}`} aria-controls={`#${props.initiative_id}-${props.login}`}>
-            Check
-        </button>
+        return <>
+            <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target={`#ofcanv${props.initiative_id}-${props.login}`} aria-controls={`#${props.initiative_id}-${props.login}`}>
+                Check
+            </button>
 
             <div className="offcanvas offcanvas-bottom text-bg-dark" style={{ height: "80%" }} tabIndex={-1} id={`ofcanv${props.initiative_id}-${props.login}`} aria-labelledby={`#label${props.initiative_id}-${props.login}`}>
                 <div className="offcanvas-header">
@@ -104,7 +105,8 @@ export default function CheckInitiativePage() {
                         </div>
                     </div>
                 </div>
-            </div></>
+            </div>
+        </>
     }
 
     const resultRow = (props: ICompletedRow[]) => {

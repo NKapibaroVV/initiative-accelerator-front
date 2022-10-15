@@ -20,6 +20,8 @@ import AddPublicInitiativePage from './Pages/addPublicInitiative';
 import EditShopPage from './Pages/editShop';
 import ShopPage from './Pages/shopPage';
 import MyShopLogsPage from './Pages/MyShopLogsPage';
+import EditInitiativePage from './Pages/editInitiative';
+import ListOfAllInitiativesPage from './Pages/listOfAllInitiatives';
 
 function Index() {
 
@@ -38,7 +40,9 @@ function Index() {
             <Route path='/shop' element={<ShopPage />}></Route>
             <Route path='/shop/story' element={<MyShopLogsPage />}></Route>
             <Route path='/shop/edit' element={<EditShopPage />}></Route>
+            <Route path='/initiatives/edit' element={<ListOfAllInitiativesPage />}></Route>
             <Route path='/initiatives/results' element={<ListInitiativesResultsPage />}></Route>
+            <Route path='/initiatives/edit/:initiative_id' element={<EditInitiativePage />}></Route>
             <Route path='/initiatives/check/:initiative_id' element={<CheckInitiativePage />}></Route>
             <Route path='/addPrivateInitiative' element={<AddPrivateInitiativePage />}></Route>
             <Route path='/addPublicInitiative' element={<AddPublicInitiativePage />}></Route>

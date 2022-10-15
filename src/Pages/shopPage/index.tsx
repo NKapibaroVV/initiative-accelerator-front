@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { IShopItem } from "../../interfaces/shopItem"
+import CheckAuth from "../../Modules/Check/CheckAuthorized";
 import preloader from "../../Modules/preloader"
 import ShopItem from "../../Modules/ShopItem"
 import { useGlobalUserState } from "../../Modules/User/User";
@@ -19,10 +20,11 @@ export default function ShopPage(){
         }))
     },[])
 
-    return <div>
+    return <CheckAuth><div>
         <div className="m-2 p-2 fs-3">
             У Вас {currentUser.userParams.score} баллов
         </div>
         <>{result}</>
     </div>
+    </CheckAuth>
 }

@@ -156,6 +156,9 @@ function AddPrivateInitiativePage() {
                             <label htmlFor="floatingTextarea2">Описание</label>
                         </div>
                     </div>
+                    <div className="col-12 fs-6">
+                        *Укажите ограничение по кол-ву пользователей = 0 для снятия ограничения.
+                    </div>
 
                     <div className="col-12">
                         <div className="btn btn-outline-info rounded-4 p-2 w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); createInitiative() }}>Создать</div>

@@ -41,6 +41,9 @@ function Header() {
                                     <a className="nav-link btn p-1 text-start" href="/addPrivateInitiative">Создать приватное задание</a>
                                 </li>
                                 <li className="nav-item">
+                                    <a className="nav-link btn p-1 text-start" href="/initiatives/edit">Изменение заданий</a>
+                                </li>
+                                <li className="nav-item">
                                     <a className="nav-link btn p-1 text-start" href="/initiatives/results">Проверка заданий</a>
                                 </li>
                             </> : <></>}
