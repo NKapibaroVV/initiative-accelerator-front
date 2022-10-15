@@ -25,7 +25,8 @@ interface ICompletedRow {
     birth: number,
     name: string,
     surname: string,
-    login: string
+    login: string,
+    edu_group:string|null,
 }
 
 export default function CheckInitiativePage() {
@@ -118,6 +119,7 @@ export default function CheckInitiativePage() {
                 <th scope="row">{counter}</th>
                 <td>{row.name}</td>
                 <td>{row.surname}</td>
+                <td>{!!row.edu_group?row.edu_group:"Не указано"}</td>
                 <td>{row.email}</td>
                 <td>{openResultButton(row)}</td>
             </tr>)
@@ -170,6 +172,7 @@ export default function CheckInitiativePage() {
                         <th scope="col">#</th>
                         <th scope="col">Имя</th>
                         <th scope="col">Фамилия</th>
+                        <th scope="col">Группа</th>
                         <th scope="col">Почта</th>
                         <th scope="col">Действия</th>
                     </tr>

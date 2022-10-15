@@ -21,7 +21,7 @@ export default function ListInitiativesResultsPage() {
             console.log(response)
             if (!!response[0]) {
                 response.forEach((element: Iinitiative) => {
-                    setResults((prev) => [...prev, InitiativeBrick(element, initiativeProgress.edit)])
+                    setResults((prev) => [...prev, InitiativeBrick(element, initiativeProgress.admin)])
                 });
             }else{
                 setResults([<>На данный момент нечего проверить!</>])

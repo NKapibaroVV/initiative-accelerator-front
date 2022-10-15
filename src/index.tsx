@@ -19,11 +19,12 @@ import CheckInitiativePage from './Pages/checkInitiative';
 import AddPublicInitiativePage from './Pages/addPublicInitiative';
 import AddShopItemPage from './Pages/addShopItemPage';
 import ShopPage from './Pages/shopPage';
-import MyShopLogsPage from './Pages/MyShopLogsPage';
+import MyShopLogsPage from './Pages/myShopLogsPage';
 import EditInitiativePage from './Pages/editInitiative';
 import ListOfAllInitiativesPage from './Pages/listOfAllInitiatives';
-import ShopItemsListPage from './Pages/ShopItemsList';
-import EditShopItemPage from './Pages/EditShopItemPage';
+import ShopItemsListPage from './Pages/shopItemsList';
+import EditShopItemPage from './Pages/editShopItemPage';
+import ProfilePage from './Pages/profile';
 
 function Index() {
 
@@ -38,6 +39,7 @@ function Index() {
             <Route path='/auth' element={<AuthPage />}></Route>
             <Route path='/register' element={<RegPage />}></Route>
             <Route path='/cab' element={<CabinetPage />}></Route>
+            <Route path='/profile' element={<ProfilePage />}></Route>
             <Route path='/rating' element={<RatingPage />}></Route>
             <Route path='/shop' element={<ShopPage />}></Route>
             <Route path='/shop/story' element={<MyShopLogsPage />}></Route>
