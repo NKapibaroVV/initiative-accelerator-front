@@ -114,6 +114,7 @@ export default function CheckInitiativePage() {
         let rowsElements: JSX.Element[] = []
 
         let counter: number = 1;
+        
         props.forEach(row => {
             rowsElements.push(<tr key={`0${counter}-row`}>
                 <th scope="row">{counter}</th>
