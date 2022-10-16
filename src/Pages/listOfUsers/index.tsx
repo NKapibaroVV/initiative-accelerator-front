@@ -43,20 +43,27 @@ export default function ListOfUsersPage() {
         ))
     }, [])
 
-    return <CheckAdmin><table className="table table-dark">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Фамилия</th>
-                <th scope="col">Группа</th>
-                <th scope="col">Почта</th>
-                <th scope="col">Роль</th>
-                <th scope="col">Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            {users}
-        </tbody>
-    </table></CheckAdmin>
+    return <CheckAdmin>
+        <>
+            <div className="m-2 p-2 fs-3">
+                Редактирование пользователей
+            </div>
+            <table className="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Группа</th>
+                        <th scope="col">Почта</th>
+                        <th scope="col">Роль</th>
+                        <th scope="col">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {users}
+                </tbody>
+            </table>
+        </>
+    </CheckAdmin>
 }
