@@ -183,7 +183,7 @@ export default function CheckUserInfoPage() {
             Информация о пользователе
         </div>
         <div className="py-2">
-            <div className="fs-5 m-2 p-2">
+            <div className="fs-5 m-2 p-2 text-info">
                 Общая информация
             </div>
             <table className="table table-dark">
@@ -238,7 +238,7 @@ export default function CheckUserInfoPage() {
             </table>
         </div>
         <div className="py-2">
-            <div className="fs-5 m-2 p-2">
+            <div className="fs-5 m-2 p-2 text-info">
                 Завершенные инициативы
             </div>
             <table className="table table-dark">
@@ -254,7 +254,7 @@ export default function CheckUserInfoPage() {
             </table>
         </div>
         <div className="py-2">
-            <div className="fs-5 m-2 p-2">
+            <div className="fs-5 m-2 p-2 text-info">
                 Выполняемые инициативы
             </div>
             <table className="table table-dark">
@@ -270,7 +270,7 @@ export default function CheckUserInfoPage() {
             </table>
         </div>
         <div className="py-2">
-            <div className="fs-5 m-2 p-2">
+            <div className="fs-5 m-2 p-2 text-info">
                 Покупки
             </div>
             <table className="table table-dark">
