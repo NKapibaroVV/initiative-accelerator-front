@@ -56,8 +56,8 @@ function AddPrivateInitiativePage() {
 
                         body: JSON.stringify({ token: selectedUser!.token, initiative_id: response[0].id })
                     })
-                    resolve();
                 })
+                resolve();
 
             }).then(() => {
                 alert("Создано и назначено пользователям!");
