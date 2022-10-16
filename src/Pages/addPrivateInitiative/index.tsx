@@ -46,18 +46,24 @@ function AddPrivateInitiativePage() {
             body: JSON.stringify({ token: currentUser.userParams.token, title: titleRef.current?.value, income: incomeRef.current?.value, take_deadline: new Date().getTime() - 1000, complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(), content: contentRef.current?.value, category: categoryRef.current?.value, users_limit: 1 })
         }).then(res => res.json().then((response: any) => {
 
-            selectedUsers?.forEach((selectedUser: IUser) => {
-                fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/start_initiative/`, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
+            new Promise((resolve: any, reject: any) => {
+                selectedUsers?.forEach((selectedUser: IUser) => {
+                    fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/start_initiative/`, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
 
-                    body: JSON.stringify({ token: selectedUser!.token, initiative_id: response[0].id })
+                        body: JSON.stringify({ token: selectedUser!.token, initiative_id: response[0].id })
+                    })
+                    resolve();
                 })
+
+            }).then(() => {
+                alert("Создано и назначено пользователям!");
+                document.location.reload();
             })
-            alert("Создано и назначено пользователям!");
-            document.location.reload();
+
         }))
     }
 
