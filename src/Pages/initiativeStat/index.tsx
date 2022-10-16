@@ -24,6 +24,7 @@ export default function InitiativeStatPage() {
             setMembers([]);
             let counter: number = 0;
             response.forEach((initiativeParams: Iinitiative & IUser) => {
+                console.log(initiativeParams)
                 setMembers((prev) => {
                     counter += 1;
                     return [...prev,
