@@ -47,6 +47,7 @@ function AddPrivateInitiativePage() {
         }).then(res => res.json().then((response: any) => {
 
             new Promise((resolve: any, reject: any) => {
+                let count = 0;
                 selectedUsers?.forEach((selectedUser: IUser) => {
                     fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/start_initiative/`, {
                         headers: {
@@ -55,9 +56,13 @@ function AddPrivateInitiativePage() {
                         method: "POST",
 
                         body: JSON.stringify({ token: selectedUser!.token, initiative_id: response[0].id })
+                    }).then(()=>{
+                        count+=1;
+                        if (count==Object.keys(selectedUsers!).length) {
+                            resolve();
+                        }
                     })
                 })
-                resolve();
 
             }).then(() => {
                 alert("Создано и назначено пользователям!");
