@@ -28,6 +28,7 @@ import ProfilePage from './Pages/profile';
 import ListOfUsersPage from './Pages/listOfUsers';
 import EditUserPage from './Pages/editUserPage';
 import InitiativeStatPage from './Pages/initiativeStat';
+import CheckUserInfoPage from './Pages/checkUserInfo';
 
 function Index() {
 
@@ -45,6 +46,7 @@ function Index() {
             <Route path='/profile' element={<ProfilePage />}></Route>
             <Route path='/rating' element={<RatingPage />}></Route>
             <Route path='/users' element={<ListOfUsersPage />}></Route>
+            <Route path='/users/check/:user_id' element={<CheckUserInfoPage />}></Route>
             <Route path='/users/edit/:user_id' element={<EditUserPage />}></Route>
             <Route path='/shop' element={<ShopPage />}></Route>
             <Route path='/shop/story' element={<MyShopLogsPage />}></Route>
