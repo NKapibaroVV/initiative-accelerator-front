@@ -14,10 +14,14 @@ export interface IUser {
     token:string,
     birth:Date,
     role:userRoles,
-    score:number
+    score:number,
+    edu_group:string|null,
 }
 export enum userRoles{
-    "Администратор"="Администратор","Студент"="Студент", "default"="default", "Модератор"="Модератор"
+    "Администратор"="Администратор",
+    "Студент"="Студент", 
+    "default"="default", 
+    "Модератор"="Модератор"
 }
 
 /**Параметры пользователя по умолчанию*/
@@ -29,6 +33,7 @@ export let defaultUserParams: IUser = {
     token: "default",
     role: userRoles.default,
     birth: new Date("2000-01-01"),
+    edu_group:null,
     score: 0
 }
 

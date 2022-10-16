@@ -16,17 +16,25 @@ export default function ProfilePage() {
 
     function updateAccount() {
 
-        let reqBody:any = {token:user.userParams.token, name:firstNameRef.current!.value, surname:secondNameRef.current!.value, email:emailRef.current!.value, edu_group:groupRef.current!.value, birth:birthRef.current!.value}
-        if (passwordRef.current!.value==passwordRepeatedRef.current!.value) {
-            if (passwordRef.current!.value.length>4) {
+        let reqBody: any = {
+            token: user.userParams.token,
+            name: firstNameRef.current!.value,
+            surname: secondNameRef.current!.value,
+            email: emailRef.current!.value,
+            edu_group: groupRef.current!.value,
+            birth: birthRef.current!.value
+        }
+
+        if (passwordRef.current!.value == passwordRepeatedRef.current!.value) {
+            if (passwordRef.current!.value.length > 4) {
                 reqBody["password"] = passwordRef.current!.value;
-            }else{
-            alert("Пароль не будет обновлён! Причина: пароль короче 5 символов!")
+            } else {
+                alert("Пароль не будет обновлён! Причина: пароль короче 5 символов!")
             }
-        }else{
+        } else {
             alert("Пароль не будет обновлён! Причина: введённые пароли не совподают!")
         }
-        
+
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/update_profile/`, {
             headers: {
                 'Content-Type': 'application/json'
