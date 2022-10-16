@@ -87,17 +87,17 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
             <div className="col-12">
                 <div className="d-block">
                     <div className="w-100 h-100">
-                        <div className="d-block ms-auto" style={{ width: "fit-content" }}>
-                            <button className={`btn-info btn mx-3 ${progress == initiativeProgress.completed ? "me-0" : ""}`} type="button" data-bs-toggle="offcanvas" data-bs-target={`#msg${props.id}`} aria-controls={`msg${props.id}`}>
+                        <div className="row g-2 justify-content-between px-2">
+                            <button className={`btn-info btn col-5 ${progress == initiativeProgress.completed ? "me-0" : ""}`} type="button" data-bs-toggle="offcanvas" data-bs-target={`#msg${props.id}`} aria-controls={`msg${props.id}`}>
                                 Описание
                             </button>
-                            <a className={`btn-info btn mx-3 ${!!props.link?"":"d-none"}`} href={`${props.link}`}>
+                            <a className={`btn-info btn col-5 ${!!props.link?"":"d-none"}`} href={`${props.link}`}>
                                 ВК
                             </a>
-                            <a className={`btn-info btn mx-3 ${progress == initiativeProgress.edit?"":"d-none"}`} href={`/initiatives/stat/${props.id}`}>
+                            <a className={`btn-info btn col-5 ${progress == initiativeProgress.edit?"":"d-none"}`} href={`/initiatives/stat/${props.id}`}>
                                 Статистика
                             </a>
-                            <div className={`btn ms-auto btn-outline-info ${progress == initiativeProgress.completed ? "d-none" : ""}`} onClick={secondButtonAction}>
+                            <div className={`btn ms-auto btn-outline-info col-12 ${progress == initiativeProgress.completed ? "d-none" : ""}`} onClick={secondButtonAction}>
                                 {progress == initiativeProgress.edit?"Редактировать":progress == initiativeProgress.completed ? "Просмотреть" : progress == initiativeProgress.started ? "Сдать" : progress == initiativeProgress.notStarted ? "Начать" : "Проверить"}
                             </div>
                         </div>

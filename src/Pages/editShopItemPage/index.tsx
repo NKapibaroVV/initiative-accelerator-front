@@ -28,6 +28,7 @@ export default function EditShopItemPage() {
             costRef.current!.value = response.cost.toString();
             titleRef.current!.value = response.title;
             descriptionRef.current!.value = response.description;
+            console.log({0:response.deadline_take,1:new Date(response.deadline_take!).toLocaleDateString()})
             deadlineTakeDateRef.current!.value = !!response.deadline_take ? `${new Date(response.deadline_take).toLocaleDateString().split(".")[2]}-${new Date(response.deadline_take).toLocaleDateString().split(".")[1]}-${new Date(response.deadline_take).toLocaleDateString().split(".")[0]}` : "";
             deadlineTakeTimeRef.current!.value = !!response.deadline_take ? new Date(response.deadline_take).toLocaleTimeString() : "";
             usersLimitRef.current!.value = !!response.users_limit ? response.users_limit.toString() : "";

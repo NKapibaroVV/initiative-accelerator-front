@@ -31,9 +31,13 @@ export default function ListOfAllInitiativesPage() {
     }, [])
     return <CheckModerator>
         <>
-        <div className="fs-3 text-center text-white">
-            Редактирование заданий
-        </div>
+            <div className="fs-3 text-center text-white">
+                Редактирование заданий
+            </div>
+            <div className="row justify-content-center gx-3 gy-2 my-3">
+                <a className="col-12 col-md-5 btn btn-outline-info mx-2" href="/addPublicInitiative">Создать открытое задание</a>
+                <a className="col-12 col-md-5 btn btn-outline-info mx-2" href="/addPrivateInitiative">Создать приватное задание</a>
+            </div>
             {results}
         </>
     </CheckModerator>

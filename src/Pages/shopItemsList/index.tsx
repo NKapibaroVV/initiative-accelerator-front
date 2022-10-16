@@ -8,10 +8,10 @@ import { useGlobalUserState } from "../../Modules/User/User";
 export default function ShopItemsListPage() {
 
     const currentUser = useGlobalUserState();
-    
+
     const [result, setResult] = useState([preloader])
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_all_shop_items/`, {
             headers: {
                 'Content-Type': 'application/json'
@@ -20,17 +20,20 @@ export default function ShopItemsListPage() {
             body: JSON.stringify({
                 token: currentUser.userParams.token,
             })
-        }).then(resp=>resp.json().then((response:IShopItem[])=>{
+        }).then(resp => resp.json().then((response: IShopItem[]) => {
             setResult([])
-            response.forEach((shopItem:IShopItem) => {
-                setResult((prev)=>[...prev,ShopItem(shopItem, true)])
+            response.forEach((shopItem: IShopItem) => {
+                setResult((prev) => [...prev, ShopItem(shopItem, true)])
             });
         }))
-    },[])
+    }, [])
 
     return <CheckAuth><div>
-        <div className="m-2 p-2 fs-3">
+        <div className="m-2 p-2 fs-3 text-center">
             Изменение предметов магазина баллов
+        </div>
+        <div className="row justify-content-center gx-3 gy-2 my-3">
+            <a className="col-12 col-md-5 btn btn-outline-info mx-2" href="/shop/add">Создать предмет магазина</a>
         </div>
         <>{result}</>
     </div>

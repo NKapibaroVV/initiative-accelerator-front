@@ -29,9 +29,6 @@ function Header() {
                         <li className="nav-item">
                             <a className="nav-link btn p-1 text-start" href="/cab">Кабинет</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link btn p-1 text-start" href="/profile">Редактировать профиль</a>
-                        </li>
                         {user.userParams.role == userRoles.Администратор ? <>
                             <li className="nav-item">
                                 <a className="nav-link btn p-1 text-start" href="/users">Редактировать участников</a>
@@ -43,16 +40,7 @@ function Header() {
                                     <a className="nav-link btn p-1 text-start" href="/shop/edit">Редактировать магазин</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/shop/add">Создать предмет магазина</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/addPublicInitiative">Создать открытое задание</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/addPrivateInitiative">Создать приватное задание</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/initiatives/edit">Изменение заданий</a>
+                                    <a className="nav-link btn p-1 text-start" href="/initiatives/edit">Редактировать задания</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link btn p-1 text-start" href="/initiatives/results">Проверка заданий</a>
@@ -67,6 +55,9 @@ function Header() {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link btn p-1 text-start" href="/shop/story">История обмена баллов</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link btn p-1 text-start" href="/profile">Редактировать профиль</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link btn p-1 text-start" onClick={() => { removeCookie("userData"); window.location.assign("/"); }}>Выйти</a>
