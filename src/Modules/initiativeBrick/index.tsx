@@ -94,6 +94,9 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                             <a className={`btn-info btn mx-3 ${!!props.link?"":"d-none"}`} href={`${props.link}`}>
                                 ВК
                             </a>
+                            <a className={`btn-info btn mx-3 ${progress == initiativeProgress.edit?"":"d-none"}`} href={`/initiatives/stat/${props.id}`}>
+                                Статистика
+                            </a>
                             <div className={`btn ms-auto btn-outline-info ${progress == initiativeProgress.completed ? "d-none" : ""}`} onClick={secondButtonAction}>
                                 {progress == initiativeProgress.edit?"Редактировать":progress == initiativeProgress.completed ? "Просмотреть" : progress == initiativeProgress.started ? "Сдать" : progress == initiativeProgress.notStarted ? "Начать" : "Проверить"}
                             </div>

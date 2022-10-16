@@ -27,6 +27,7 @@ import EditShopItemPage from './Pages/editShopItemPage';
 import ProfilePage from './Pages/profile';
 import ListOfUsersPage from './Pages/listOfUsers';
 import EditUserPage from './Pages/editUserPage';
+import InitiativeStatPage from './Pages/initiativeStat';
 
 function Index() {
 
@@ -50,6 +51,7 @@ function Index() {
             <Route path='/shop/edit/:item_id' element={<EditShopItemPage />}></Route>
             <Route path='/shop/edit' element={<ShopItemsListPage />}></Route>
             <Route path='/shop/add' element={<AddShopItemPage />}></Route>
+            <Route path='/initiatives/stat/:initiative_id' element={<InitiativeStatPage />}></Route>
             <Route path='/initiatives/edit' element={<ListOfAllInitiativesPage />}></Route>
             <Route path='/initiatives/results' element={<ListInitiativesResultsPage />}></Route>
             <Route path='/initiatives/edit/:initiative_id' element={<EditInitiativePage />}></Route>

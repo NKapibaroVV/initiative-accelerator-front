@@ -24,7 +24,7 @@ export default function ListOfAllInitiativesPage() {
                     setResults((prev) => [...prev, InitiativeBrick(element, initiativeProgress.edit)])
                 });
             } else {
-                setResults([<>На данный момент нечего проверить!</>])
+                setResults([<>Задания не найдены!</>])
             }
 
         }))
