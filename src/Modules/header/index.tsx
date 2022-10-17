@@ -4,7 +4,7 @@ import { getCookie, setCookie, removeCookie } from 'typescript-cookie'
 function Header() {
     const user = useGlobalUserState();
 
-    return <nav className="navbar navbar-white bg-white">
+    return <nav className="navbar navbar-white bg-light">
         <div className="container-fluid">
             <a className="navbar-brand ms-2" href="/"><img
                 style={{
@@ -24,43 +24,43 @@ function Header() {
                 <div className="offcanvas-body">
                     <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li className="nav-item">
-                            <a className="nav-link btn p-1 text-start" aria-current="page" href="/">Главная</a>
+                            <a className="nav-link p-1 text-start" aria-current="page" href="/">Главная</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link btn p-1 text-start" href="/cab">Кабинет</a>
+                            <a className="nav-link p-1 text-start" href="/cab">Кабинет</a>
                         </li>
                         {user.userParams.role == userRoles.Администратор ? <>
                             <li className="nav-item">
-                                <a className="nav-link btn p-1 text-start" href="/users">Редактировать участников</a>
+                                <a className="nav-link p-1 text-start" href="/users">Редактировать участников</a>
                             </li>
                         </> : <></>}
                         {user.userParams.role == userRoles.Модератор || user.userParams.role == userRoles.Администратор ?
                             <>
                                 <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/shop/edit">Редактировать магазин</a>
+                                    <a className="nav-link p-1 text-start" href="/shop/edit">Редактировать магазин</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/initiatives/edit">Редактировать задания</a>
+                                    <a className="nav-link p-1 text-start" href="/initiatives/edit">Редактировать задания</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link btn p-1 text-start" href="/initiatives/results">Проверка заданий</a>
+                                    <a className="nav-link p-1 text-start" href="/initiatives/results">Проверка заданий</a>
                                 </li>
                             </> : <></>}
                         {user.userParams.role != userRoles.default ? <>
                             <li className="nav-item">
-                                <a className="nav-link btn p-1 text-start" href="/rating">Рейтинг</a>
+                                <a className="nav-link p-1 text-start" href="/rating">Рейтинг</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn p-1 text-start" href="/shop/">Обменять баллы</a>
+                                <a className="nav-link p-1 text-start" href="/shop/">Обменять баллы</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn p-1 text-start" href="/shop/story">История обмена баллов</a>
+                                <a className="nav-link p-1 text-start" href="/shop/story">История обмена баллов</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn p-1 text-start" href="/profile">Редактировать профиль</a>
+                                <a className="nav-link p-1 text-start" href="/profile">Редактировать профиль</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn p-1 text-start" onClick={() => { removeCookie("userData"); window.location.assign("/"); }}>Выйти</a>
+                                <a className="nav-link p-1 text-start" onClick={() => { removeCookie("userData"); window.location.assign("/"); }}>Выйти</a>
                             </li>
                         </> : <></>}
                     </ul>

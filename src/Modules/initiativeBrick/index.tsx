@@ -2,6 +2,7 @@ import React, { createRef } from "react";
 import Iinitiative from "../../interfaces/initiative";
 import { useGlobalUserState } from "../User/User";
 import { Button, Card, Paper, Typography } from "@mui/material";
+import {SendSharp} from "@mui/icons-material";
 
 export enum initiativeProgress {
     "notStarted" = "notStarted",
@@ -136,8 +137,8 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                             </div>
                         </div>
                         <div className="col-12 col-md-6">
-                            <Button variant="outlined" className="w-100" onClick={sendInitiative}>
-                                Отправить!
+                            <Button variant="outlined" className="w-100" onClick={sendInitiative} endIcon={<SendSharp />}>
+                                Отправить
                             </Button>
                         </div>
                     </div>

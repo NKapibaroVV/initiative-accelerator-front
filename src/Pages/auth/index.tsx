@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { setCookie } from "typescript-cookie";
 import { IUser } from "../../Modules/User/User";
@@ -7,23 +8,23 @@ function AuthPage() {
     const loginFieldRef = React.createRef<HTMLInputElement>();
     const passwordFieldRef = React.createRef<HTMLInputElement>();
 
-    function authorize(){
+    function authorize() {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/auth/`, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: "POST",
-            
-            body: JSON.stringify({"email":loginFieldRef.current!.value, "password":passwordFieldRef.current!.value})
-        }).then(resp=>resp.json()).then((userData)=>{
-            let user:IUser = userData[0];
-            if(!!user&&!!user.id&&!!user.role&&user.role!="default"){
+
+            body: JSON.stringify({ "email": loginFieldRef.current!.value, "password": passwordFieldRef.current!.value })
+        }).then(resp => resp.json()).then((userData) => {
+            let user: IUser = userData[0];
+            if (!!user && !!user.id && !!user.role && user.role != "default") {
                 setCookie("userData", JSON.stringify(user));
                 document.location.assign("/cab")
-            }else{
+            } else {
                 alert("Неверный логин или пароль")
             }
-            
+
         })
     }
 
@@ -40,13 +41,12 @@ function AuthPage() {
                 <div className="col-md-7 col-10">
                     <div className="row">
                         <div className="col-6">
-                            <input type="button" className="form-control btn btn-info" onClick={(event) => {
-                        event.currentTarget.innerHTML = `<div class="spinner-border text-light" role="status"/>`;
-                        authorize();
-                    }} value="Войти" />
+                            <Button variant="contained" type="button" className="w-100" onClick={(event) => {
+                                authorize();
+                            }}>Войти</Button>
                         </div>
                         <div className="col-6">
-                            <a className="form-control btn btn-outline-info" href="/register">Регистрация</a>
+                            <Button variant="outlined" className="w-100" href="/register">Регистрация</Button>
                         </div>
                     </div>
                 </div>

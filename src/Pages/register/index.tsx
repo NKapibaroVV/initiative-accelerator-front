@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { createRef } from "react";
 import { setCookie } from "typescript-cookie";
 import { IUser, useGlobalUserState } from "../../Modules/User/User";
@@ -17,7 +18,7 @@ function RegPage() {
         if (passwordRef.current!.value!==passwordRepeatedRef.current!.value) {
             alert("Пароли не совпадают!")
         }else if(emailRef.current!.value.indexOf("@")<1||emailRef.current!.value.indexOf("@")>emailRef.current!.value.lastIndexOf(".")){
-
+            alert("Не все поля заполнены корректно!")
         }else{
             fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg/`, {
                 headers: {
@@ -62,15 +63,14 @@ function RegPage() {
                     <input className="form-control" type="password" name="repeatPassword" placeholder="Повтор пароля" ref={passwordRepeatedRef}/>
                 </div>
                 <div className="col-md-7 col-10">
-                    <div className="form-control btn btn-info" onClick={(event) => {
-                        event.currentTarget.innerHTML = `<div class="spinner-border text-light" role="status"/>`;
+                    <Button variant="contained" className="w-100" onClick={(event) => {
                         regAccount();
-                    }}>Зарегистрироваться</div>
+                    }}>Зарегистрироваться</Button>
                 </div>
                 <div className="col-md-7 col-10">
-                    <a className="form-control btn btn-outline-info" href="/auth">Войти</a>
+                    <Button variant="outlined" className="w-100" href="/auth">Войти</Button>
                 </div>
-                <div className="text-light text-center mt-5" style={{fontSize:"12px"}}>
+                <div className="text-dark text-center mt-5" style={{fontSize:"12px"}}>
                     Регистируясь, Вы даёте своё <a href="/presonal.txt">согласие</a> на обработку персональных данных.
                 </div>
 

@@ -5,7 +5,8 @@ import CheckAuth from "../../Modules/Check/CheckAuthorized";
 import { initializeTooltips } from "../../Modules/bootstrapUtilities/initializeTooltips";
 import Iinitiative, { initiativeCategory } from "../../interfaces/initiative";
 import preloader from "../../Modules/preloader";
-import { Card, Tooltip } from "@mui/material";
+import { Avatar, Card, Tooltip } from "@mui/material";
+import { blue } from "@mui/material/colors";
 
 function CabinetPage() {
     initializeTooltips();
@@ -212,7 +213,7 @@ function CabinetPage() {
         <CheckAuth>
             <div className="pt-4">
                 <div className="mx-2" style={{ minHeight: "80px" }}>
-                    <Card className="row py-3 gx-2 px-2 gy-2">
+                    <Card variant="outlined" className="row py-3 gx-2 px-2 gy-2">
                         <div className="col-md-5 col-12 justify-content-center">
                             <div className="row g-1">
                                 <Card variant="outlined" className="col-12 p-1">
@@ -220,7 +221,13 @@ function CabinetPage() {
                                         <div className="col-12 col-sm-4">
                                             <div className="d-block m-auto">
                                                 <div className="d-flex justify-content-center p-2">
-                                                    <i className="bi bi-person-circle hover-info-to-white fs-icon-5"></i>
+                                                <Avatar sx={{
+                                                    width:86,
+                                                    height:86,
+                                                    bgcolor: "#0dcaf0",
+                                                }}
+                                                className="py-2 my-3"
+                                                >{user.userParams.name.substring(0,1)}{user.userParams.surname.substring(0,1)}</Avatar>
                                                 </div>
                                             </div>
                                         </div>
