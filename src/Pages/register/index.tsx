@@ -70,6 +70,9 @@ function RegPage() {
                 <div className="col-md-7 col-10">
                     <a className="form-control btn btn-outline-info" href="/auth">Войти</a>
                 </div>
+                <div className="text-light text-center mt-5" style={{fontSize:"12px"}}>
+                    Регистируясь на сайте Вы даёте своё <a href="/presonal.txt">согласие</a> на обработку персональных данных в соответствии с 152 ст. ФЗ РФ.
+                </div>
 
             </div>
         </div>
