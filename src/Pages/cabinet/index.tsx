@@ -5,8 +5,9 @@ import CheckAuth from "../../Modules/Check/CheckAuthorized";
 import { initializeTooltips } from "../../Modules/bootstrapUtilities/initializeTooltips";
 import Iinitiative, { initiativeCategory } from "../../interfaces/initiative";
 import preloader from "../../Modules/preloader";
-import { Avatar, Card, Tooltip } from "@mui/material";
+import { Avatar, Card, Skeleton, Tooltip } from "@mui/material";
 import { blue } from "@mui/material/colors";
+import Preloader from "../../Modules/preloader";
 
 function CabinetPage() {
     initializeTooltips();
@@ -18,7 +19,10 @@ function CabinetPage() {
     const [startedInitiativesBriks, setStartedInitiativesBriks] = useState([preloader])
     const [notStartedInitiativesBriks, setNotStartedInitiativesBriks] = useState([preloader])
 
-    const [indicators, setIndicators] = useState(<></>)
+    const [indicators, setIndicators] = useState(<><Skeleton variant="rounded"  sx={{
+        width:"100%",
+        height:"144px",
+    }} /></>);
 
 
     let allInitiatives: { [id: string]: Iinitiative } = {};

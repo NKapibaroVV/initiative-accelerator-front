@@ -1,7 +1,10 @@
-let preloader = <div key={`preloader-${new Date().getTime()}`} style={{ width: "fit-content" }} className="mx-auto">
-    <div className="spinner-grow text-info mx-2" role="status" />
-    <div className="spinner-grow text-info mx-2" role="status" />
-    <div className="spinner-grow text-info mx-2" role="status" />
+import { Skeleton } from "@mui/material";
+
+let preloader = <div key={`preloader-${new Date().getTime()}`} className="mx-auto">
+    <Skeleton variant="rounded"  sx={{
+        width:"100%",
+        height:"190px",
+    }} />
 </div>
 
 export default preloader;
