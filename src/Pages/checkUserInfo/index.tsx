@@ -2,6 +2,7 @@ import { createRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Iinitiative from "../../interfaces/initiative";
 import IShopLogItem from "../../interfaces/shopLogItem";
+import CheckModerator from "../../Modules/Check/CheckModerator";
 import { initiativeProgress } from "../../Modules/initiativeBrick";
 import preloader from "../../Modules/preloader";
 import { IUser, useGlobalUserState } from "../../Modules/User/User";
@@ -178,113 +179,115 @@ export default function CheckUserInfoPage() {
 
     }, [])
 
-    return <>
-        <div className="fs-3 m-2 p-2 text-center">
-            Информация о пользователе
-        </div>
-        <div className="py-2">
-            <div className="fs-5 m-2 p-2 text-info">
-                Общая информация
+    return <CheckModerator>
+        <>
+            <div className="fs-3 m-2 p-2 text-center">
+                Информация о пользователе
             </div>
-            <table className="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Параметр</th>
-                        <th>Значение</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="col">Имя</th>
-                        <th ref={firstNameRef}>0000-0000</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Фамилия</th>
-                        <th ref={secondNameRef}>0000-0000</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Дата рождения</th>
-                        <th ref={birthRef}>0000-0000</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Логин</th>
-                        <th ref={loginRef}>0000-0000</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Баланс</th>
-                        <th ref={scoreRef}>0000-0000</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Баланс за всё время</th>
-                        <th>{sumBalance}</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Почта</th>
-                        <th ref={emailRef}>0000-0000</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Идентификатор</th>
-                        <th ref={idRef}>0000-0000</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Группа</th>
-                        <th ref={groupRef}>0000-0000</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Роль</th>
-                        <th ref={roleRef}>0000-0000</th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div className="py-2">
-            <div className="fs-5 m-2 p-2 text-info">
-                Завершенные инициативы
+            <div className="py-2">
+                <div className="fs-5 m-2 p-2 text-info">
+                    Общая информация
+                </div>
+                <table className="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Параметр</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col">Имя</th>
+                            <th ref={firstNameRef}>0000-0000</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Фамилия</th>
+                            <th ref={secondNameRef}>0000-0000</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Дата рождения</th>
+                            <th ref={birthRef}>0000-0000</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Логин</th>
+                            <th ref={loginRef}>0000-0000</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Баланс</th>
+                            <th ref={scoreRef}>0000-0000</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Баланс за всё время</th>
+                            <th>{sumBalance}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Почта</th>
+                            <th ref={emailRef}>0000-0000</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Идентификатор</th>
+                            <th ref={idRef}>0000-0000</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Группа</th>
+                            <th ref={groupRef}>0000-0000</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Роль</th>
+                            <th ref={roleRef}>0000-0000</th>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <table className="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Категория</th>
-                        <th>Заголовок</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {completedInitiativesBriks}
-                </tbody>
-            </table>
-        </div>
-        <div className="py-2">
-            <div className="fs-5 m-2 p-2 text-info">
-                Выполняемые инициативы
+            <div className="py-2">
+                <div className="fs-5 m-2 p-2 text-info">
+                    Завершенные инициативы
+                </div>
+                <table className="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Категория</th>
+                            <th>Заголовок</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {completedInitiativesBriks}
+                    </tbody>
+                </table>
             </div>
-            <table className="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Категория</th>
-                        <th>Заголовок</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {startedInitiativesBriks}
-                </tbody>
-            </table>
-        </div>
-        <div className="py-2">
-            <div className="fs-5 m-2 p-2 text-info">
-                Покупки
+            <div className="py-2">
+                <div className="fs-5 m-2 p-2 text-info">
+                    Выполняемые инициативы
+                </div>
+                <table className="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Категория</th>
+                            <th>Заголовок</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {startedInitiativesBriks}
+                    </tbody>
+                </table>
             </div>
-            <table className="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Цена</th>
-                        <th>Дата</th>
-                        <th>Заголовок</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {shopLogs}
-                </tbody>
-            </table>
-        </div>
-    </>
+            <div className="py-2">
+                <div className="fs-5 m-2 p-2 text-info">
+                    Покупки
+                </div>
+                <table className="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Цена</th>
+                            <th>Дата</th>
+                            <th>Заголовок</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {shopLogs}
+                    </tbody>
+                </table>
+            </div>
+        </>
+    </CheckModerator>
 }

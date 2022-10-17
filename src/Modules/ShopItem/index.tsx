@@ -54,6 +54,9 @@ export default function ShopItem(props: IShopItem, editButton?: boolean) {
                                 <div className={`btn ms-auto btn-outline-info `} onClick={() => { document.location.assign(`/shop/edit/${props.id}`) }}>
                                     Редактировать
                                 </div>
+                                <div className={`btn ms-auto btn-outline-info `} onClick={() => { document.location.assign(`/shop/stat/${props.id}`) }}>
+                                    Статистика
+                                </div>
                             </> : <></>}
 
                         </div>

@@ -29,6 +29,7 @@ import ListOfUsersPage from './Pages/listOfUsers';
 import EditUserPage from './Pages/editUserPage';
 import InitiativeStatPage from './Pages/initiativeStat';
 import CheckUserInfoPage from './Pages/checkUserInfo';
+import ShopItemStatPage from './Pages/shopItemStatPage';
 
 function Index() {
 
@@ -51,6 +52,7 @@ function Index() {
             <Route path='/shop' element={<ShopPage />}></Route>
             <Route path='/shop/story' element={<MyShopLogsPage />}></Route>
             <Route path='/shop/edit/:item_id' element={<EditShopItemPage />}></Route>
+            <Route path='/shop/stat/:item_id' element={<ShopItemStatPage />}></Route>
             <Route path='/shop/edit' element={<ShopItemsListPage />}></Route>
             <Route path='/shop/add' element={<AddShopItemPage />}></Route>
             <Route path='/initiatives/stat/:initiative_id' element={<InitiativeStatPage />}></Route>
