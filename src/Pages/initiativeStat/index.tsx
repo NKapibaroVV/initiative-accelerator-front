@@ -46,7 +46,7 @@ export default function InitiativeStatPage() {
         <div className="fs-3">
             Список участников
         </div>
-        <table className="table table-dark">
+        <table className="table ">
             <thead>
                 <tr>
                     <th scope="col">#</th>

@@ -43,7 +43,7 @@ export default function ShopItemStatPage() {
             <div className="fs-3 m-2 p-2 text-center">
                 Статистика по предмету магазина
             </div>
-            <table className="table table-dark">
+            <table className="table ">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

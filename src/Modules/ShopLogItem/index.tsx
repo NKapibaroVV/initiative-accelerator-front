@@ -1,8 +1,11 @@
+import { Card } from "@mui/material";
 import IShopLogItem from "../../interfaces/shopLogItem";
 
 export default function ShopLogItem(props: IShopLogItem) {
-    return <div className="my-3" key={props.id}>
-        <div className="bg-info text-dark rounded-4 w-100 h-100 p-2">
+    return <Card variant="outlined" className="my-3" key={props.id} sx={{
+        borderRadius:2
+    }}>
+        <div className="p-2">
             <div className="fs-5 fw-bold ps-2">
                 {props.title}
             </div>
@@ -19,5 +22,5 @@ export default function ShopLogItem(props: IShopLogItem) {
                 <>{`Время: ${new Date(props.time).toLocaleString()}`}</>
             </div>
         </div>
-    </div>
+    </Card>
 }

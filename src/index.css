@@ -32,7 +32,7 @@ div,p,span{
     transition: 0.5s ease-in-out;
 }
 .hover-info-to-white:hover{
-    color: var(--bs-white);
+    color: var(--bs-primary);
     transition: 0.5s ease-in-out;
 }
 

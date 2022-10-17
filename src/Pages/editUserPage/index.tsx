@@ -29,7 +29,7 @@ export default function EditUserPage() {
             })
         }).then(res => res.json().then(response => {
             alert("Пароль успешно сброшен! Вам нужно передать пароль пользователю, он указан ниже!")
-            setPasswordText(<div className="rounded p-2 m-2 w-100 bg-light text-dark">
+            setPasswordText(<div className="rounded p-2 m-2 w-100 bg-white text-dark">
                 {response.newPassword}
             </div>)
         }))

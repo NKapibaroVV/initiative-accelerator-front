@@ -4,7 +4,7 @@ import { getCookie, setCookie, removeCookie } from 'typescript-cookie'
 function Header() {
     const user = useGlobalUserState();
 
-    return <nav className="navbar navbar-dark bg-dark">
+    return <nav className="navbar navbar-white bg-white">
         <div className="container-fluid">
             <a className="navbar-brand ms-2" href="/"><img
                 style={{
@@ -16,10 +16,10 @@ function Header() {
             <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                 <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="offcanvas offcanvas-end text-bg-dark" tabIndex={-1} id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div className="offcanvas offcanvas-end text-bg-white" tabIndex={-1} id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">Навигация по сайту</h5>
-                    <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <button type="button" className="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
                     <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">

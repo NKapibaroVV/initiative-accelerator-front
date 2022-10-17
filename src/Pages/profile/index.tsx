@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { createRef, useEffect } from "react";
 import CheckAuth from "../../Modules/Check/CheckAuthorized";
 import { useGlobalUserState } from "../../Modules/User/User";
@@ -99,10 +100,12 @@ export default function ProfilePage() {
                     <input className="form-control" type="password" name="repeatPassword" placeholder="Повтор пароля" ref={passwordRepeatedRef} />
                 </div>
                 <div className="col-md-7 col-10">
-                    <div className="form-control btn btn-info" onClick={(event) => {
+                    <Button variant="outlined" className="w-100" onClick={(event) => {
                         event.currentTarget.innerHTML = `<div class="spinner-border text-light" role="status"/>`;
                         updateAccount();
-                    }}>Применить</div>
+                    }}>
+                        Применить
+                    </Button>
                 </div>
 
             </div>

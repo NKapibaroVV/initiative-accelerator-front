@@ -31,7 +31,7 @@ export default function ListOfAllInitiativesPage() {
     }, [])
     return <CheckModerator>
         <>
-            <div className="fs-3 text-center text-white">
+            <div className="fs-3 text-center text-primary">
                 Редактирование заданий
             </div>
             <div className="row justify-content-center gx-3 gy-2 my-3">

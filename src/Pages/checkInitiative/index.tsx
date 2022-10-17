@@ -74,7 +74,7 @@ export default function CheckInitiativePage() {
                 Check
             </button>
 
-            <div className="offcanvas offcanvas-bottom text-bg-dark" style={{ height: "80%" }} tabIndex={-1} id={`ofcanv${props.initiative_id}-${props.login}`} aria-labelledby={`#label${props.initiative_id}-${props.login}`}>
+            <div className="offcanvas offcanvas-bottom text-bg-white" style={{ height: "80%" }} tabIndex={-1} id={`ofcanv${props.initiative_id}-${props.login}`} aria-labelledby={`#label${props.initiative_id}-${props.login}`}>
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id={`#label${props.initiative_id}-${props.login}`}>{props.title} - {props.email}</h5>
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -167,7 +167,7 @@ export default function CheckInitiativePage() {
                 Описание: {info.content}
             </div>])
 
-            const table = <table className="table table-dark">
+            const table = <table className="table ">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

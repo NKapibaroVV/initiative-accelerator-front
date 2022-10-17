@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import { IShopItem } from "../../interfaces/shopItem";
 import CheckAuth from "../../Modules/Check/CheckAuthorized";
@@ -33,7 +34,7 @@ export default function ShopItemsListPage() {
             Изменение предметов магазина баллов
         </div>
         <div className="row justify-content-center gx-3 gy-2 my-3">
-            <a className="col-12 col-md-5 btn btn-outline-info mx-2" href="/shop/add">Создать предмет магазина</a>
+            <Button variant="outlined" className="col-12 col-md-5 mx-2" href="/shop/add">Создать предмет магазина</Button>
         </div>
         <>{result}</>
     </div>

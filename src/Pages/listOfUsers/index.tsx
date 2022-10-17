@@ -48,7 +48,7 @@ export default function ListOfUsersPage() {
             <div className="m-2 p-2 fs-3">
                 Редактирование пользователей
             </div>
-            <table className="table table-dark">
+            <table className="table ">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

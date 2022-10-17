@@ -188,7 +188,7 @@ export default function CheckUserInfoPage() {
                 <div className="fs-5 m-2 p-2 text-info">
                     Общая информация
                 </div>
-                <table className="table table-dark">
+                <table className="table ">
                     <thead>
                         <tr>
                             <th scope="col">Параметр</th>
@@ -243,7 +243,7 @@ export default function CheckUserInfoPage() {
                 <div className="fs-5 m-2 p-2 text-info">
                     Завершенные инициативы
                 </div>
-                <table className="table table-dark">
+                <table className="table ">
                     <thead>
                         <tr>
                             <th scope="col">Категория</th>
@@ -259,7 +259,7 @@ export default function CheckUserInfoPage() {
                 <div className="fs-5 m-2 p-2 text-info">
                     Выполняемые инициативы
                 </div>
-                <table className="table table-dark">
+                <table className="table ">
                     <thead>
                         <tr>
                             <th scope="col">Категория</th>
@@ -275,7 +275,7 @@ export default function CheckUserInfoPage() {
                 <div className="fs-5 m-2 p-2 text-info">
                     Покупки
                 </div>
-                <table className="table table-dark">
+                <table className="table ">
                     <thead>
                         <tr>
                             <th scope="col">Цена</th>
