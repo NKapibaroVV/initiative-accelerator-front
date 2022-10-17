@@ -106,7 +106,7 @@ function CabinetPage() {
                     }
 
                     setIndicators(
-                        <Card variant="outlined" className="row gx-0 px-2 py-3">
+                        <Card variant="outlined" className="row gx-0 px-2 py-3 h-100">
                             <Card variant="outlined" className="col-md-2 col-12">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Ответственность">
