@@ -71,7 +71,7 @@ function RegPage() {
                     <a className="form-control btn btn-outline-info" href="/auth">Войти</a>
                 </div>
                 <div className="text-light text-center mt-5" style={{fontSize:"12px"}}>
-                    Регистируясь на сайте Вы даёте своё <a href="/presonal.txt">согласие</a> на обработку персональных данных в соответствии с 152 ст. ФЗ РФ.
+                    Регистируясь, Вы даёте своё <a href="/presonal.txt">согласие</a> на обработку персональных данных.
                 </div>
 
             </div>
