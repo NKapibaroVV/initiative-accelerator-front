@@ -1,3 +1,4 @@
+import { TableRow, TableCell, Table, TableHead, TableBody, TableContainer, Card } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import Iinitiative from "../../interfaces/initiative";
@@ -9,7 +10,15 @@ export default function InitiativeStatPage() {
 
     const { initiative_id } = useParams();
 
-    const [members, setMembers] = useState([preloader])
+    const [members, setMembers] = useState([<TableRow key="2937h">
+        <TableCell>{preloader}</TableCell>
+        <TableCell>{preloader}</TableCell>
+        <TableCell>{preloader}</TableCell>
+        <TableCell>{preloader}</TableCell>
+        <TableCell>{preloader}</TableCell>
+        <TableCell>{preloader}</TableCell>
+        <TableCell>{preloader}</TableCell>
+</TableRow>])
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_initiative_members/`, {
@@ -27,15 +36,15 @@ export default function InitiativeStatPage() {
                 setMembers((prev) => {
                     counter += 1;
                     return [...prev,
-                    <tr key={`0${initiativeParams.id}-row`}>
-                        <th scope="row">{counter}</th>
-                        <td>{initiativeParams.name}</td>
-                        <td>{initiativeParams.surname}</td>
-                        <th>{!!initiativeParams.edu_group ? initiativeParams.edu_group : "Не указано"}</th>
-                        <th>{initiativeParams.email}</th>
-                        <th>{!!initiativeParams.link ? "Начато" : "Сдано"}</th>
-                        <th>{!!initiativeParams.checked && initiativeParams.checked == 1 ? "Проверено" : "Не проверено"}</th>
-                    </tr>
+                    <TableRow key={`0${initiativeParams.id}-row`}>
+                        <TableCell scope="row">{counter}</TableCell>
+                        <TableCell>{initiativeParams.name}</TableCell>
+                        <TableCell>{initiativeParams.surname}</TableCell>
+                        <TableCell>{!!initiativeParams.edu_group ? initiativeParams.edu_group : "Не указано"}</TableCell>
+                        <TableCell>{initiativeParams.email}</TableCell>
+                        <TableCell>{!!initiativeParams.link ? "Начато" : "Сдано"}</TableCell>
+                        <TableCell>{!!initiativeParams.checked && initiativeParams.checked == 1 ? "Проверено" : "Не проверено"}</TableCell>
+                    </TableRow>
                     ]
                 })
             });
@@ -46,21 +55,23 @@ export default function InitiativeStatPage() {
         <div className="fs-3">
             Список участников
         </div>
-        <table className="table ">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Имя</th>
-                    <th scope="col">Фамилия</th>
-                    <th scope="col">Группа</th>
-                    <th scope="col">Почта</th>
-                    <th scope="col">Статус</th>
-                    <th scope="col">Проверено</th>
-                </tr>
-            </thead>
-            <tbody>
-                {members}
-            </tbody>
-        </table>
+        <TableContainer component={Card} className="my-2">
+            <Table className="table ">
+                <TableHead>
+                    <TableRow>
+                        <TableCell scope="col">#</TableCell>
+                        <TableCell scope="col">Имя</TableCell>
+                        <TableCell scope="col">Фамилия</TableCell>
+                        <TableCell scope="col">Группа</TableCell>
+                        <TableCell scope="col">Почта</TableCell>
+                        <TableCell scope="col">Статус</TableCell>
+                        <TableCell scope="col">Проверено</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {members}
+                </TableBody>
+            </Table>
+        </TableContainer>
     </>
 }

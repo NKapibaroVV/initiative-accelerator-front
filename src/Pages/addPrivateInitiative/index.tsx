@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";
@@ -181,7 +182,7 @@ function AddPrivateInitiativePage() {
                     </div>
 
                     <div className="col-12">
-                        <div className="btn btn-outline-info rounded-4 p-2 w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); createInitiative() }}>Создать</div>
+                        <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); createInitiative() }}>Создать</Button>
                     </div>
 
                 </div>

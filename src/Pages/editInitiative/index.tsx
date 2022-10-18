@@ -5,6 +5,7 @@ import Iinitiative, { initiativeCategory } from "../../interfaces/initiative";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";
 import { useGlobalUserState } from "../../Modules/User/User";
+import { Button } from "@mui/material";
 
 export default function EditInitiativePage() {
     const { initiative_id } = useParams();
@@ -74,6 +75,9 @@ export default function EditInitiativePage() {
 
     return <CheckModerator>
         <div className="py-3">
+            <div className="fs-4 text-center mb-3 mt-0">
+                Редактирование задания
+            </div>
             <div className="row g-2">
 
                 <div className="col-md-6 col-12">
@@ -138,9 +142,9 @@ export default function EditInitiativePage() {
                     *Укажите ограничение по кол-ву пользователей = 0 для снятия ограничения.
                 </div>
                 <div className="col-12">
-                    <div className="btn btn-outline-info rounded-4 p-2 w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); updateInitiative() }}>
+                    <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); updateInitiative() }}>
                         Обновить до текущих значений
-                    </div>
+                    </Button>
                 </div>
 
             </div>

@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React from "react";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 
@@ -109,7 +110,7 @@ export default function AddPublicInitiativePage() {
                         *Укажите ограничение по кол-ву пользователей = 0 для снятия ограничения.
                     </div>
                     <div className="col-12">
-                        <div className="btn btn-outline-info rounded-4 p-2 w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); createInitiative() }}>Создать</div>
+                        <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); createInitiative() }}>Создать</Button>
                     </div>
 
                 </div>

@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import Iinitiative from "../../interfaces/initiative";
 import CheckModerator from "../../Modules/Check/CheckModerator";
@@ -35,8 +36,8 @@ export default function ListOfAllInitiativesPage() {
                 Редактирование заданий
             </div>
             <div className="row justify-content-center gx-3 gy-2 my-3">
-                <a className="col-12 col-md-5 btn btn-outline-info mx-2" href="/addPublicInitiative">Создать открытое задание</a>
-                <a className="col-12 col-md-5 btn btn-outline-info mx-2" href="/addPrivateInitiative">Создать приватное задание</a>
+                <Button variant="outlined" className="col-12 col-md-5 mx-2" href="/addPublicInitiative">Создать открытое задание</Button>
+                <Button variant="outlined" className="col-12 col-md-5 mx-2" href="/addPrivateInitiative">Создать приватное задание</Button>
             </div>
             {results}
         </>

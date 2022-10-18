@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { IShopItem } from "../../interfaces/shopItem";
@@ -91,9 +92,9 @@ export default function EditShopItemPage() {
                 *Поля "Можно купить до:" и "Ограничение по кол-ву покупок:" оставьте пустыми для снятия ограничений
             </div>
             <div className="col-12">
-                <div className="w-100 p-2 btn btn-outline-info" onClick={updateShopItem}>
+                <Button variant="contained" className="w-100" onClick={updateShopItem}>
                     Обновить до текущих значений
-                </div>
+                </Button>
             </div>
         </div>
     </div></CheckModerator>

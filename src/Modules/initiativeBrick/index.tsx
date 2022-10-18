@@ -103,7 +103,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                                 <Button variant="outlined" className={`col-5 me-2 mb-2 ms-2 ${!!props.link ? "" : "d-none"}`} href={props.link}>
                                     ВК
                                 </Button>
-                                <Button variant="outlined" className={` btn col-5 ${progress == initiativeProgress.edit ? "" : "d-none"}`} href={`/initiatives/stat/${props.id}`}>
+                                <Button variant="outlined" className={`col-5 mb-2 ms-2 ${progress == initiativeProgress.edit ? "" : "d-none"}`} href={`/initiatives/stat/${props.id}`}>
                                     Статистика
                                 </Button>
                                 <Button variant="outlined" className={`col-10 mb-2 ${progress == initiativeProgress.completed ? "d-none" : ""}`} onClick={secondButtonAction}>

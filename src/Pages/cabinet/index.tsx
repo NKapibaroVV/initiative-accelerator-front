@@ -5,7 +5,8 @@ import CheckAuth from "../../Modules/Check/CheckAuthorized";
 import { initializeTooltips } from "../../Modules/bootstrapUtilities/initializeTooltips";
 import Iinitiative, { initiativeCategory } from "../../interfaces/initiative";
 import preloader from "../../Modules/preloader";
-import { Avatar, Card, Skeleton, Tooltip } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Card, Skeleton, Tooltip } from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
 import Preloader from "../../Modules/preloader";
 
@@ -14,15 +15,21 @@ function CabinetPage() {
 
     const user = useGlobalUserState();
 
+    const [expanded, setExpanded] = React.useState<string | false>(false);
 
     const [completedInitiativesBriks, setCompletedInitiativesBriks] = useState([preloader])
     const [startedInitiativesBriks, setStartedInitiativesBriks] = useState([preloader])
     const [notStartedInitiativesBriks, setNotStartedInitiativesBriks] = useState([preloader])
 
-    const [indicators, setIndicators] = useState(<><Skeleton variant="rounded"  sx={{
-        width:"100%",
-        height:"144px",
+    const [indicators, setIndicators] = useState(<><Skeleton variant="rounded" sx={{
+        width: "100%",
+        height: "144px",
     }} /></>);
+
+    const changeExpanded =
+        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+            setExpanded(isExpanded ? panel : false);
+        };
 
 
     let allInitiatives: { [id: string]: Iinitiative } = {};
@@ -225,13 +232,13 @@ function CabinetPage() {
                                         <div className="col-12 col-sm-4">
                                             <div className="d-block m-auto">
                                                 <div className="d-flex justify-content-center p-2">
-                                                <Avatar sx={{
-                                                    width:86,
-                                                    height:86,
-                                                    bgcolor: "#0dcaf0",
-                                                }}
-                                                className="py-2 my-3"
-                                                >{user.userParams.name.substring(0,1)}{user.userParams.surname.substring(0,1)}</Avatar>
+                                                    <Avatar sx={{
+                                                        width: 86,
+                                                        height: 86,
+                                                        bgcolor: "#0dcaf0",
+                                                    }}
+                                                        className="py-2 my-3"
+                                                    >{user.userParams.name.substring(0, 1)}{user.userParams.surname.substring(0, 1)}</Avatar>
                                                 </div>
                                             </div>
                                         </div>
@@ -259,17 +266,37 @@ function CabinetPage() {
                     </Card>
 
 
-                    <div className="py-3">
-                        <h3 className="border-bottom border-3 border-dark">Завершенные инициативы</h3>
-                        <>{completedInitiativesBriks}</>
-                    </div>
+
                     <div className="py-3">
                         <h3 className="border-bottom border-3 border-dark">Начатые инициативы</h3>
                         <>{startedInitiativesBriks}</>
                     </div>
                     <div className="py-3">
+                        <h3 className="border-bottom border-3 border-dark">Завершенные инициативы</h3>
+                        <Accordion expanded={expanded === "completedExpanded"} onChange={changeExpanded("completedExpanded")}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMore />}
+                                aria-controls="panel1bh-content"
+                                id="panel1bh-header"
+                            >
+                                Откройте выпадающий список, чтобы посмотреть все завершенные инициативы
+                            </AccordionSummary>
+                            <AccordionDetails>{completedInitiativesBriks}</AccordionDetails>
+                        </Accordion>
+                    </div>
+                    <div className="py-3">
                         <h3 className="border-bottom border-3 border-dark">Не начатые инициативы</h3>
-                        <>{notStartedInitiativesBriks}</>
+                        <Accordion expanded={expanded === "notStartedExpanded"} onChange={changeExpanded("notStartedExpanded")}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMore />}
+                                aria-controls="panel1bh-content"
+                                id="panel1bh-header"
+                            >
+                                Откройте выпадающий список, чтобы посмотреть все доступные инициативы
+                            </AccordionSummary>
+                            <AccordionDetails>{notStartedInitiativesBriks}</AccordionDetails>
+                        </Accordion>
+
                     </div>
 
                 </div>

@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { createRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import CheckAdmin from "../../Modules/Check/CheckAdmin";
@@ -118,14 +119,18 @@ export default function EditUserPage() {
 
 
                     <div className="col-md-7 col-10">
-                        <div className="form-control btn btn-info" onClick={(event) => {
+                        <Button variant="contained" className="w-100" onClick={(event) => {
                             event.currentTarget.innerHTML = `<div class="spinner-border text-light" role="status"/>`;
                             updateAccount();
-                        }}>Применить</div>
+                        }}>
+                            Применить
+                        </Button>
                     </div>
                     {passwordText}
-                    <div className="col-md-7 col-10 btn btn-outline-info" onClick={resetPassword}>
-                        Cбросить пароль
+                    <div className="col-md-7 col-10" onClick={resetPassword}>
+                        <Button variant="outlined" className="w-100">
+                            Cбросить пароль
+                        </Button>
                     </div>
 
                 </div>

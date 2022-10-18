@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React from "react";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import { useGlobalUserState } from "../../Modules/User/User";
@@ -71,9 +72,9 @@ export default function AddShopItemPage() {
                 *Поля "Можно купить до:" и "Ограничение по кол-ву покупок:" оставьте пустыми для снятия ограничений
             </div>
             <div className="col-12">
-                <div className="w-100 p-2 btn btn-outline-info" onClick={addNewShopItem}>
+                <Button variant="contained" className="w-100" onClick={addNewShopItem}>
                     Создать
-                </div>
+                </Button>
             </div>
         </div>
     </div></CheckModerator>
