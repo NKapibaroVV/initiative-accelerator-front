@@ -113,9 +113,9 @@ function CabinetPage() {
                     }
 
                     setIndicators(
-                        <Card variant="outlined" className="row gx-0 px-2 py-3 h-100">
+                        <Card variant="outlined" className="row gx-0 px-2 py-2 h-100">
                             <Card variant="outlined" className="col-md-2 col-12">
-                                <div className="row justify-content-center hover-info-to-white">
+                                <div className="row justify-content-center hover-info-to-white ">
                                     <Tooltip title="Ответственность">
                                         <div className="row">
                                             <div className=" d-flex justify-content-center">
@@ -224,7 +224,7 @@ function CabinetPage() {
         <CheckAuth>
             <div className="pt-4">
                 <div className="mx-2" style={{ minHeight: "80px" }}>
-                    <Card variant="outlined" className="row py-3 gx-2 px-2 gy-2">
+                    <Card variant="outlined" className="row py-3 h-100 gx-2 px-2 gy-2">
                         <div className="col-md-5 col-12 justify-content-center">
                             <div className="row g-1">
                                 <Card variant="outlined" className="col-12 p-1">
