@@ -11,13 +11,12 @@ function AuthPage() {
 
     function authorize() {
         console.log(SHA512(passwordFieldRef.current!.value).toString())
-            console.log(SHA512(SHA512(passwordFieldRef.current!.value).toString()).toString())
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/auth/`, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: "POST",
-            body: JSON.stringify({ "email": loginFieldRef.current!.value, "password": SHA512(passwordFieldRef.current!.value).toString() })
+            body: JSON.stringify({ "email": loginFieldRef.current!.value, "password": passwordFieldRef.current!.value })
         }).then(resp => resp.json()).then((userData) => {
             let user: IUser = userData[0];
             if (!!user && !!user.id && !!user.role && user.role != "default") {
