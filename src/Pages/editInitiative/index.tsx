@@ -5,10 +5,12 @@ import Iinitiative, { initiativeCategory } from "../../interfaces/initiative";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";
 import { useGlobalUserState } from "../../Modules/User/User";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 export default function EditInitiativePage() {
     const { initiative_id } = useParams();
+
+    const [deleteDialogShown, setDeleteDialogShown] = useState(false);
 
     let titleRef = React.createRef<HTMLInputElement>();
     let incomeRef = React.createRef<HTMLInputElement>();
@@ -49,6 +51,8 @@ export default function EditInitiativePage() {
         }))
     }
 
+    let deleteInitiative = () => { } //изменяется ниже в эффекте
+
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_initiative_params/`, {
             headers: {
@@ -70,10 +74,26 @@ export default function EditInitiativePage() {
             usersCountRef.current!.value = !!initiative.users_limit ? initiative.users_limit.toString() : "0";
             categoryRef.current!.value = initiative.category;
             contentRef.current!.value = initiative.content;
+
+            deleteInitiative = () => {
+                fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/completely_delete_initiative/`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+
+                    body: JSON.stringify({ token: user.userParams.token, initiative_id: initiative_id })
+                }).then(resp=>resp.json().then(
+                    (response)=>{
+                        alert("Удалено!");
+                    }
+                ))
+            };
         }))
     }, [])
 
-    return <CheckModerator>
+    return <CheckModerator><>
+
         <div className="py-3">
             <div className="fs-4 text-center mb-3 mt-0">
                 Редактирование задания
@@ -145,9 +165,36 @@ export default function EditInitiativePage() {
                     <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); updateInitiative() }}>
                         Обновить до текущих значений
                     </Button>
+                    <Button variant="outlined" className="w-100 mt-3" onClick={(clickedElement) => { setDeleteDialogShown(true) }} color="error">
+                        УДАЛИТЬ
+                    </Button>
                 </div>
 
             </div>
         </div>
+
+        <Dialog
+            open={deleteDialogShown}
+            onClose={() => { setDeleteDialogShown(false) }}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">
+                {"Вы действительно хотите удалить это задание?"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    После удаления этого задания оно перестанет отображать у любых
+                    пользователей в любых списках (ВКЛЮЧАЯ ВАС!), а баллы, полученные ранее пользователями за это задание, останутся у них.
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={() => { alert("Удаление в разработке"); setDeleteDialogShown(false) }} color="error">
+                    Удалить!
+                </Button>
+                <Button onClick={() => { setDeleteDialogShown(false) }} autoFocus color="success" variant="contained">НЕТ! Не нужно удалять!</Button>
+            </DialogActions>
+        </Dialog>
+    </>
     </CheckModerator>
 }
