@@ -7,6 +7,9 @@ import preloader from "../../Modules/preloader";
 import { useGlobalUserState } from "../../Modules/User/User";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
+
+let deleteInitiative = () => { } 
+
 export default function EditInitiativePage() {
     const { initiative_id } = useParams();
 
@@ -51,7 +54,6 @@ export default function EditInitiativePage() {
         }))
     }
 
-    let deleteInitiative = () => { } //изменяется ниже в эффекте
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_initiative_params/`, {
@@ -86,6 +88,7 @@ export default function EditInitiativePage() {
                 }).then(resp=>resp.json().then(
                     (response)=>{
                         alert("Удалено!");
+                        document.location.assign("/initiatives/edit");
                     }
                 ))
             };
