@@ -189,7 +189,7 @@ export default function EditInitiativePage() {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => { alert("Удаление в разработке"); setDeleteDialogShown(false) }} color="error">
+                <Button onClick={() => { deleteInitiative(); setDeleteDialogShown(false) }} color="error">
                     Удалить!
                 </Button>
                 <Button onClick={() => { setDeleteDialogShown(false) }} autoFocus color="success" variant="contained">НЕТ! Не нужно удалять!</Button>
