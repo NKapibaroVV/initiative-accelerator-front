@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import Iinitiative, { initiativeCategory } from "../../interfaces/initiative";
 import CheckModerator from "../../Modules/Check/CheckModerator";
@@ -70,13 +70,13 @@ export default function CheckInitiativePage() {
         }
 
         return <>
-            <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target={`#ofcanv${props.initiative_id}-${props.login}`} aria-controls={`#${props.initiative_id}-${props.login}`}>
+            <button className="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target={`#c${props.user_id}`} aria-controls={`ofcanv${props.initiative_id}-${props.login}`}>
                 Check
             </button>
 
-            <div className="offcanvas offcanvas-bottom text-bg-white" style={{ height: "80%" }} tabIndex={-1} id={`ofcanv${props.initiative_id}-${props.login}`} aria-labelledby={`#label${props.initiative_id}-${props.login}`}>
+            <div className="offcanvas offcanvas-bottom text-bg-white" data-bs-backdrop="static" style={{ height: "80%" }} tabIndex={-1} id={`c${props.user_id}`} aria-labelledby={`#label${props.initiative_id}-${props.login}`}>
                 <div className="offcanvas-header">
-                    <h5 className="offcanvas-title" id={`#label${props.initiative_id}-${props.login}`}>{props.title} - {props.email}</h5>
+                    <h5 className="offcanvas-title" id={`label${props.initiative_id}-${props.login}`}>{props.title} - {props.email}</h5>
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
