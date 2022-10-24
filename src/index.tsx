@@ -55,9 +55,9 @@ function Index() {
             <Route path='/shop/stat/:item_id' element={<ShopItemStatPage />}></Route>
             <Route path='/shop/edit' element={<ShopItemsListPage />}></Route>
             <Route path='/shop/add' element={<AddShopItemPage />}></Route>
-            <Route path='/initiatives/stat/:initiative_id' element={<InitiativeStatPage />}></Route>
             <Route path='/initiatives/edit' element={<ListOfAllInitiativesPage />}></Route>
             <Route path='/initiatives/results' element={<ListInitiativesResultsPage />}></Route>
+            <Route path='/initiatives/stat/:initiative_id' element={<InitiativeStatPage />}></Route>
             <Route path='/initiatives/edit/:initiative_id' element={<EditInitiativePage />}></Route>
             <Route path='/initiatives/check/:initiative_id' element={<CheckInitiativePage />}></Route>
             <Route path='/addPrivateInitiative' element={<AddPrivateInitiativePage />}></Route>
