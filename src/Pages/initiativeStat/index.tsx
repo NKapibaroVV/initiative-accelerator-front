@@ -42,7 +42,7 @@ export default function InitiativeStatPage() {
                         <TableCell>{initiativeParams.surname}</TableCell>
                         <TableCell>{!!initiativeParams.edu_group ? initiativeParams.edu_group : "Не указано"}</TableCell>
                         <TableCell>{initiativeParams.email}</TableCell>
-                        <TableCell>{!!initiativeParams.checked && typeof(initiativeParams.checked)=="undefined" ? "Начато" : "Сдано"}</TableCell>
+                        <TableCell>{!initiativeParams.checked||initiativeParams.checked==null? "Начато" : "Сдано"}</TableCell>
                         <TableCell>{!!initiativeParams.checked && initiativeParams.checked == 1 ? "Проверено" : "Не проверено"}</TableCell>
                     </TableRow>
                     ]
