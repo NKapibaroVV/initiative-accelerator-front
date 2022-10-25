@@ -1,10 +1,11 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import { useGlobalUserState } from "../../Modules/User/User";
 
 export default function AddShopItemPage() {
 
+    const [btnDisabled, setBtnDisabled] = useState(false);
     const user = useGlobalUserState();
     let costRef = React.createRef<HTMLInputElement>();
     let titleRef = React.createRef<HTMLInputElement>();
@@ -72,7 +73,7 @@ export default function AddShopItemPage() {
                 *Поля "Можно купить до:" и "Ограничение по кол-ву покупок:" оставьте пустыми для снятия ограничений
             </div>
             <div className="col-12">
-                <Button variant="contained" className="w-100" onClick={addNewShopItem}>
+                <Button variant="contained" className="w-100" disabled={btnDisabled} onClick={()=>{addNewShopItem();setBtnDisabled(true)}}>
                     Создать
                 </Button>
             </div>
