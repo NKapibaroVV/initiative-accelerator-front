@@ -41,6 +41,7 @@ export default function AddShopItemPage() {
             }))
         } else {
             alert("Не выполнено! Проверьте правильность заполнения полей!");
+            setBtnDisabled(false);
         }
 
     }
