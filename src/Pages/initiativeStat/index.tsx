@@ -2,6 +2,7 @@ import { TableRow, TableCell, Table, TableHead, TableBody, TableContainer, Card,
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import Iinitiative from "../../interfaces/initiative";
+import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";
 import { IUser, useGlobalUserState } from "../../Modules/User/User";
 
@@ -51,7 +52,7 @@ export default function InitiativeStatPage() {
         }))
     }, [])
 
-    return <>
+    return <CheckModerator><>
         <div className="fs-3">
             Список участников
         </div>
@@ -74,4 +75,5 @@ export default function InitiativeStatPage() {
             </Table>
         </TableContainer>
     </>
+    </CheckModerator>
 }
