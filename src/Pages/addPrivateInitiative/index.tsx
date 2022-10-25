@@ -182,7 +182,7 @@ function AddPrivateInitiativePage() {
                     </div>
 
                     <div className="col-12">
-                        <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); createInitiative() }}>Создать</Button>
+                        <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.disabled=true; createInitiative() }}>Создать</Button>
                     </div>
 
                 </div>
