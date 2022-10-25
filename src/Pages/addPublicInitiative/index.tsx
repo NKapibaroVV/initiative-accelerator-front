@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 
 import { useGlobalUserState } from "../../Modules/User/User";
 
 export default function AddPublicInitiativePage() {
     const user = useGlobalUserState();
+
+    const [btnDisabled, setBtnDisabled] = useState(false);
 
     let titleRef = React.createRef<HTMLInputElement>();
     let incomeRef = React.createRef<HTMLInputElement>();
@@ -20,27 +22,32 @@ export default function AddPublicInitiativePage() {
     let categoryRef = React.createRef<HTMLSelectElement>();
 
     function createInitiative() {
-        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/add_initiative/`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
+        if (titleRef.current!.value.length > 0) {
+            fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/add_initiative/`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
 
-            body: JSON.stringify({
-                token: user.userParams.token,
-                title: titleRef.current?.value,
-                income: incomeRef.current?.value,
-                take_deadline: new Date(`${takeDayRef.current?.value} ${takeTimeRef.current?.value}`).getTime(),
-                complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
-                content: contentRef.current?.value,
-                category: categoryRef.current?.value,
-                users_limit: usersCountRef.current?.value == "" || usersCountRef.current?.value == "0" ? null : usersCountRef.current?.value
-            })
-        }).then(res => res.json().then((response: any) => {
-            console.log(response)
-            alert("Создано!");
-            document.location.reload();
-        }))
+                body: JSON.stringify({
+                    token: user.userParams.token,
+                    title: titleRef.current?.value,
+                    income: incomeRef.current?.value,
+                    take_deadline: new Date(`${takeDayRef.current?.value} ${takeTimeRef.current?.value}`).getTime(),
+                    complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
+                    content: contentRef.current?.value,
+                    category: categoryRef.current?.value,
+                    users_limit: usersCountRef.current?.value == "" || usersCountRef.current?.value == "0" ? null : usersCountRef.current?.value
+                })
+            }).then(res => res.json().then((response: any) => {
+                console.log(response)
+                alert("Создано!");
+                document.location.reload();
+            }))
+        } else {
+            alert("Длинна заголовка меньше 1 символа!");
+            setBtnDisabled(false)
+        }
     }
 
     return <>
@@ -110,7 +117,7 @@ export default function AddPublicInitiativePage() {
                         *Укажите ограничение по кол-ву пользователей = 0 для снятия ограничения.
                     </div>
                     <div className="col-12">
-                        <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.disabled=true; createInitiative() }}>Создать</Button>
+                        <Button variant="outlined" className="w-100" disabled={btnDisabled} onClick={(clickedElement) => { setBtnDisabled(true); createInitiative() }}>Создать</Button>
                     </div>
 
                 </div>
