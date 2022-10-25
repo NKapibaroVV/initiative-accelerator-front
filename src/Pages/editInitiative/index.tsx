@@ -165,7 +165,7 @@ export default function EditInitiativePage() {
                     *Укажите ограничение по кол-ву пользователей = 0 для снятия ограничения.
                 </div>
                 <div className="col-12">
-                    <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.classList.add("disabled"); updateInitiative() }}>
+                    <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.disabled=true; updateInitiative() }}>
                         Обновить до текущих значений
                     </Button>
                     <Button variant="outlined" className="w-100 mt-3" onClick={(clickedElement) => { setDeleteDialogShown(true) }} color="error">
