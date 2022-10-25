@@ -11,6 +11,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 let deleteInitiative = () => { } 
 
 export default function EditInitiativePage() {
+    const [btnDisabled, setBtnDisabled] = useState(false);
+
     const { initiative_id } = useParams();
 
     const [deleteDialogShown, setDeleteDialogShown] = useState(false);
@@ -168,7 +170,7 @@ export default function EditInitiativePage() {
                     <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.disabled=true; updateInitiative() }}>
                         Обновить до текущих значений
                     </Button>
-                    <Button variant="outlined" className="w-100 mt-3" onClick={(clickedElement) => { setDeleteDialogShown(true) }} color="error">
+                    <Button variant="outlined" className="w-100 mt-3" disabled={btnDisabled} onClick={(clickedElement) => {setBtnDisabled(true); setDeleteDialogShown(true) }} color="error">
                         УДАЛИТЬ
                     </Button>
                 </div>
