@@ -6,6 +6,8 @@ import { IUser, useGlobalUserState } from "../../Modules/User/User";
 function AddPrivateInitiativePage() {
     const currentUser = useGlobalUserState();
 
+    const [btnDisabled, setBtnDisabled] = useState(false);
+
     const [countOfUsers, setCountOfUsers] = useState(0)
     let usersSelectsRefs: any = useRef([]);
     usersSelectsRefs.current = [];
@@ -38,48 +40,55 @@ function AddPrivateInitiativePage() {
             selectedUsers?.push(JSON.parse(el.value));
         })
         console.log(selectedUsers)
-        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/add_initiative/`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
 
-            body: JSON.stringify({
-                token: currentUser.userParams.token,
-                title: titleRef.current?.value,
-                income: incomeRef.current?.value,
-                take_deadline: new Date().getTime() - 1000,
-                complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
-                content: contentRef.current?.value,
-                category: categoryRef.current?.value,
-                users_limit: Object.keys(selectedUsers!).length
-            })
-        }).then(res => res.json().then((response: any) => {
-
-            new Promise((resolve: any, reject: any) => {
-                let count = 0;
-                selectedUsers?.forEach((selectedUser: IUser) => {
-                    fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/start_initiative/`, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        method: "POST",
-
-                        body: JSON.stringify({ token: selectedUser!.token, initiative_id: response[0].id })
-                    }).then(() => {
-                        count += 1;
-                        if (count == Object.keys(selectedUsers!).length) {
-                            resolve();
-                        }
-                    })
+        if (titleRef.current!.value.length>0) {
+            fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/add_initiative/`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+    
+                body: JSON.stringify({
+                    token: currentUser.userParams.token,
+                    title: titleRef.current?.value,
+                    income: incomeRef.current?.value,
+                    take_deadline: new Date().getTime() - 1000,
+                    complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
+                    content: contentRef.current?.value,
+                    category: categoryRef.current?.value,
+                    users_limit: Object.keys(selectedUsers!).length
                 })
-
-            }).then(() => {
-                alert("Создано и назначено пользователям!");
-                document.location.reload();
-            })
-
-        }))
+            }).then(res => res.json().then((response: any) => {
+    
+                new Promise((resolve: any, reject: any) => {
+                    let count = 0;
+                    selectedUsers?.forEach((selectedUser: IUser) => {
+                        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/start_initiative/`, {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            method: "POST",
+    
+                            body: JSON.stringify({ token: selectedUser!.token, initiative_id: response[0].id })
+                        }).then(() => {
+                            count += 1;
+                            if (count == Object.keys(selectedUsers!).length) {
+                                resolve();
+                            }
+                        })
+                    })
+    
+                }).then(() => {
+                    alert("Создано и назначено пользователям!");
+                    document.location.reload();
+                })
+    
+            }))
+        }else{
+            alert("Длинна заголовка меньше 1 символа!");
+            setBtnDisabled(false);
+        }
+        
     }
 
 
@@ -182,7 +191,7 @@ function AddPrivateInitiativePage() {
                     </div>
 
                     <div className="col-12">
-                        <Button variant="outlined" className="w-100" onClick={(clickedElement) => { clickedElement.currentTarget.disabled=true; createInitiative() }}>Создать</Button>
+                        <Button variant="outlined" className="w-100" disabled={btnDisabled} onClick={(clickedElement) => {setBtnDisabled(true); createInitiative() }}>Создать</Button>
                     </div>
 
                 </div>
