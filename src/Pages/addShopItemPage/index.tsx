@@ -75,7 +75,7 @@ export default function AddShopItemPage() {
                 *Поля "Можно купить до:" и "Ограничение по кол-ву покупок:" оставьте пустыми для снятия ограничений
             </div>
             <div className="col-12">
-                <Button variant="contained" className="w-100" disabled={btnDisabled} onClick={()=>{addNewShopItem();setBtnDisabled(true)}}>
+                <Button variant="contained" className="w-100" disabled={btnDisabled} onClick={()=>{setBtnDisabled(true);addNewShopItem();}}>
                     Создать
                 </Button>
             </div>
