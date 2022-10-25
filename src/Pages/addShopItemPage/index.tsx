@@ -40,8 +40,9 @@ export default function AddShopItemPage() {
                 document.location.reload();
             }))
         } else {
-            alert("Не выполнено! Проверьте правильность заполнения полей!");
             setBtnDisabled(false);
+            alert("Не выполнено! Проверьте правильность заполнения полей!");
+            
         }
 
     }
