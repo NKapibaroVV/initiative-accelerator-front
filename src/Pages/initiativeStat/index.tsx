@@ -29,10 +29,10 @@ export default function InitiativeStatPage() {
 
             body: JSON.stringify({ token: currentUser.userParams.token, initiative_id: initiative_id })
         }).then(res => res.json().then(response => {
-            console.log(response);
             setMembers([]);
             let counter: number = 0;
             response.forEach((initiativeParams: Iinitiative & IUser) => {
+                console.log(initiativeParams)
                 setMembers((prev) => {
                     counter += 1;
                     return [...prev,
@@ -42,8 +42,8 @@ export default function InitiativeStatPage() {
                         <TableCell>{initiativeParams.surname}</TableCell>
                         <TableCell>{!!initiativeParams.edu_group ? initiativeParams.edu_group : "Не указано"}</TableCell>
                         <TableCell>{initiativeParams.email}</TableCell>
-                        <TableCell>{initiativeParams.checked==0? "Начато" : "Сдано"}</TableCell>
-                        <TableCell>{initiativeParams.checked == 1 ? "Проверено" : "Не проверено"}</TableCell>
+                        <TableCell>{!new Object(initiativeParams).hasOwnProperty("checked")?"Начато":initiativeParams.checked==1?"Сдано":"Сдано"}</TableCell>
+                        <TableCell>{!new Object(initiativeParams).hasOwnProperty("checked")?"Не сдано":initiativeParams.checked==1?"Проверено":"Не проверено"}</TableCell>
                     </TableRow>
                     ]
                 })
