@@ -2,7 +2,7 @@ import React, { createRef } from "react";
 import Iinitiative from "../../interfaces/initiative";
 import { useGlobalUserState } from "../User/User";
 import { Button, Card, Paper, Typography } from "@mui/material";
-import {SendSharp} from "@mui/icons-material";
+import { SendSharp } from "@mui/icons-material";
 
 export enum initiativeProgress {
     "notStarted" = "notStarted",
@@ -17,6 +17,7 @@ export enum initiativeProgress {
 function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
     const user = useGlobalUserState();
 
+    let startInitiativeCanvasRef = React.createRef<HTMLDivElement>();
     let sendCanvasRef = React.createRef<HTMLDivElement>();
     let sendInputRef = React.createRef<HTMLTextAreaElement>();
 
@@ -51,7 +52,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
     let secondButtonAction = () => {
         switch (progress) {
             case initiativeProgress.notStarted:
-                startInitiative();
+                startInitiativeCanvasRef.current?.classList.add("show");
                 break;
             case initiativeProgress.started:
                 sendCanvasRef.current?.classList.add("show");
@@ -114,6 +115,47 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                     </div>
                 </div>
             </div>
+
+            <div className="offcanvas offcanvas-bottom text-primary offcanvas-60vh" ref={startInitiativeCanvasRef} tabIndex={-1} id={`start${props.id}`} aria-labelledby={`start${props.id}Label`}>
+                <div className="offcanvas-header">
+                    <h5 className="offcanvas-title" id={`start${props.id}Label`}>{`${props.title}`}</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" onClick={() => { startInitiativeCanvasRef.current?.classList.remove("show"); }} aria-label="Close"></button>
+                </div>
+                <div className="offcanvas-body small">
+                    <p className="fs-5">Нажимая "Начать", вы берёте на себя ответственность за качественное и своевременное выполнение задания.</p>
+                    <p className="fs-5">Эта операция не может быть отменена позже.</p>
+                    <br />
+                    <p className="fs-5">О задании:</p>
+                    <div>
+                        <Typography className="">
+                            <>Выполнить до {new Date(props.deadline_complete).toLocaleDateString()} {new Date(props.deadline_complete).toLocaleTimeString()}</>
+                        </Typography>
+                        <Typography className=" m-auto">
+                            +{props.income} баллов
+                        </Typography>
+                        <Typography className="" mt={2}>
+                            <>Взяли {props.users_taken} из {!!props.users_limit ? props.users_limit : "∞"} пользователей</>
+                        </Typography>
+                    </div>
+                </div>
+                <div className="offcanvas-body small">
+                    <div className="row g-2">
+                        <div className="col-12 col-md-6">
+                            <Button variant="contained" className="w-100" color="success"
+                                onClick={() => {
+                                    startInitiativeCanvasRef.current?.classList.remove("show");
+                                }}>Отказаться</Button>
+                        </div>
+                        <div className="col-12 col-md-6">
+                            <Button variant="outlined" className="w-100" color="warning"
+                                onClick={() => {
+                                    startInitiative();
+                                }}>Начать</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="offcanvas offcanvas-bottom text-primary offcanvas-60vh" tabIndex={-1} id={`msg${props.id}`} aria-labelledby={`msg${props.id}Label`}>
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id={`msg${props.id}Label`}>{`${props.title}`}</h5>
