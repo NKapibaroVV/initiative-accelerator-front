@@ -1,5 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
+import Select from 'react-select'
+import { json } from "stream/consumers";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";
 import { IUser, useGlobalUserState } from "../../Modules/User/User";
@@ -29,15 +31,13 @@ function AddPrivateInitiativePage() {
     let categoryRef = React.createRef<HTMLSelectElement>();
     let selectedUsers: IUser[] | null = null;
 
-    const [users, setUsers] = useState([preloader])
-    const [usersSelects, setUsersSelects] = useState([<select key={"index"} className="form-select" aria-label="">
-        {users}
-    </select>])
+    const [users, setUsers] = useState([{label:"", value:""}])
+    const [usersSelects, setUsersSelects] = useState([<select key={"index"} className="form-select" aria-label=""/>])
 
     function createInitiative() {
         selectedUsers = []
         usersSelectsRefs.current.forEach((el: any) => {
-            selectedUsers?.push(JSON.parse(el.value));
+            selectedUsers?.push(JSON.parse(el.props.value.value));
         })
         console.log(selectedUsers)
 
@@ -103,8 +103,9 @@ function AddPrivateInitiativePage() {
             body: JSON.stringify({ token: currentUser.userParams.token })
         }).then(res => res.json().then(
             (response: IUser[]) => {
+                setUsers([]);
                 response.forEach((user: IUser) => {
-                    setUsers((prev) => [...prev, <option value={JSON.stringify(user)}>{user.name} {user.surname} ({user.email})</option>])
+                    setUsers((prev) => [...prev, {label:`${user.name} ${user.surname} (${user.email})`, value:JSON.stringify(user)}])
                 })
                 setCountOfUsers(1);
             }
@@ -114,9 +115,7 @@ function AddPrivateInitiativePage() {
     useEffect(() => {
         setUsersSelects([]);
         for (let index = 0; index < countOfUsers; index++) {
-            let element = <select key={index} className="form-select" aria-label="" ref={addToSelectsRefs}>
-                {users}
-            </select>
+            let element = <Select key={index} options={users} className="form-select" aria-label="" ref={addToSelectsRefs}/>
             setUsersSelects((prev) => [...prev, element])
         }
     }, [countOfUsers])
