@@ -310,8 +310,8 @@ function CabinetPage() {
                     </Card>
 
                     <Card variant="outlined" className="w-100 p-3 mt-3">
-                        {displayedBricks.length < 1 ? <Typography align="center">Кажется, в этом разделе пусто<BubbleChartIcon/></Typography> : displayedBricks == notStartedInitiativesBriks ?
-                            <Typography align="center">Не начатые инициативы<StartIcon/></Typography> : displayedBricks == startedInitiativesBriks?<Typography align="center">Начатые инициативы<DoneIcon/></Typography>:<Typography align="center">Завершенные инициативы<DoneAllIcon/></Typography>}
+                        {displayedBricks.length < 1 ? <Typography align="center">Кажется, в этом разделе пусто<BubbleChartIcon className="ms-1"/></Typography> : displayedBricks == notStartedInitiativesBriks ?
+                            <Typography align="center">Не начатые инициативы<StartIcon className="ms-1"/></Typography> : displayedBricks == startedInitiativesBriks?<Typography align="center">Начатые инициативы<DoneIcon className="ms-1"/></Typography>:<Typography align="center">Завершенные инициативы<DoneAllIcon className="ms-1"/></Typography>}
                         {displayedBricks}
                     </Card>
 
