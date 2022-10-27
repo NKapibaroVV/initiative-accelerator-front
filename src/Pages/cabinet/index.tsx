@@ -5,8 +5,12 @@ import CheckAuth from "../../Modules/Check/CheckAuthorized";
 import { initializeTooltips } from "../../Modules/bootstrapUtilities/initializeTooltips";
 import Iinitiative, { initiativeCategory } from "../../interfaces/initiative";
 import preloader from "../../Modules/preloader";
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Card, Skeleton, Tooltip } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Card, Skeleton, Tooltip, Button, ButtonGroup, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import BubbleChartIcon from '@mui/icons-material/BubbleChart';
+import DoneIcon from '@mui/icons-material/Done';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import StartIcon from '@mui/icons-material/Start';
 import { blue } from "@mui/material/colors";
 import Preloader from "../../Modules/preloader";
 
@@ -15,7 +19,7 @@ function CabinetPage() {
 
     const user = useGlobalUserState();
 
-    const [expanded, setExpanded] = React.useState<string | false>(false);
+    const [displayedBricks, setDisplayedBricks] = useState([preloader]);
 
     const [completedInitiativesBriks, setCompletedInitiativesBriks] = useState([preloader])
     const [startedInitiativesBriks, setStartedInitiativesBriks] = useState([preloader])
@@ -26,15 +30,14 @@ function CabinetPage() {
         height: "144px",
     }} /></>);
 
-    const changeExpanded =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
-
-
     let allInitiatives: { [id: string]: Iinitiative } = {};
     let takenInitiatives: { [id: string]: Iinitiative } = {};
     let completedInitiatives: { [id: string]: Iinitiative } = {};
+
+    useEffect(() => {
+        setDisplayedBricks(notStartedInitiativesBriks)
+    }, [notStartedInitiativesBriks])
+
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_initiatives/`, {
             headers: {
@@ -111,6 +114,7 @@ function CabinetPage() {
                             setCompletedInitiativesBriks((prev) => [...prev, InitiativeBrick(element, initiativeProgress.completed)])
                         }
                     }
+
 
                     setIndicators(
                         <Card variant="outlined" className="row gx-0 px-2 py-2 h-100">
@@ -265,41 +269,54 @@ function CabinetPage() {
                         </div>
                     </Card>
 
+                    <Card variant="outlined" className="w-100 mt-3">
+                        <List>
+                            <ListItem disablePadding>
+                                <ListItemButton
+                                    onClick={() => {
+                                        setDisplayedBricks(startedInitiativesBriks);
+                                    }}>
+                                    <ListItemIcon>
+                                        <DoneIcon></DoneIcon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Начатые инициативы" />
+                                </ListItemButton>
+                            </ListItem>
+                            <Divider />
+                            <ListItem disablePadding>
+                                <ListItemButton
+                                    onClick={() => {
+                                        setDisplayedBricks(completedInitiativesBriks);
+                                    }}>
+                                    <ListItemIcon>
+                                        <DoneAllIcon></DoneAllIcon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Завершенные инициативы" />
+                                </ListItemButton>
+                            </ListItem>
+                            <Divider />
+                            <ListItem disablePadding>
+                                <ListItemButton
+                                    onClick={() => {
+                                        setDisplayedBricks(notStartedInitiativesBriks);
+                                    }}>
+                                    <ListItemIcon>
+                                        <StartIcon></StartIcon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Не начатые инициативы" />
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
+                    </Card>
 
-
-                    <div className="py-3">
-                        <h3 className="border-bottom border-3 border-dark">Начатые инициативы</h3>
-                        <>{startedInitiativesBriks}</>
-                    </div>
-                    <div className="py-3">
-                        <h3 className="border-bottom border-3 border-dark">Завершенные инициативы</h3>
-                        <Accordion expanded={expanded === "completedExpanded"} onChange={changeExpanded("completedExpanded")}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMore />}
-                                aria-controls="panel1bh-content"
-                                id="panel1bh-header"
-                            >
-                                Откройте выпадающий список, чтобы посмотреть все завершенные инициативы
-                            </AccordionSummary>
-                            <AccordionDetails>{completedInitiativesBriks}</AccordionDetails>
-                        </Accordion>
-                    </div>
-                    <div className="py-3">
-                        <h3 className="border-bottom border-3 border-dark">Не начатые инициативы</h3>
-                        <Accordion expanded={expanded === "notStartedExpanded"} onChange={changeExpanded("notStartedExpanded")}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMore />}
-                                aria-controls="panel1bh-content"
-                                id="panel1bh-header"
-                            >
-                                Откройте выпадающий список, чтобы посмотреть все доступные инициативы
-                            </AccordionSummary>
-                            <AccordionDetails>{notStartedInitiativesBriks}</AccordionDetails>
-                        </Accordion>
-
-                    </div>
+                    <Card variant="outlined" className="w-100 p-3 mt-3">
+                        {displayedBricks.length < 1 ? <Typography align="center">Кажется, в этом разделе пусто<BubbleChartIcon/></Typography> : displayedBricks == notStartedInitiativesBriks ?
+                            <Typography align="center">Не начатые инициативы<StartIcon/></Typography> : displayedBricks == startedInitiativesBriks?<Typography align="center">Начатые инициативы<DoneIcon/></Typography>:<Typography align="center">Завершенные инициативы<DoneAllIcon/></Typography>}
+                        {displayedBricks}
+                    </Card>
 
                 </div>
+
 
             </div>
         </CheckAuth>
