@@ -118,7 +118,7 @@ function CabinetPage() {
 
                     setIndicators(
                         <Card variant="outlined" className="row gx-0 px-2 py-2 h-100">
-                            <Card variant="outlined" className="col-md-2 col-12">
+                            <div  className="col-md-2 col-12">
                                 <div className="row justify-content-center hover-info-to-white ">
                                     <Tooltip title="Ответственность">
                                         <div className="row">
@@ -130,8 +130,8 @@ function CabinetPage() {
                                         </div>
                                     </Tooltip>
                                 </div>
-                            </Card>
-                            <Card variant="outlined" className="col-md-2 col-12">
+                            </div>
+                            <div  className="col-md-2 col-12">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Целеустремлённость">
                                         <div className="row">
@@ -144,9 +144,9 @@ function CabinetPage() {
                                         </div>
                                     </Tooltip>
                                 </div>
-                            </Card>
+                            </div>
 
-                            <Card variant="outlined" className="col-md-2 col-12">
+                            <div  className="col-md-2 col-12">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Конкурентоспособность">
                                         <div className="row">
@@ -157,9 +157,9 @@ function CabinetPage() {
                                         </div>
                                     </Tooltip>
                                 </div>
-                            </Card>
+                            </div>
 
-                            <Card variant="outlined" className="col-md-2 col-12">
+                            <div  className="col-md-2 col-12">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Грамотность">
                                         <div className="row">
@@ -171,9 +171,9 @@ function CabinetPage() {
                                         </div>
                                     </Tooltip>
                                 </div>
-                            </Card>
+                            </div>
 
-                            <Card variant="outlined" className="col-md-2 col-12">
+                            <div  className="col-md-2 col-12">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Инициативность">
                                         <div className="row">
@@ -185,9 +185,9 @@ function CabinetPage() {
                                         </div>
                                     </Tooltip>
                                 </div>
-                            </Card>
+                            </div>
 
-                            <Card variant="outlined" className="col-md-2 col-12">
+                            <div  className="col-md-2 col-12">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Креативность">
                                         <div className="row">
@@ -199,7 +199,7 @@ function CabinetPage() {
                                         </div>
                                     </Tooltip>
                                 </div>
-                            </Card>
+                            </div>
                         </Card>)
                 }))
 
