@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import Select from 'react-select'
+import Select from 'react-select';
 import { json } from "stream/consumers";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";

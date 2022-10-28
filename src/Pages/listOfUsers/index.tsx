@@ -1,12 +1,17 @@
 import { Table, TableHead, TableRow, TableCell, TableBody, Card, TableContainer, Button, Skeleton } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createRef, forwardRef, RefObject, Ref } from "react";
+import Select, { GroupBase } from 'react-select'
 import CheckAdmin from "../../Modules/Check/CheckAdmin";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import { defaultUserParams, IUser, useGlobalUserState } from "../../Modules/User/User";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
 export default function ListOfUsersPage() {
     const currentUser = useGlobalUserState();
+    const [usersList, setUsersList] = useState([{ label: "123", value: "" }])
+    let userSelectRef = createRef<any>();
     const [users, setUsers] = useState([<TableRow>
         <TableCell>{preloader}</TableCell>
         <TableCell>{preloader}</TableCell>
@@ -15,7 +20,21 @@ export default function ListOfUsersPage() {
         <TableCell>{preloader}</TableCell>
         <TableCell>{preloader}</TableCell>
         <TableCell>{preloader}</TableCell>
-        </TableRow>])
+    </TableRow>])
+
+    function serachPerson() {
+        let value = userSelectRef.current.props.value;
+        if (value.value.length > 3) {
+            document.location.assign(`/users/check/${value.value}`)
+        }
+    }
+
+    function editPerson() {
+        let value = userSelectRef.current.props.value;
+        if (value.value.length > 3) {
+            document.location.assign(`/users/edit/${value.value}`)
+        }
+    }
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_all_users/`, {
@@ -28,8 +47,10 @@ export default function ListOfUsersPage() {
         }).then(res => res.json().then(
             (response: IUser[]) => {
                 let counter: number = 0;
-                setUsers([])
+                setUsers([]);
+                setUsersList([]);
                 response.forEach((user: IUser) => {
+                    setUsersList((prev) => [...prev, { label: `${user.name} ${user.surname} (${user.email})`, value: user.id }])
                     setUsers((prev) => {
                         counter += 1;
                         return [...prev,
@@ -56,6 +77,23 @@ export default function ListOfUsersPage() {
         <>
             <div className="m-2 p-2 fs-3">
                 Редактирование пользователей
+            </div>
+            <div>
+                <div className="row my-2 g-2">
+                    <div className="col-12 col-md-8">
+                        <Select options={usersList} ref={userSelectRef} />
+                    </div>
+                    <div className="col-6 col-md-2">
+                        <Button variant="contained"
+                            className="w-100"
+                            onClick={serachPerson}><PersonSearchIcon /></Button>
+                    </div>
+                    <div className="col-6 col-md-2">
+                        <Button variant="contained"
+                            className="w-100"
+                            onClick={editPerson}><ManageAccountsIcon/></Button>
+                    </div>
+                </div>
             </div>
             <TableContainer variant="outlined" component={Card}>
                 <Table className="table ">
