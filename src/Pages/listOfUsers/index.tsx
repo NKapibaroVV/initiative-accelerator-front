@@ -10,7 +10,7 @@ import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
 export default function ListOfUsersPage() {
     const currentUser = useGlobalUserState();
-    const [usersList, setUsersList] = useState([{ label: "123", value: "" }])
+    const [usersList, setUsersList] = useState([{ label: "", value: "" }])
     let userSelectRef = createRef<any>();
     const [users, setUsers] = useState([<TableRow>
         <TableCell>{preloader}</TableCell>
