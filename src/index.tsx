@@ -30,8 +30,11 @@ import EditUserPage from './Pages/editUserPage';
 import InitiativeStatPage from './Pages/initiativeStat';
 import CheckUserInfoPage from './Pages/checkUserInfo';
 import ShopItemStatPage from './Pages/shopItemStatPage';
+import { globalAny } from './Modules/globalAny';
 
 function Index() {
+
+  globalAny.ym(90968310, 'hit', document.location.href, {});
 
   return <>
 
