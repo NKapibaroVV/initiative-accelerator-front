@@ -34,7 +34,7 @@ import { globalAny } from './Modules/globalAny';
 
 function Index() {
 
-  globalAny.ym(90968310, 'hit', document.location.href, {});
+  globalAny.ym(90968310, 'hit', document.location.href);
 
   return <>
 
