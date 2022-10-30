@@ -37,7 +37,7 @@ function AddPrivateInitiativePage() {
     function createInitiative() {
         selectedUsers = []
         usersSelectsRefs.current.forEach((el: any) => {
-            if (!!el.props.value.value) {
+            if (el.props.value&&!!el.props.value.value) {
                 selectedUsers?.push(JSON.parse(el.props.value.value));
             }
 
