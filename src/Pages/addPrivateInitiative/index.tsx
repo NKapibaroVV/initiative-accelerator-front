@@ -41,7 +41,7 @@ function AddPrivateInitiativePage() {
         })
         console.log(selectedUsers)
 
-        if (titleRef.current!.value.length>0&&Object.keys(selectedUsers).length>0) {
+        if (titleRef.current!.value.length>0&&!!selectedUsers[0]&&!!selectedUsers[0].token&&selectedUsers[0].token.length>1) {
             fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/add_initiative/`, {
                 headers: {
                     'Content-Type': 'application/json'
