@@ -31,23 +31,26 @@ function AddPrivateInitiativePage() {
     let categoryRef = React.createRef<HTMLSelectElement>();
     let selectedUsers: IUser[] | null = null;
 
-    const [users, setUsers] = useState([{label:"", value:""}])
-    const [usersSelects, setUsersSelects] = useState([<select key={"index"} className="form-select" aria-label=""/>])
+    const [users, setUsers] = useState([{ label: "", value: "" }])
+    const [usersSelects, setUsersSelects] = useState([<select key={"index"} className="form-select" aria-label="" />])
 
     function createInitiative() {
         selectedUsers = []
         usersSelectsRefs.current.forEach((el: any) => {
-            selectedUsers?.push(JSON.parse(el.props.value.value));
+            if (!!el.props.value.value) {
+                selectedUsers?.push(JSON.parse(el.props.value.value));
+            }
+
         })
         console.log(selectedUsers)
 
-        if (titleRef.current!.value.length>0&&!!selectedUsers[0]&&!!selectedUsers[0].token&&selectedUsers[0].token.length>1) {
+        if (titleRef.current!.value.length > 0 && !!selectedUsers[0] && !!selectedUsers[0].token && selectedUsers[0].token.length > 1) {
             fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/add_initiative/`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-    
+
                 body: JSON.stringify({
                     token: currentUser.userParams.token,
                     title: titleRef.current?.value,
@@ -56,11 +59,11 @@ function AddPrivateInitiativePage() {
                     complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
                     content: contentRef.current?.value,
                     category: categoryRef.current?.value,
-                    isPrivate:true,
+                    isPrivate: true,
                     users_limit: Object.keys(selectedUsers!).length
                 })
             }).then(res => res.json().then((response: any) => {
-    
+
                 new Promise((resolve: any, reject: any) => {
                     let count = 0;
                     selectedUsers?.forEach((selectedUser: IUser) => {
@@ -69,7 +72,7 @@ function AddPrivateInitiativePage() {
                                 'Content-Type': 'application/json'
                             },
                             method: "POST",
-    
+
                             body: JSON.stringify({ token: selectedUser!.token, initiative_id: response[0].id })
                         }).then(() => {
                             count += 1;
@@ -78,18 +81,18 @@ function AddPrivateInitiativePage() {
                             }
                         })
                     })
-    
+
                 }).then(() => {
                     alert("Создано и назначено пользователям!");
                     document.location.reload();
                 })
-    
+
             }))
-        }else{
+        } else {
             alert("Не выполнено, проверьте корректность заполнения полей!");
             setBtnDisabled(false);
         }
-        
+
     }
 
 
@@ -106,7 +109,7 @@ function AddPrivateInitiativePage() {
             (response: IUser[]) => {
                 setUsers([]);
                 response.forEach((user: IUser) => {
-                    setUsers((prev) => [...prev, {label:`${user.name} ${user.surname} (${user.email})`, value:JSON.stringify(user)}])
+                    setUsers((prev) => [...prev, { label: `${user.name} ${user.surname} (${user.email})`, value: JSON.stringify(user) }])
                 })
                 setCountOfUsers(1);
             }
@@ -116,7 +119,7 @@ function AddPrivateInitiativePage() {
     useEffect(() => {
         setUsersSelects([]);
         for (let index = 0; index < countOfUsers; index++) {
-            let element = <Select key={index} options={users} className="form-select" aria-label="" ref={addToSelectsRefs}/>
+            let element = <Select key={index} options={users} className="form-select" aria-label="" ref={addToSelectsRefs} />
             setUsersSelects((prev) => [...prev, element])
         }
     }, [countOfUsers])
@@ -191,7 +194,7 @@ function AddPrivateInitiativePage() {
                     </div>
 
                     <div className="col-12">
-                        <Button variant="outlined" className="w-100" disabled={btnDisabled} onClick={(clickedElement) => {setBtnDisabled(true); createInitiative() }}>Создать</Button>
+                        <Button variant="outlined" className="w-100" disabled={btnDisabled} onClick={(clickedElement) => { setBtnDisabled(true); createInitiative() }}>Создать</Button>
                     </div>
 
                 </div>
