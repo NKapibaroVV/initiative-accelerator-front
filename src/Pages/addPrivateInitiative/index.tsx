@@ -56,6 +56,7 @@ function AddPrivateInitiativePage() {
                     complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
                     content: contentRef.current?.value,
                     category: categoryRef.current?.value,
+                    isPrivate:true,
                     users_limit: Object.keys(selectedUsers!).length
                 })
             }).then(res => res.json().then((response: any) => {

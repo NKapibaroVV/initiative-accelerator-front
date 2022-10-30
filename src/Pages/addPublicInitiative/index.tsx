@@ -37,6 +37,7 @@ export default function AddPublicInitiativePage() {
                     complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
                     content: contentRef.current?.value,
                     category: categoryRef.current?.value,
+                    isPrivate:false,
                     users_limit: usersCountRef.current?.value == "" || usersCountRef.current?.value == "0" ? null : usersCountRef.current?.value
                 })
             }).then(res => res.json().then((response: any) => {
