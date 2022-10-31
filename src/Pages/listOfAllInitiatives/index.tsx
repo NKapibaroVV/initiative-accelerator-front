@@ -70,8 +70,6 @@ export default function ListOfAllInitiativesPage() {
                             }
                         }}><EditIcon /></Button>
                 </div>
-
-
             </div>
             {results}
         </>
