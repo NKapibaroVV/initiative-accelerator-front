@@ -1,14 +1,16 @@
-import { Button } from "@mui/material";
-import { createRef, useEffect } from "react";
+import { Avatar, Button } from "@mui/material";
+import { createRef, useEffect, useState } from "react";
 import CheckAuth from "../../Modules/Check/CheckAuthorized";
-import { useGlobalUserState } from "../../Modules/User/User";
+import { IUser, useGlobalUserState } from "../../Modules/User/User";
 
 export default function ProfilePage() {
 
+    const [avatarURI, setAvatarURI] = useState("");
     let firstNameRef = createRef<HTMLInputElement>();
     let secondNameRef = createRef<HTMLInputElement>();
     let emailRef = createRef<HTMLInputElement>();
     let groupRef = createRef<HTMLInputElement>();
+    let avatarRef = createRef<HTMLInputElement>();
     let birthRef = createRef<HTMLInputElement>();
     let passwordRef = createRef<HTMLInputElement>();
     let passwordRepeatedRef = createRef<HTMLInputElement>();
@@ -23,30 +25,39 @@ export default function ProfilePage() {
             surname: secondNameRef.current!.value,
             email: emailRef.current!.value,
             edu_group: groupRef.current!.value,
-            birth: birthRef.current!.value
+            birth: birthRef.current!.value,
+            avatar: avatarRef.current!.value
         }
 
-        if (passwordRef.current!.value == passwordRepeatedRef.current!.value) {
+
+
+        if (passwordRef.current!.value.length > 0 && passwordRef.current!.value == passwordRepeatedRef.current!.value) {
             if (passwordRef.current!.value.length > 4) {
                 reqBody["password"] = passwordRef.current!.value;
             } else {
-                alert("Пароль не будет обновлён! Причина: пароль короче 5 символов!")
+                alert("Пароль короче 5 символов!")
             }
-        } else {
-            alert("Пароль не будет обновлён! Причина: введённые пароли не совподают!")
+        } else if (passwordRef.current!.value.length > 0 && passwordRef.current!.value != passwordRepeatedRef.current!.value) {
+            alert("Введённые пароли не совподают!")
+        }
+        else if (!/http.?:\/\/.*\.(jpg|png)/g.test(avatarRef.current!.value)) {
+            alert("Ссылка на автар не соответствует требованиям!")
+        }
+        else {
+            fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/update_profile/`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+
+                body: JSON.stringify(reqBody)
+            }).then(resp => resp.json().then((response) => {
+                alert("Профиль обновлен!");
+                document.location.reload();
+            }))
         }
 
-        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/update_profile/`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
 
-            body: JSON.stringify(reqBody)
-        }).then(resp => resp.json().then((response) => {
-            alert("Профиль обновлен!");
-            document.location.reload();
-        }))
     }
 
     useEffect(() => {
@@ -58,12 +69,14 @@ export default function ProfilePage() {
 
             body: JSON.stringify({ token: user.userParams.token })
         }).then(resp => resp.json().then((response: any) => {
-            let userObject = response;
+            let userObject: IUser = response;
             firstNameRef.current!.value = userObject.name;
             secondNameRef.current!.value = userObject.surname;
             emailRef.current!.value = userObject.email;
             birthRef.current!.value = `${new Date(userObject.birth).toLocaleDateString().split(".")[2]}-${new Date(userObject.birth).toLocaleDateString().split(".")[1]}-${new Date(userObject.birth).toLocaleDateString().split(".")[0]}`
-            groupRef.current!.value = userObject.edu_group;
+            groupRef.current!.value = `${userObject.edu_group}`;
+            avatarRef.current!.value = `${userObject.avatarURI}`;
+            setAvatarURI(`${userObject.avatarURI}`)
         }))
     }, [])
     return <CheckAuth>
@@ -84,6 +97,28 @@ export default function ProfilePage() {
                     <input className="form-control" type="text" name="group" placeholder="Учебная группа" ref={groupRef} />
                 </div>
                 <div className="col-md-7 col-10">
+                    <label>Ссылка на аватар</label>
+                    <br />
+                    <label>Ссылка должна начинаться с http или https и заканчиваться на .png или .jpg</label>
+                    <input className="form-control" type="text" name="group" placeholder="Учебная группа" ref={avatarRef}
+                        onChange={(event) => {
+                            setAvatarURI(event.currentTarget.value);
+                        }} />
+                    <label>Предпросмотр:</label>
+                    <Avatar sx={{
+                        width: 125,
+                        height: 125,
+                        bgcolor: `${!!avatarURI ? "" : "#0dcaf0"}`,
+                        mx: "auto",
+                        img: {
+                            height: "auto"
+                        }
+                    }}
+                        className="py-1"
+                        src={`${avatarURI}`}
+                    >{user.userParams.name.substring(0, 1)}{user.userParams.surname.substring(0, 1)}</Avatar>
+                </div>
+                <div className="col-md-7 col-10">
                     <label>Email</label>
                     <input className="form-control" type="text" name="email" placeholder="Email" ref={emailRef} />
                 </div>
@@ -101,7 +136,6 @@ export default function ProfilePage() {
                 </div>
                 <div className="col-md-7 col-10">
                     <Button variant="outlined" className="w-100" onClick={(event) => {
-                        event.currentTarget.innerHTML = `<div class="spinner-border text-light" role="status"/>`;
                         updateAccount();
                     }}>
                         Применить

@@ -6,13 +6,14 @@ import { initializeTooltips } from "../../Modules/bootstrapUtilities/initializeT
 import Iinitiative, { initiativeCategory } from "../../interfaces/initiative";
 import preloader from "../../Modules/preloader";
 import { Accordion, AccordionDetails, AccordionSummary, Avatar, Card, Skeleton, Tooltip, Button, ButtonGroup, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
+import { Badge, ExpandMore, Savings } from "@mui/icons-material";
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import DoneIcon from '@mui/icons-material/Done';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import StartIcon from '@mui/icons-material/Start';
 import { blue } from "@mui/material/colors";
 import Preloader from "../../Modules/preloader";
+import Person4Icon from '@mui/icons-material/Person4';
 
 function CabinetPage() {
     initializeTooltips();
@@ -118,7 +119,7 @@ function CabinetPage() {
 
                     setIndicators(
                         <Card variant="outlined" className="row gx-0 px-2 py-2 h-100">
-                            <div  className="col-md-2 col-12">
+                            <div className="col-md-2 col-2">
                                 <div className="row justify-content-center hover-info-to-white ">
                                     <Tooltip title="Ответственность">
                                         <div className="row">
@@ -131,7 +132,7 @@ function CabinetPage() {
                                     </Tooltip>
                                 </div>
                             </div>
-                            <div  className="col-md-2 col-12">
+                            <div className="col-md-2 col-2">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Целеустремлённость">
                                         <div className="row">
@@ -146,7 +147,7 @@ function CabinetPage() {
                                 </div>
                             </div>
 
-                            <div  className="col-md-2 col-12">
+                            <div className="col-md-2 col-2">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Конкурентоспособность">
                                         <div className="row">
@@ -159,7 +160,7 @@ function CabinetPage() {
                                 </div>
                             </div>
 
-                            <div  className="col-md-2 col-12">
+                            <div className="col-md-2 col-2">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Грамотность">
                                         <div className="row">
@@ -173,7 +174,7 @@ function CabinetPage() {
                                 </div>
                             </div>
 
-                            <div  className="col-md-2 col-12">
+                            <div className="col-md-2 col-2">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Инициативность">
                                         <div className="row">
@@ -187,7 +188,7 @@ function CabinetPage() {
                                 </div>
                             </div>
 
-                            <div  className="col-md-2 col-12">
+                            <div className="col-md-2 col-2">
                                 <div className="row justify-content-center hover-info-to-white">
                                     <Tooltip title="Креативность">
                                         <div className="row">
@@ -228,96 +229,121 @@ function CabinetPage() {
         <CheckAuth>
             <div className="pt-4">
                 <div className="mx-2" style={{ minHeight: "80px" }}>
-                    <Card variant="outlined" className="row py-3 h-100 gx-2 px-2 gy-2">
-                        <div className="col-md-5 col-12 justify-content-center">
-                            <div className="row g-1">
-                                <Card variant="outlined" className="col-12 p-1">
-                                    <div className="row">
-                                        <div className="col-12 col-sm-4">
-                                            <div className="d-block m-auto">
-                                                <div className="d-flex justify-content-center p-2">
-                                                    <Avatar sx={{
-                                                        width: 86,
-                                                        height: 86,
-                                                        bgcolor: "#0dcaf0",
-                                                    }}
-                                                        className="py-2 my-3"
-                                                    >{user.userParams.name.substring(0, 1)}{user.userParams.surname.substring(0, 1)}</Avatar>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-12 col-sm-8 fs-5 d-flex">
-                                            <div className={`w-100 align-self-center h-100 align-items-stretch row g-0 ${document.documentElement.clientWidth < 512 ? "text-center" : "text-start"}`}>
-                                                <div className="col-12 ps-2 align-text-top mb-auto">
-                                                    {`${user.userParams.name} ${user.userParams.surname}`}
-                                                </div>
-                                                <div className="col-12 mt-1 ps-2">
-                                                    {user.userParams.role}
-                                                </div>
-                                                <div className="col-12 mt-1 ps-2 align-text-bottom mt-auto">
-                                                    Баллов: {user.userParams.score}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                    <div className="row">
+                        <div className="row col-12 col-lg-5 g-2"
+                            style={{
+                                height: "fit-content"
+                            }}>
+                            <div className="col-12">
+                                <Avatar sx={{
+                                    width: 125,
+                                    height: 125,
+                                    bgcolor: `${!!user.userParams.avatarURI ? "" : "#0dcaf0"}`,
+                                    mx: "auto",
+                                    img: {
+                                        height: "auto"
+                                    }
+                                }}
+                                    className="py-1"
+                                    src={`${user.userParams.avatarURI}`}
+                                >{user.userParams.name.substring(0, 1)}{user.userParams.surname.substring(0, 1)}</Avatar>
+                            </div>
+                            <div className="col-12">
+                                <Card variant="outlined" className="">
+                                    <List>
+                                        <ListItem disablePadding>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <Person4Icon></Person4Icon>
+                                                </ListItemIcon>
+                                                <ListItemText primary={`${`${user.userParams.name} ${user.userParams.surname}`}`} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <Divider />
+                                        <ListItem disablePadding>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <Badge></Badge>
+                                                </ListItemIcon>
+                                                <ListItemText primary={`${user.userParams.role}`} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <Divider />
+                                        <ListItem disablePadding>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <Savings></Savings>
+                                                </ListItemIcon>
+                                                <ListItemText primary={`Баллов: ${user.userParams.score}`} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </List>
                                 </Card>
                             </div>
-
+                            <div className="col-12">
+                                <Card variant="outlined" className="">
+                                    <List>
+                                        <ListItem disablePadding>
+                                            <ListItemButton
+                                                onClick={() => {
+                                                    setDisplayedBricks(startedInitiativesBriks);
+                                                }}>
+                                                <ListItemIcon>
+                                                    <DoneIcon></DoneIcon>
+                                                </ListItemIcon>
+                                                <ListItemText primary="Начатые инициативы" />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <Divider />
+                                        <ListItem disablePadding>
+                                            <ListItemButton
+                                                onClick={() => {
+                                                    setDisplayedBricks(completedInitiativesBriks);
+                                                }}>
+                                                <ListItemIcon>
+                                                    <DoneAllIcon></DoneAllIcon>
+                                                </ListItemIcon>
+                                                <ListItemText primary="Завершенные инициативы" />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <Divider />
+                                        <ListItem disablePadding>
+                                            <ListItemButton
+                                                onClick={() => {
+                                                    setDisplayedBricks(notStartedInitiativesBriks);
+                                                }}>
+                                                <ListItemIcon>
+                                                    <StartIcon></StartIcon>
+                                                </ListItemIcon>
+                                                <ListItemText primary="Не начатые инициативы" />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </List>
+                                </Card>
+                            </div>
                         </div>
-                        <div className="col-md-7 col-12">
-                            {indicators}
+                        <div className="col-12 col-lg-7 row g-2"
+                            style={{
+                                height: "fit-content"
+                            }}>
+                            <div className="col-12"
+                                style={{
+                                    height: 125
+                                }}>
+                                {indicators}
+                            </div>
+                            <div className="col-12">
+                                <Card variant="outlined" className="p-2 h-100">
+                                    {displayedBricks.length < 1 ? <Typography align="center">Кажется, в этом разделе пусто<BubbleChartIcon className="ms-1" /></Typography> : displayedBricks == notStartedInitiativesBriks ?
+                                        <Typography align="center">Не начатые инициативы<StartIcon className="ms-1" /></Typography> : displayedBricks == startedInitiativesBriks ? <Typography align="center">Начатые инициативы<DoneIcon className="ms-1" /></Typography> : <Typography align="center">Завершенные инициативы<DoneAllIcon className="ms-1" /></Typography>}
+                                    {displayedBricks}
+                                </Card>
+                            </div>
                         </div>
-                    </Card>
 
-                    <Card variant="outlined" className="w-100 mt-3">
-                        <List>
-                            <ListItem disablePadding>
-                                <ListItemButton
-                                    onClick={() => {
-                                        setDisplayedBricks(startedInitiativesBriks);
-                                    }}>
-                                    <ListItemIcon>
-                                        <DoneIcon></DoneIcon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Начатые инициативы" />
-                                </ListItemButton>
-                            </ListItem>
-                            <Divider />
-                            <ListItem disablePadding>
-                                <ListItemButton
-                                    onClick={() => {
-                                        setDisplayedBricks(completedInitiativesBriks);
-                                    }}>
-                                    <ListItemIcon>
-                                        <DoneAllIcon></DoneAllIcon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Завершенные инициативы" />
-                                </ListItemButton>
-                            </ListItem>
-                            <Divider />
-                            <ListItem disablePadding>
-                                <ListItemButton
-                                    onClick={() => {
-                                        setDisplayedBricks(notStartedInitiativesBriks);
-                                    }}>
-                                    <ListItemIcon>
-                                        <StartIcon></StartIcon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Не начатые инициативы" />
-                                </ListItemButton>
-                            </ListItem>
-                        </List>
-                    </Card>
-
-                    <Card variant="outlined" className="w-100 p-3 mt-3">
-                        {displayedBricks.length < 1 ? <Typography align="center">Кажется, в этом разделе пусто<BubbleChartIcon className="ms-1"/></Typography> : displayedBricks == notStartedInitiativesBriks ?
-                            <Typography align="center">Не начатые инициативы<StartIcon className="ms-1"/></Typography> : displayedBricks == startedInitiativesBriks?<Typography align="center">Начатые инициативы<DoneIcon className="ms-1"/></Typography>:<Typography align="center">Завершенные инициативы<DoneAllIcon className="ms-1"/></Typography>}
-                        {displayedBricks}
-                    </Card>
-
+                    </div>
                 </div>
-
-
             </div>
         </CheckAuth>
     </>

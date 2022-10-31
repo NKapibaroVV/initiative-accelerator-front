@@ -15,6 +15,7 @@ export interface IUser {
     birth:Date,
     role:userRoles,
     score:number,
+    avatarURI?:string|null,
     edu_group:string|null,
 }
 export enum userRoles{
@@ -34,6 +35,7 @@ export let defaultUserParams: IUser = {
     role: userRoles.default,
     birth: new Date("2000-01-01"),
     edu_group:null,
+    avatarURI:null,
     score: 0
 }
 

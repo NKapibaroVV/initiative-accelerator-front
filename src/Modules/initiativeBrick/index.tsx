@@ -71,7 +71,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
 
     return <div key={props.id}>
         <Card variant="outlined" sx={{
-            borderRadius: 4,
+            borderRadius: 2,
             marginTop: 1.5,
         }}>
             <div className="row text-primary g-2 py-2">
@@ -95,21 +95,27 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                 <div className="col-12">
                     <div className="d-block">
                         <div className="w-100 h-100">
-                            <div className="row g-2 justify-content-center px-2">
-                                <Button variant="outlined" className="col-5 mb-2 ms-2 p-0">
-                                    <div className="w-100 h-100 p-1" data-bs-toggle="offcanvas" data-bs-target={`#msg${props.id}`} aria-controls={`msg${props.id}`}>
+                            <div className="row g-2 justify-content-center mx-3">
+                                <div className="col-12">
+                                    <Button variant="outlined" className="w-100" data-bs-toggle="offcanvas" data-bs-target={`#msg${props.id}`} aria-controls={`msg${props.id}`}>
                                         Описание
-                                    </div>
-                                </Button>
-                                <Button variant="outlined" className={`col-5 me-2 mb-2 ms-2 ${!!props.link ? "" : "d-none"}`} href={props.link}>
-                                    ВК
-                                </Button>
-                                <Button variant="outlined" className={`col-5 mb-2 ms-2 ${progress == initiativeProgress.edit ? "" : "d-none"}`} href={`/initiatives/stat/${props.id}`}>
-                                    Статистика
-                                </Button>
-                                <Button variant="outlined" className={`col-10 mb-2 ${progress == initiativeProgress.completed ? "d-none" : ""}`} onClick={secondButtonAction}>
-                                    {progress == initiativeProgress.edit ? "Редактировать" : progress == initiativeProgress.completed ? "Просмотреть" : progress == initiativeProgress.started ? "Сдать" : progress == initiativeProgress.notStarted ? "Начать" : "Проверить"}
-                                </Button>
+                                    </Button>
+                                </div>
+                                <div className={`col-12 ${!!props.link ? "" : "d-none"}`} >
+                                    <Button variant="outlined" className="w-100" href={props.link}>
+                                        ВК
+                                    </Button>
+                                </div>
+                                <div className={`col-12 ${progress == initiativeProgress.edit ? "" : "d-none"}`}>
+                                    <Button variant="outlined" className="w-100" href={`/initiatives/stat/${props.id}`}>
+                                        Статистика
+                                    </Button>
+                                </div>
+                                <div className={`col-12 ${progress == initiativeProgress.completed ? "d-none" : ""}`}>
+                                    <Button variant="outlined" className="w-100" onClick={secondButtonAction}>
+                                        {progress == initiativeProgress.edit ? "Редактировать" : progress == initiativeProgress.completed ? "Просмотреть" : progress == initiativeProgress.started ? "Сдать" : progress == initiativeProgress.notStarted ? "Начать" : "Проверить"}
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
