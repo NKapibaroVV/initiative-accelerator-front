@@ -44,7 +44,9 @@ export default function EditShopItemPage() {
         reqBody["cost"] = costRef.current!.value;
         reqBody["title"] = titleRef.current!.value;
         reqBody["description"] = descriptionRef.current!.value;
-        !!deadlineTakeDateRef.current!.value && !!deadlineTakeTimeRef.current!.value ? reqBody["deadline_take"] = new Date(deadlineTakeDateRef.current!.value + deadlineTakeTimeRef.current!.value).getTime() : console.log("deadline_take is null");
+        if (deadlineTakeDateRef.current!.value.length>1 && deadlineTakeTimeRef.current!.value.length>1) {
+            reqBody["deadline_take"] = new Date(`${deadlineTakeDateRef.current!.value} ${deadlineTakeTimeRef.current!.value}`).getTime()
+        }
         !!usersLimitRef.current!.value ? reqBody["users_limit"] = usersLimitRef.current!.value : console.log("users_limit is null");
         if (costRef.current!.value.length > 0 && titleRef.current!.value.length > 0 && descriptionRef.current!.value.length > 0) {
             fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/update_shop_item/`, {
