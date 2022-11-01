@@ -29,7 +29,7 @@ function RegPage() {
                 },
                 method: "POST",
 
-                body: JSON.stringify({ "first_name": firstNameRef.current!.value, "second_name": secondNameRef.current!.value, "email": emailRef.current!.value, "birth": birthRef.current!.value, "password": passwordRef.current!.value })
+                body: JSON.stringify({ "first_name": firstNameRef.current!.value.trim(), "second_name": secondNameRef.current!.value.trim(), "email": emailRef.current!.value.trim(), "birth": birthRef.current!.value, "password": passwordRef.current!.value })
             }).then(resp => resp.json()).then((userData) => {
                 let user: IUser = userData[0];
 

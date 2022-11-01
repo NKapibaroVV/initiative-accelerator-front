@@ -1,7 +1,7 @@
-import { Card, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Avatar, Card, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import CheckAuth from "../../Modules/Check/CheckAuthorized";
-import { useGlobalUserState } from "../../Modules/User/User";
+import { IUser, useGlobalUserState } from "../../Modules/User/User";
 
 function RatingPage() {
     const user = useGlobalUserState();
@@ -16,7 +16,7 @@ function RatingPage() {
 
     const [ratingTableBody, setRatingTableBody] = useState([<tr key={`${new Date().getTime()}`}></tr>]);
 
-    function arrayToTable(array: { name: string, surname: string, score: number }[]) {
+    function arrayToTable(array: IUser[]) {
         let tableRows: JSX.Element[] = [];
 
         let pos: number = 1;
@@ -27,10 +27,57 @@ function RatingPage() {
                 pos++;
             }
             tableRows.push(<TableRow key={`${user.name}-${user.score}-${pos}`}>
-                <TableCell scope="row">{pos}</TableCell>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.surname}</TableCell>
-                <TableCell>{user.score}</TableCell>
+                <TableCell scope="row">
+                    <div className="w-100 h-100 text-center"
+                        style={{
+                            display: "table"
+                        }}>
+                        <div className="w-100 h-100 text-center"
+                            style={{
+                                display: "table-cell",
+                                verticalAlign: "middle"
+                            }}>
+                            {pos}
+                        </div>
+                    </div>
+                </TableCell>
+                <TableCell>
+                    <div className="row g-2">
+                        <div className="col-3">
+                            <Avatar sx={{
+                                width: 40,
+                                height: 40,
+                                bgcolor: `${!!user.avatarURI ? "" : "#0dcaf0"}`,
+                                mx: "auto",
+                                img: {
+                                    height: "auto"
+                                }
+                            }}
+                                className="py-1"
+                                src={`${user.avatarURI}`}
+                            >{user.name.substring(0, 1)}{user.surname.substring(0, 1)}</Avatar>
+                        </div>
+                        <div className="col-9">
+                            <div
+                                className="w-100 h-100"
+                                style={{
+                                    display: "table"
+                                }}>
+                                <div
+                                    className="h-100"
+                                    style={{
+                                        display: "table-cell",
+                                        verticalAlign: "middle",
+                                        width: "fit-content"
+                                    }}>
+                                    <div className=" ms-2 ms-sm-0 ">
+                                        {user.name} {user.surname}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></TableCell>
+                <TableCell className="text-center">{user.score}</TableCell>
             </TableRow>)
         });
 
@@ -84,13 +131,15 @@ function RatingPage() {
 
                 <div className="py-4 text-center">
                     <TableContainer variant="outlined" component={Card}>
-                        <Table size="small" aria-label="rating">
+                        <Table size="small" aria-label="rating"
+                        sx={{
+                            minWidth:"360px"
+                        }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell scope="col">Позиция</TableCell>
-                                    <TableCell scope="col">Имя</TableCell>
-                                    <TableCell scope="col">Фамилия</TableCell>
-                                    <TableCell scope="col">Баллов</TableCell>
+                                    <TableCell scope="col" className="text-center">Позиция</TableCell>
+                                    <TableCell scope="col" className="text-center">Участник</TableCell>
+                                    <TableCell scope="col" className="text-center">Баллов</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
