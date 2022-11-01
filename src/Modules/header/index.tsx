@@ -1,5 +1,4 @@
 import { useGlobalUserState, userRoles } from "../User/User";
-import { getCookie, setCookie, removeCookie } from 'typescript-cookie'
 
 function Header() {
     const user = useGlobalUserState();
@@ -60,7 +59,7 @@ function Header() {
                                 <a className="nav-link p-1 text-start" href="/profile">Редактировать профиль</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link p-1 text-start" onClick={() => { removeCookie("userData"); window.location.assign("/"); }}>Выйти</a>
+                                <a className="nav-link p-1 text-start" onClick={() => { localStorage.removeItem("userData"); window.location.assign("/"); }}>Выйти</a>
                             </li>
                         </> : <></>}
                     </ul>

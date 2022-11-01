@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import React, { useEffect } from "react";
-import { setCookie } from "typescript-cookie";
 import { IUser } from "../../Modules/User/User";
 import {SHA512} from "crypto-js";
 import { globalAny } from "../../Modules/globalAny";
@@ -21,7 +20,7 @@ function AuthPage() {
         }).then(resp => resp.json()).then((userData) => {
             let user: IUser = userData[0];
             if (!!user && !!user.id && !!user.role && user.role != "default") {
-                setCookie("userData", JSON.stringify(user));
+                localStorage.setItem("userData", JSON.stringify(user));
                 globalAny.ym(90968310, 'reachGoal', 'AUTENTIFICATED SUCCESSFULLY');
                 document.location.assign("/cab")
             } else {

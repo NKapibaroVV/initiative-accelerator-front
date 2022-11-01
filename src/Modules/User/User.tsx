@@ -1,6 +1,5 @@
 import { stat } from 'fs';
 import React, { Children, Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
-import { getCookie, setCookie } from 'typescript-cookie'
 /**Интерфейс provider'а данных о пользователе */
 export interface IUserProviderProps {
     children: React.ReactNode
@@ -56,8 +55,8 @@ export const globalUserContext = React.createContext<IUserContext>({ userParams:
  */
 export const GlobalUserStateContextProvider = (props: IUserProviderProps) => {
     
-    if (!!getCookie("userData")) {
-        defaultUserParams = JSON.parse(decodeURI(getCookie("userData")!))
+    if (!!localStorage.getItem("userData")) {
+        defaultUserParams = JSON.parse(localStorage.getItem("userData")!)
     }
 
     
@@ -72,7 +71,7 @@ export const GlobalUserStateContextProvider = (props: IUserProviderProps) => {
             body: JSON.stringify({ "token":defaultUserParams.token })
         }).then((resp=>resp.json())).then((user:IUser)=>{
             if (state!=user) {
-                setCookie("userData", JSON.stringify(user));
+                localStorage.setItem("userData",JSON.stringify(user))
             }
         })
     }

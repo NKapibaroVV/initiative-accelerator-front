@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { createRef } from "react";
-import { setCookie } from "typescript-cookie";
 import { globalAny } from "../../Modules/globalAny";
 import { IUser, useGlobalUserState } from "../../Modules/User/User";
 
@@ -34,7 +33,7 @@ function RegPage() {
                 let user: IUser = userData[0];
 
                 if (!!user && !!user.id && !!user.role && user.role != "default") {
-                    setCookie("userData", JSON.stringify(user));
+                    localStorage.setItem("userData", JSON.stringify(user));
                     globalAny.ym(90968310, 'reachGoal', 'REGISTERED SUCCESSFULLY');
                     document.location.assign("/cab")
                 } else {
