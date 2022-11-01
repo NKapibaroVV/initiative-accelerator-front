@@ -43,12 +43,12 @@ function RatingPage() {
                 </TableCell>
                 <TableCell>
                     <div className="row g-2">
-                        <div className="col-3">
+                        <div className="col-5">
                             <Avatar sx={{
                                 width: 40,
                                 height: 40,
                                 bgcolor: `${!!user.avatarURI ? "" : "#0dcaf0"}`,
-                                mx: "auto",
+                                ml: "auto",
                                 img: {
                                     height: "auto"
                                 }
@@ -57,7 +57,7 @@ function RatingPage() {
                                 src={`${user.avatarURI}`}
                             >{user.name.substring(0, 1)}{user.surname.substring(0, 1)}</Avatar>
                         </div>
-                        <div className="col-9">
+                        <div className="col-7">
                             <div
                                 className="w-100 h-100"
                                 style={{
