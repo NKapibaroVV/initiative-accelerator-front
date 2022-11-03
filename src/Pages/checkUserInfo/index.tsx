@@ -19,7 +19,6 @@ export default function CheckUserInfoPage() {
 
     const [completedInitiativesBriks, setCompletedInitiativesBriks] = useState([preloader]);
     const [startedInitiativesBriks, setStartedInitiativesBriks] = useState([preloader]);
-    const [notStartedInitiativesBriks, setNotStartedInitiativesBriks] = useState([preloader]);
     const [shopLogs, setShopLogs] = useState([preloader]);
 
     let firstNameRef = createRef<HTMLTableCellElement>();
@@ -31,7 +30,6 @@ export default function CheckUserInfoPage() {
     let roleRef = createRef<HTMLTableCellElement>();
     let scoreRef = createRef<HTMLTableCellElement>();
     let idRef = createRef<HTMLTableCellElement>();
-    let summaryBalanceRef = createRef<HTMLTableCellElement>();
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_user/`, {
@@ -48,8 +46,12 @@ export default function CheckUserInfoPage() {
                 setSumBalance(response[0].score)
                 scoreRef.current!.innerText = response[0].score;
                 emailRef.current!.innerText = response[0].email;
-                birthRef.current!.innerText = `${new Date(response[0].birth).toLocaleDateString().split(".")[2]}-${new Date(response[0].birth).toLocaleDateString().split(".")[1]}-${new Date(response[0].birth).toLocaleDateString().split(".")[0]}`
-                groupRef.current!.innerText = `${!!response[0].edu_group ? response[0].edu_group : ""}`;
+                if (!!response[0].birth && response[0].birth.length > 2) {
+                    birthRef.current!.innerText = `${new Date(response[0].birth).toLocaleDateString().split(".")[2]}-${new Date(response[0].birth).toLocaleDateString().split(".")[1]}-${new Date(response[0].birth).toLocaleDateString().split(".")[0]}`
+                } else {
+                    birthRef.current!.innerText = "Не указано"
+                }
+                groupRef.current!.innerText = `${!!response[0].edu_group && response[0].edu_group.length > 2 ? response[0].edu_group : "Не указано"}`;
                 roleRef.current!.innerText = response[0].role;
                 loginRef.current!.innerText = response[0].login;
                 idRef.current!.innerText = response[0].id;
@@ -107,18 +109,6 @@ export default function CheckUserInfoPage() {
 
                             console.log({ allInitiatives, takenInitiatives, completedInitiatives })
 
-
-                            setNotStartedInitiativesBriks([])
-                            for (const key in allInitiatives) {
-                                if (Object.prototype.hasOwnProperty.call(allInitiatives, key)) {
-                                    const element = allInitiatives[key];
-                                    setNotStartedInitiativesBriks((prev) => [...prev, <tr key={element.id}>
-                                        <th scope="col">{element.category}</th>
-                                        <th>{element.title}</th>
-                                    </tr>])
-                                }
-                            }
-
                             setStartedInitiativesBriks([])
                             for (const key in takenInitiatives) {
                                 if (Object.prototype.hasOwnProperty.call(takenInitiatives, key)) {
@@ -126,6 +116,7 @@ export default function CheckUserInfoPage() {
                                     setStartedInitiativesBriks((prev) => [...prev, <tr key={element.id}>
                                         <th scope="col">{element.category}</th>
                                         <th>{element.title}</th>
+                                        <th>{<a className="btn btn-outline-primary" href={`/initiatives/stat/${element.id}`}>Страница задания</a>}</th>
                                     </tr>])
                                 }
                             }
@@ -137,6 +128,7 @@ export default function CheckUserInfoPage() {
                                     setCompletedInitiativesBriks((prev) => [...prev, <tr key={element.id}>
                                         <th scope="col">{element.category}</th>
                                         <th>{element.title}</th>
+                                        <th>{<a className="btn btn-outline-primary" href={`/initiatives/stat/${element.id}`}>Страница задания</a>}</th>
                                     </tr>])
                                 }
                             }
@@ -248,6 +240,7 @@ export default function CheckUserInfoPage() {
                         <tr>
                             <th scope="col">Категория</th>
                             <th>Заголовок</th>
+                            <th>Действия</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -264,6 +257,7 @@ export default function CheckUserInfoPage() {
                         <tr>
                             <th scope="col">Категория</th>
                             <th>Заголовок</th>
+                            <th>Действия</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -19,7 +19,9 @@ export default function InitiativeStatPage() {
         <TableCell>{preloader}</TableCell>
         <TableCell>{preloader}</TableCell>
         <TableCell>{preloader}</TableCell>
-</TableRow>])
+    </TableRow>])
+
+    const [initiativeInfo, setInitiveInfo] = useState(<></>)
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_initiative_members/`, {
@@ -29,9 +31,24 @@ export default function InitiativeStatPage() {
             method: "POST",
 
             body: JSON.stringify({ token: currentUser.userParams.token, initiative_id: initiative_id })
-        }).then(res => res.json().then(response => {
+        }).then(res => res.json().then((response: (Iinitiative & IUser)[]) => {
             setMembers([]);
             let counter: number = 0;
+            const info = response[0]!;
+            setInitiveInfo(<>
+                <div key="001">
+                    Награда: {info.income} баллов
+                </div>
+                <div key="002">
+                    Сдать до: {new Date(info.deadline_complete).toLocaleString()}
+                </div>
+                <div key="003">
+                    Взять до: {new Date(info.deadline_take).toLocaleString()}
+                </div>
+                <div key="005">
+                    Описание: {info.content}
+                </div>
+            </>)
             response.forEach((initiativeParams: Iinitiative & IUser) => {
                 console.log(initiativeParams)
                 setMembers((prev) => {
@@ -43,8 +60,8 @@ export default function InitiativeStatPage() {
                         <TableCell>{initiativeParams.surname}</TableCell>
                         <TableCell>{!!initiativeParams.edu_group ? initiativeParams.edu_group : "Не указано"}</TableCell>
                         <TableCell>{initiativeParams.email}</TableCell>
-                        <TableCell>{!new Object(initiativeParams).hasOwnProperty("checked")?"Начато":initiativeParams.checked==1?"Сдано":"Сдано"}</TableCell>
-                        <TableCell>{!new Object(initiativeParams).hasOwnProperty("checked")?"Не сдано":initiativeParams.checked==1?"Проверено":"Не проверено"}</TableCell>
+                        <TableCell>{!new Object(initiativeParams).hasOwnProperty("checked") ? "Начато" : initiativeParams.checked == 1 ? "Сдано" : "Сдано"}</TableCell>
+                        <TableCell>{!new Object(initiativeParams).hasOwnProperty("checked") ? "Не сдано" : initiativeParams.checked == 1 ? "Проверено" : "Не проверено"}</TableCell>
                     </TableRow>
                     ]
                 })
@@ -53,6 +70,7 @@ export default function InitiativeStatPage() {
     }, [])
 
     return <CheckModerator><>
+        {initiativeInfo}
         <div className="fs-3">
             Список участников
         </div>
