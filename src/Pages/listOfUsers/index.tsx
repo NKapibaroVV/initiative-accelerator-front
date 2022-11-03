@@ -20,6 +20,7 @@ export default function ListOfUsersPage() {
         <TableCell>{preloader}</TableCell>
         <TableCell>{preloader}</TableCell>
         <TableCell>{preloader}</TableCell>
+        <TableCell>{preloader}</TableCell>
     </TableRow>])
 
     function serachPerson() {
@@ -58,6 +59,7 @@ export default function ListOfUsersPage() {
                             <TableCell scope="row">{counter}</TableCell>
                             <TableCell>{user.name}</TableCell>
                             <TableCell>{user.surname}</TableCell>
+                            <TableCell>{user.score}</TableCell>
                             <TableCell>{!!user.edu_group && user.edu_group?.length > 1 ? user.edu_group : "Не указано"}</TableCell>
                             <TableCell>{user.email}</TableCell>
                             <TableCell>{user.role}</TableCell>
@@ -102,6 +104,7 @@ export default function ListOfUsersPage() {
                             <TableCell scope="col">#</TableCell>
                             <TableCell scope="col">Имя</TableCell>
                             <TableCell scope="col">Фамилия</TableCell>
+                            <TableCell scope="col">Баллов</TableCell>
                             <TableCell scope="col">Группа</TableCell>
                             <TableCell scope="col">Почта</TableCell>
                             <TableCell scope="col">Роль</TableCell>
