@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React, { createRef, useEffect } from "react";
 import Iinitiative from "../../interfaces/initiative";
 import { useGlobalUserState } from "../User/User";
 import { Button, Card, Paper, Typography } from "@mui/material";
@@ -69,7 +69,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
         }
     }
 
-    return <div key={props.id}>
+    return <div key={props.id} id={`brick_${props.id}`}>
         <Card variant="outlined" sx={{
             borderRadius: 2,
             marginTop: 1.5,
@@ -122,7 +122,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                 </div>
             </div>
 
-            <div className="offcanvas offcanvas-bottom text-primary offcanvas-60vh" ref={startInitiativeCanvasRef} tabIndex={-1} id={`start${props.id}`} aria-labelledby={`start${props.id}Label`}>
+            {progress==initiativeProgress.notStarted?<div className={`offcanvas offcanvas-bottom text-primary offcanvas-60vh`} ref={startInitiativeCanvasRef} tabIndex={-1} id={`start${props.id}`} aria-labelledby={`start${props.id}Label`}>
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id={`start${props.id}Label`}>{`${props.title}`}</h5>
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" onClick={() => { startInitiativeCanvasRef.current?.classList.remove("show"); }} aria-label="Close"></button>
@@ -144,7 +144,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                         </Typography>
                     </div>
                 </div>
-                <div className="offcanvas-body small">
+                <div className="">
                     <div className="row g-2">
                         <div className="col-12 col-md-6">
                             <Button variant="contained" className="w-100" color="success"
@@ -160,7 +160,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>:<></>}
 
             <div className="offcanvas offcanvas-bottom text-primary offcanvas-60vh" tabIndex={-1} id={`msg${props.id}`} aria-labelledby={`msg${props.id}Label`}>
                 <div className="offcanvas-header">
@@ -171,7 +171,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                 </div>
             </div>
 
-            <div className="offcanvas offcanvas-bottom text-primary offcanvas-60vh" ref={sendCanvasRef} tabIndex={-1} id={`res${props.id}Send`} aria-labelledby={`res${props.id}SendLabel`}>
+            {progress==initiativeProgress.started?<div className="offcanvas offcanvas-bottom text-primary offcanvas-60vh" ref={sendCanvasRef} tabIndex={-1} id={`res${props.id}Send`} aria-labelledby={`res${props.id}SendLabel`}>
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id={`res${props.id}SendLabel`}>{`${props.title}`}</h5>
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" onClick={() => { sendCanvasRef.current?.classList.remove("show"); }} aria-label="Close"></button>
@@ -191,7 +191,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>:<></>}
 
         </Card >
     </div>
