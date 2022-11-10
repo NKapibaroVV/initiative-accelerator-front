@@ -208,7 +208,6 @@ function CabinetPage() {
             })).then(() => {
                 setTimeout(() => {
                     if (document.location.hash.startsWith("#brick_") && document.location.hash.length) {
-                        setTimeout(() => {
                             const id = `start${document.location.hash.replace("#brick_", "")}`;
                             console.log(id)
                             var interval = setInterval(() => {
@@ -217,10 +216,9 @@ function CabinetPage() {
                                     clearInterval(interval);
                                     brickCanvas.classList.add("show");
                                 }
-                            }, 500)
-                        }, 1000)
+                            }, 100)
                     }
-                }, 500)
+                }, 100)
             })
 
 

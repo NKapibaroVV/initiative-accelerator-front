@@ -69,7 +69,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
         }
     }
 
-    return <div key={props.id} id={`brick_${props.id}`}>
+    return <div key={props.id} id={`i_brick_${props.id}`}>
         <Card variant="outlined" sx={{
             borderRadius: 2,
             marginTop: 1.5,
