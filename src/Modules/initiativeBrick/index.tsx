@@ -145,7 +145,7 @@ function InitiativeBrick(props: Iinitiative, progress: initiativeProgress) {
                     </div>
                 </div>
                 <div className="">
-                    <div className="row g-2">
+                    <div className="row g-2 py-1 px-1">
                         <div className="col-12 col-md-6">
                             <Button variant="contained" className="w-100" color="success"
                                 onClick={() => {
