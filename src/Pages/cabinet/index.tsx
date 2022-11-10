@@ -207,16 +207,20 @@ function CabinetPage() {
 
             })).then(() => {
                 setTimeout(() => {
-                    if (document.location.hash.startsWith("#brick_")) {
-                        document.location.hash = document.location.hash.replace("#brick_", "")
-                        const id = document.location.hash.substring(1, document.location.hash.length);
-                        document.location.hash = "";
-                        let brickCanvas = document.getElementById(`start${id}`);
-                        if (brickCanvas != null) {
-                            brickCanvas.classList.add("show");
-                        }
+                    if (document.location.hash.startsWith("#brick_") && document.location.hash.length) {
+                        setTimeout(() => {
+                            const id = `start${document.location.hash.replace("#brick_", "")}`;
+                            console.log(id)
+                            var interval = setInterval(() => {
+                                let brickCanvas = document.getElementById(id);
+                                if (brickCanvas != null) {
+                                    clearInterval(interval);
+                                    brickCanvas.classList.add("show");
+                                }
+                            }, 500)
+                        }, 1000)
                     }
-                }, 1100)
+                }, 500)
             })
 
 
