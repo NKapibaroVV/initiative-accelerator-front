@@ -205,7 +205,19 @@ function CabinetPage() {
                 }))
 
 
-            }))
+            })).then(() => {
+                setTimeout(() => {
+                    if (document.location.hash.startsWith("#brick_")) {
+                        document.location.hash = document.location.hash.replace("#brick_", "")
+                        const id = document.location.hash.substring(1, document.location.hash.length);
+                        document.location.hash = "";
+                        let brickCanvas = document.getElementById(`start${id}`);
+                        if (brickCanvas != null) {
+                            brickCanvas.classList.add("show");
+                        }
+                    }
+                }, 1100)
+            })
 
 
         }))
