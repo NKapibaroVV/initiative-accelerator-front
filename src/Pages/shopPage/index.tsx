@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { IShopItem } from "../../interfaces/shopItem"
+import IShopLogItem from "../../interfaces/shopLogItem";
 import CheckAuth from "../../Modules/Check/CheckAuthorized";
 import preloader from "../../Modules/preloader"
 import ShopItem from "../../Modules/ShopItem"
@@ -19,6 +20,22 @@ export default function ShopPage() {
             if (Object.keys(response).length < 1) {
                 setResult([<div key="nu">Магазин баллов пуст...</div>])
             } else {
+                fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_my_shop_logs/`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+        
+                    body: JSON.stringify({ token: currentUser.userParams.token })
+                }).then(res=>res.json().then((resp:IShopLogItem[])=>{
+                    resp.forEach((shopLogItem: IShopLogItem) => {
+                        response.forEach((shopItem: IShopItem) => {
+                            if (shopLogItem.shop_item_id==shopItem.id) {
+                                
+                            }
+                        });
+                    })
+                }))
                 response.forEach((shopItem: IShopItem) => {
                     setResult((prev) => [...prev, ShopItem(shopItem)])
                 });
