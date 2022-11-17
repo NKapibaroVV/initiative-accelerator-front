@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import SchoolIcon from '@mui/icons-material/School';
 import InitiativeBrick, { initiativeProgress } from "../../Modules/initiativeBrick";
 import { useGlobalUserState } from "../../Modules/User/User";
 import CheckAuth from "../../Modules/Check/CheckAuthorized";
@@ -123,7 +124,7 @@ function CabinetPage() {
                         method: "POST",
 
                         body: JSON.stringify({ token: user.userParams.token })
-                    }).then(resp => resp.json().then((rankObj: {rank:string}) => {
+                    }).then(resp => resp.json().then((rankObj: { rank: string }) => {
                         setIndicators(
                             <Card variant="outlined" className="row gx-0 px-2 py-2 h-100">
 
@@ -216,7 +217,7 @@ function CabinetPage() {
                                         <Tooltip title="Креативность">
                                             <div className="row">
                                                 <div className="d-flex justify-content-center">
-                                                    <i className="bi bi-camera-fill fs-icon-4"></i>
+                                                    <i className="bi bi-mortarboard-fill fs-icon-4"></i>
                                                 </div>
                                                 <div className="d-block mx-auto p-0 text-center text-primary">{rankObj.rank}</div>
                                             </div>
