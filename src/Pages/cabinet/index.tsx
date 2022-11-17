@@ -28,7 +28,7 @@ function CabinetPage() {
 
     const [indicators, setIndicators] = useState(<><Skeleton variant="rounded" sx={{
         width: "100%",
-        height: "144px",
+        height: "125px",
     }} /></>);
 
     let allInitiatives: { [id: string]: Iinitiative } = {};
@@ -116,107 +116,131 @@ function CabinetPage() {
                         }
                     }
 
+                    fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_rank/`, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
 
-                    setIndicators(
-                        <Card variant="outlined" className="row gx-0 px-2 py-2 h-100">
-                            <div className="col-md-2 col-2">
-                                <div className="row justify-content-center hover-info-to-white ">
-                                    <Tooltip title="Ответственность">
-                                        <div className="row">
-                                            <div className=" d-flex justify-content-center">
-                                                <i className="bi bi-heart-fill fs-icon-4"></i>
+                        body: JSON.stringify({ token: user.userParams.token })
+                    }).then(resp => resp.json().then((rankObj: {rank:string}) => {
+                        setIndicators(
+                            <Card variant="outlined" className="row gx-0 px-2 py-2 h-100">
+
+                                <div className="col">
+                                    <div className="row justify-content-center hover-info-to-white ">
+                                        <Tooltip title="Ответственность">
+                                            <div className="row">
+                                                <div className="d-flex justify-content-center">
+                                                    <i className="bi bi-heart-fill fs-icon-4"></i>
+                                                </div>
+
+                                                <div className="d-block mx-auto p-0 text-center  text-primary">{getCountOfCompletedCategories(initiativeCategory.Ответственность)}</div>
                                             </div>
-
-                                            <div className="d-block mx-auto p-0 text-center  text-primary">{getCountOfCompletedCategories(initiativeCategory.Ответственность)}</div>
-                                        </div>
-                                    </Tooltip>
+                                        </Tooltip>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col-md-2 col-2">
-                                <div className="row justify-content-center hover-info-to-white">
-                                    <Tooltip title="Целеустремлённость">
-                                        <div className="row">
-                                            <div className=" d-flex justify-content-center">
-                                                <i className="bi bi-dribbble fs-icon-4"></i>
+
+                                <div className="col">
+                                    <div className="row justify-content-center hover-info-to-white">
+                                        <Tooltip title="Целеустремлённость">
+                                            <div className="row">
+                                                <div className="d-flex justify-content-center">
+                                                    <i className="bi bi-dribbble fs-icon-4"></i>
+                                                </div>
+
+                                                <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Целеустремлённость)}</div>
+
                                             </div>
-
-                                            <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Целеустремлённость)}</div>
-
-                                        </div>
-                                    </Tooltip>
+                                        </Tooltip>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="col-md-2 col-2">
-                                <div className="row justify-content-center hover-info-to-white">
-                                    <Tooltip title="Конкурентоспособность">
-                                        <div className="row">
-                                            <div className=" d-flex justify-content-center">
-                                                <i className="bi bi-mic fs-icon-4"></i>
+                                <div className="col">
+                                    <div className="row justify-content-center hover-info-to-white">
+                                        <Tooltip title="Конкурентоспособность">
+                                            <div className="row">
+                                                <div className="d-flex justify-content-center">
+                                                    <i className="bi bi-mic fs-icon-4"></i>
+                                                </div>
+                                                <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Конкурентоспособность)}</div>
                                             </div>
-                                            <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Конкурентоспособность)}</div>
-                                        </div>
-                                    </Tooltip>
+                                        </Tooltip>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="col-md-2 col-2">
-                                <div className="row justify-content-center hover-info-to-white">
-                                    <Tooltip title="Грамотность">
-                                        <div className="row">
-                                            <div className=" d-flex justify-content-center">
-                                                <i className="bi bi-journal-bookmark fs-icon-4"></i>
+                                <div className="col">
+                                    <div className="row justify-content-center hover-info-to-white">
+                                        <Tooltip title="Грамотность">
+                                            <div className="row">
+                                                <div className="d-flex justify-content-center">
+                                                    <i className="bi bi-journal-bookmark fs-icon-4"></i>
+                                                </div>
+
+                                                <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Грамотность)}</div>
                                             </div>
-
-                                            <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Грамотность)}</div>
-                                        </div>
-                                    </Tooltip>
+                                        </Tooltip>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="col-md-2 col-2">
-                                <div className="row justify-content-center hover-info-to-white">
-                                    <Tooltip title="Инициативность">
-                                        <div className="row">
-                                            <div className=" d-flex justify-content-center">
-                                                <i className="bi bi-eye fs-icon-4"></i>
+                                <div className="col">
+                                    <div className="row justify-content-center hover-info-to-white">
+                                        <Tooltip title="Инициативность">
+                                            <div className="row">
+                                                <div className="d-flex justify-content-center">
+                                                    <i className="bi bi-eye fs-icon-4"></i>
+                                                </div>
+
+                                                <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Инициативность)}</div>
                                             </div>
-
-                                            <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Инициативность)}</div>
-                                        </div>
-                                    </Tooltip>
+                                        </Tooltip>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="col-md-2 col-2">
-                                <div className="row justify-content-center hover-info-to-white">
-                                    <Tooltip title="Креативность">
-                                        <div className="row">
-                                            <div className=" d-flex justify-content-center">
-                                                <i className="bi bi-camera-fill fs-icon-4"></i>
+                                <div className="col">
+                                    <div className="row justify-content-center hover-info-to-white">
+                                        <Tooltip title="Креативность">
+                                            <div className="row">
+                                                <div className="d-flex justify-content-center">
+                                                    <i className="bi bi-camera-fill fs-icon-4"></i>
+                                                </div>
+
+                                                <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Креативность)}</div>
                                             </div>
-
-                                            <div className="d-block mx-auto p-0 text-center text-primary">{getCountOfCompletedCategories(initiativeCategory.Креативность)}</div>
-                                        </div>
-                                    </Tooltip>
+                                        </Tooltip>
+                                    </div>
                                 </div>
-                            </div>
-                        </Card>)
+
+                                <div className="col">
+                                    <div className="row justify-content-center hover-info-to-white">
+                                        <Tooltip title="Креативность">
+                                            <div className="row">
+                                                <div className="d-flex justify-content-center">
+                                                    <i className="bi bi-camera-fill fs-icon-4"></i>
+                                                </div>
+                                                <div className="d-block mx-auto p-0 text-center text-primary">{rankObj.rank}</div>
+                                            </div>
+                                        </Tooltip>
+                                    </div>
+                                </div>
+
+                            </Card>)
+                    }))
                 }))
 
 
             })).then(() => {
                 setTimeout(() => {
                     if (document.location.hash.startsWith("#brick_") && document.location.hash.length) {
-                            const id = `start${document.location.hash.replace("#brick_", "")}`;
-                            console.log(id)
-                            var interval = setInterval(() => {
-                                let brickCanvas = document.getElementById(id);
-                                if (brickCanvas != null) {
-                                    clearInterval(interval);
-                                    brickCanvas.classList.add("show");
-                                }
-                            }, 100)
+                        const id = `start${document.location.hash.replace("#brick_", "")}`;
+                        console.log(id)
+                        var interval = setInterval(() => {
+                            let brickCanvas = document.getElementById(id);
+                            if (brickCanvas != null) {
+                                clearInterval(interval);
+                                brickCanvas.classList.add("show");
+                            }
+                        }, 100)
                     }
                 }, 100)
             })
