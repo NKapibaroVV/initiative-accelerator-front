@@ -29,15 +29,18 @@ export default function ShopPage() {
                     body: JSON.stringify({ token: currentUser.userParams.token })
                 }).then(res=>res.json().then((resp:IShopLogItem[])=>{
                     resp.forEach((shopLogItem: IShopLogItem) => {
-                        response.forEach((shopItem: IShopItem) => {
+                        for (let index = 0; index < response.length; index++) {
+                            const shopItem = response[index];
                             if (shopLogItem.shop_item_id==shopItem.id) {
-                                
+                                delete response[index];
                             }
-                        });
+                        }
                     })
                 }))
                 response.forEach((shopItem: IShopItem) => {
-                    setResult((prev) => [...prev, ShopItem(shopItem)])
+                    if (!!shopItem.title) {
+                        setResult((prev) => [...prev, ShopItem(shopItem)])
+                    }
                 });
             }
         }))

@@ -44,6 +44,27 @@ function Index() {
         <div className='container'>
           <Routes>
             <Route path='/' element={<MainPage />}></Route>
+            <Route path='/auth' element={<AuthPage />}></Route>
+            <Route path='/register' element={<RegPage />}></Route>
+            <Route path='/cab' element={<CabinetPage />}></Route>
+            <Route path='/profile' element={<ProfilePage />}></Route>
+            <Route path='/rating' element={<RatingPage />}></Route>
+            <Route path='/users' element={<ListOfUsersPage />}></Route>
+            <Route path='/users/check/:user_id' element={<CheckUserInfoPage />}></Route>
+            <Route path='/users/edit/:user_id' element={<EditUserPage />}></Route>
+            <Route path='/shop' element={<ShopPage />}></Route>
+            <Route path='/shop/story' element={<MyShopLogsPage />}></Route>
+            <Route path='/shop/edit/:item_id' element={<EditShopItemPage />}></Route>
+            <Route path='/shop/stat/:item_id' element={<ShopItemStatPage />}></Route>
+            <Route path='/shop/edit' element={<ShopItemsListPage />}></Route>
+            <Route path='/shop/add' element={<AddShopItemPage />}></Route>
+            <Route path='/initiatives/edit' element={<ListOfAllInitiativesPage />}></Route>
+            <Route path='/initiatives/results' element={<ListInitiativesResultsPage />}></Route>
+            <Route path='/initiatives/stat/:initiative_id' element={<InitiativeStatPage />}></Route>
+            <Route path='/initiatives/edit/:initiative_id' element={<EditInitiativePage />}></Route>
+            <Route path='/initiatives/check/:initiative_id' element={<CheckInitiativePage />}></Route>
+            <Route path='/addPrivateInitiative' element={<AddPrivateInitiativePage />}></Route>
+            <Route path='/addPublicInitiative' element={<AddPublicInitiativePage />}></Route>
           </Routes>
         </div>
         <Footer />
