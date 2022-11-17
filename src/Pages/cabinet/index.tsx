@@ -214,7 +214,7 @@ function CabinetPage() {
 
                                 <div className="col">
                                     <div className="row justify-content-center hover-info-to-white">
-                                        <Tooltip title="Креативность">
+                                        <Tooltip title="Престиж">
                                             <div className="row">
                                                 <div className="d-flex justify-content-center">
                                                     <i className="bi bi-mortarboard-fill fs-icon-4"></i>
