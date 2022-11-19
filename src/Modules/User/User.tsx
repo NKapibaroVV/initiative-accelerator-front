@@ -9,19 +9,19 @@ export interface IUser {
     name: string,
     surname: string,
     email: string,
-    id:string,
-    token:string,
-    birth:Date,
-    role:userRoles,
-    score:number,
-    avatarURI?:string|null,
-    edu_group:string|null,
+    id: string,
+    token: string,
+    birth: Date,
+    role: userRoles,
+    score: number,
+    avatarURI?: string | null,
+    edu_group: string | null,
 }
-export enum userRoles{
-    "Администратор"="Администратор",
-    "Студент"="Студент", 
-    "default"="default", 
-    "Модератор"="Модератор"
+export enum userRoles {
+    "Администратор" = "Администратор",
+    "Студент" = "Студент",
+    "default" = "default",
+    "Модератор" = "Модератор"
 }
 
 /**Параметры пользователя по умолчанию*/
@@ -33,8 +33,8 @@ export let defaultUserParams: IUser = {
     token: "default",
     role: userRoles.default,
     birth: new Date("2000-01-01"),
-    edu_group:null,
-    avatarURI:null,
+    edu_group: null,
+    avatarURI: null,
     score: 0
 }
 
@@ -48,18 +48,18 @@ export interface IUserContext {
 
 
 /**Контекст с параметрами пользователя */
-export const globalUserContext = React.createContext<IUserContext>({ userParams: defaultUserParams, UpdateUser: ()=>{}  });
+export const globalUserContext = React.createContext<IUserContext>({ userParams: defaultUserParams, UpdateUser: () => { } });
 /**
  * Функция оборачивает дочерние элементы в контекст пользователя
  * @param props
  */
 export const GlobalUserStateContextProvider = (props: IUserProviderProps) => {
-    
+
     if (!!localStorage.getItem("userData")) {
         defaultUserParams = JSON.parse(localStorage.getItem("userData")!)
     }
 
-    
+
     const [state, dispatch] = useState(defaultUserParams);
     async function updateUserFromServer() {
         await fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_me/`, {
@@ -67,18 +67,21 @@ export const GlobalUserStateContextProvider = (props: IUserProviderProps) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            
-            body: JSON.stringify({ "token":defaultUserParams.token })
-        }).then((resp=>resp.json())).then((user:IUser)=>{
-            if (state!=user) {
-                localStorage.setItem("userData",JSON.stringify(user))
+
+            body: JSON.stringify({ "token": defaultUserParams.token })
+        }).then(resp => resp.json()).then((user: IUser) => {
+            if (state != user) {
+                localStorage.setItem("userData", JSON.stringify(user))
             }
+
+        }).catch((err) => {
+            localStorage.clear();
         })
     }
     updateUserFromServer();
     return (
         <globalUserContext.Provider value={{ userParams: state, UpdateUser: dispatch }}>
-                {props.children}
+            {props.children}
         </globalUserContext.Provider>
     );
 }

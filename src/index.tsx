@@ -39,7 +39,7 @@ function Index() {
 
   globalAny.ym(90968310, 'hit', document.location.href);
 
-  return<SiteClosed state={siteStates.tech_works}>
+  return<SiteClosed >
 
 
     <BrowserRouter>
