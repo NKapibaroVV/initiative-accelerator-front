@@ -31,12 +31,16 @@ import InitiativeStatPage from './Pages/initiativeStat';
 import CheckUserInfoPage from './Pages/checkUserInfo';
 import ShopItemStatPage from './Pages/shopItemStatPage';
 import { globalAny } from './Modules/globalAny';
+import SiteClosed from './Modules/SiteClosed';
+import { siteStates } from './Modules/SiteClosed';
+
 
 function Index() {
 
   globalAny.ym(90968310, 'hit', document.location.href);
 
-  return <>
+  return<SiteClosed state={siteStates.tech_works}>
+
 
     <BrowserRouter>
       <GlobalUserStateContextProvider>
@@ -69,9 +73,8 @@ function Index() {
         </div>
         <Footer />
       </GlobalUserStateContextProvider>
-    </BrowserRouter>
-
-  </>
+    </BrowserRouter>  
+</SiteClosed>
 }
 
 let rootElement = createRoot(document.getElementById('root')!);
