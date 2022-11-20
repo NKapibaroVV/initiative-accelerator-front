@@ -33,13 +33,14 @@ import ShopItemStatPage from './Pages/shopItemStatPage';
 import { globalAny } from './Modules/globalAny';
 import SiteClosed from './Modules/SiteClosed';
 import { siteStates } from './Modules/SiteClosed';
+import VerifMail from './Pages/verifMail';
 
 
 function Index() {
 
   globalAny.ym(90968310, 'hit', document.location.href);
 
-  return<SiteClosed >
+  return<SiteClosed state={siteStates.tech_works}>
 
 
     <BrowserRouter>
@@ -69,6 +70,7 @@ function Index() {
             <Route path='/initiatives/check/:initiative_id' element={<CheckInitiativePage />}></Route>
             <Route path='/addPrivateInitiative' element={<AddPrivateInitiativePage />}></Route>
             <Route path='/addPublicInitiative' element={<AddPublicInitiativePage />}></Route>
+            <Route path='/mail/verif/:id/:code' element={<VerifMail />}></Route>
           </Routes>
         </div>
         <Footer />
