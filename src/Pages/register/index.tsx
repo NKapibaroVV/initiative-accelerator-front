@@ -35,7 +35,7 @@ function RegPage() {
                 if (!!user && !!user.id && !!user.role && user.role != "default") {
                     localStorage.setItem("userData", JSON.stringify(user));
                     globalAny.ym(90968310, 'reachGoal', 'REGISTERED SUCCESSFULLY');
-                    alert(`Ссылка для подтверждения почты отправлена на email (${emailRef.current!.value.trim()})`)
+                    alert(`Ссылка для подтверждения почты отправлена на email (${emailRef.current!.value.trim()}). Вы не сможете начать выполнять задания до подтверждения.`)
                     document.location.assign("/cab")
                 } else {
                     globalAny.ym(90968310, 'reachGoal', 'REGISTERED WITH ERROR');
