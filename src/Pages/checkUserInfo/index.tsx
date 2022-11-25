@@ -11,6 +11,7 @@ export default function CheckUserInfoPage() {
     const { user_id } = useParams();
     const currentUser = useGlobalUserState();
 
+    
     const [sumBalance, setSumBalance] = useState(0);
 
     let allInitiatives: { [id: string]: Iinitiative } = {};
