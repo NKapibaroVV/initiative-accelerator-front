@@ -45,6 +45,7 @@ function RegPage() {
         }
     }
 
+    
     return <>
         <div className="">
             <h4 className="text-center px-2 mb-3 pb-2">Регистрация</h4>
