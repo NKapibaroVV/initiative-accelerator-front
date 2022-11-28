@@ -13,7 +13,17 @@ export default function ShopPage() {
     const [result, setResult] = useState([preloader])
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_shop_items/`).then(resp => resp.json().then((response: IShopItem[]) => {
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_shop_items/`)
+        
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_shop_items`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({
+                token: currentUser.userParams.token,
+            })
+        }).then(resp => resp.json().then((response: IShopItem[]) => {
             setResult([])
             let items: IShopItem[] | null = null;
             items = response;

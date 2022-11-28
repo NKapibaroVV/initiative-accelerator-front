@@ -34,13 +34,13 @@ import { globalAny } from './Modules/globalAny';
 import SiteClosed from './Modules/SiteClosed';
 import { siteStates } from './Modules/SiteClosed';
 import VerifMail from './Pages/verifMail';
-
+import AddPrvtShopItemPage from './Pages/addPrvtShopItemPage';
 
 function Index() {
 
   globalAny.ym(90968310, 'hit', document.location.href);
 
-  return<SiteClosed state={siteStates.tech_works}>
+  return<SiteClosed>
 
 
     <BrowserRouter>
@@ -62,7 +62,8 @@ function Index() {
             <Route path='/shop/edit/:item_id' element={<EditShopItemPage />}></Route>
             <Route path='/shop/stat/:item_id' element={<ShopItemStatPage />}></Route>
             <Route path='/shop/edit' element={<ShopItemsListPage />}></Route>
-            <Route path='/shop/add' element={<AddShopItemPage />}></Route>
+            <Route path='/shop/add/public' element={<AddShopItemPage />}></Route>
+            <Route path='/shop/add/prvt' element={<AddPrvtShopItemPage />}></Route>
             <Route path='/initiatives/edit' element={<ListOfAllInitiativesPage />}></Route>
             <Route path='/initiatives/results' element={<ListInitiativesResultsPage />}></Route>
             <Route path='/initiatives/stat/:initiative_id' element={<InitiativeStatPage />}></Route>

@@ -33,8 +33,9 @@ export default function ShopItemsListPage() {
         <div className="m-2 p-2 fs-3 text-center">
             Изменение предметов магазина баллов
         </div>
-        <div className="row justify-content-center gx-3 gy-2 my-3">
-            <Button variant="outlined" className="col-12 col-md-5 mx-2" href="/shop/add">Создать предмет магазина</Button>
+        <div className="row justify-content-center gx-2 gy-2 my-3">
+        <Button variant="outlined" className="col-12 col-md-5 mx-1" href="/shop/add/public">Создать открытый</Button>
+        <Button variant="outlined" className="col-12 col-md-5 mx-1" href="/shop/add/prvt">Создать приватный</Button>
         </div>
         <>{result}</>
     </div>
