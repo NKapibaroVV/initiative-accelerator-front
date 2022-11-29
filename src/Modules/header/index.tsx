@@ -16,7 +16,7 @@ function Header() {
                 }}
                 src="https://pk10.mskobr.ru/attach_files/logo/%D0%BB%D0%BE%D0%B3%D0%BE%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82.png" alt="logo" />
             </a>
-            <button className="navbar-toggler" type="button" style={{ marginLeft: "auto", marginRight: "10px", width: "56px", height: "40px" }} data-bs-toggle="offcanvas" data-bs-target="#offcanvasNotif" aria-controls="offcanvasNotif">
+            <button className={`navbar-toggler ${user.userParams.role!="default"?"":"d-none"}`} type="button" style={{ marginLeft: "auto", marginRight: "10px", width: "56px", height: "40px" }} data-bs-toggle="offcanvas" data-bs-target="#offcanvasNotif" aria-controls="offcanvasNotif">
                 <span className="bi bi-bell" style={{ width: "30px", height: "30px" }}></span>
             </button>
             <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
