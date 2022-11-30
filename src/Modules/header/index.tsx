@@ -1,3 +1,4 @@
+import NotifContainer from "../NotifContainer";
 import { useGlobalUserState, userRoles } from "../User/User";
 
 function Header() {
@@ -16,22 +17,11 @@ function Header() {
                 }}
                 src="https://pk10.mskobr.ru/attach_files/logo/%D0%BB%D0%BE%D0%B3%D0%BE%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82.png" alt="logo" />
             </a>
-            <button className={`navbar-toggler ${user.userParams.role!="default"?"":"d-none"}`} type="button" style={{ marginLeft: "auto", marginRight: "10px", width: "56px", height: "40px" }} data-bs-toggle="offcanvas" data-bs-target="#offcanvasNotif" aria-controls="offcanvasNotif">
-                <span className="bi bi-bell" style={{ width: "30px", height: "30px" }}></span>
-            </button>
+            {user.userParams.role != "default" ? <NotifContainer/> : null}
             <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                 <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="offcanvas offcanvas-end text-bg-white" tabIndex={-1} id="offcanvasNotif" aria-labelledby="offcanvasNotifLabel">
-                <div className="offcanvas-header">
-                    <h5 className="offcanvas-title" id="offcanvasNotifLabel">Уведомления</h5>
-                    <button type="button" className="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div className="offcanvas-body">
-                    Уведомлений нет
-                </div>
-
-            </div>
+            
             <div className="offcanvas offcanvas-end text-bg-white" tabIndex={-1} id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">Навигация по сайту</h5>

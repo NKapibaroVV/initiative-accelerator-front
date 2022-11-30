@@ -3,7 +3,7 @@ import { createRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import CheckAdmin from "../../Modules/Check/CheckAdmin";
 import preloader from "../../Modules/preloader";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import { IUser, useGlobalUserState, userRoles } from "../../Modules/User/User";
 
 export default function EditUserPage() {
     const { user_id } = useParams();
@@ -16,6 +16,34 @@ export default function EditUserPage() {
     let groupRef = createRef<HTMLInputElement>();
     let birthRef = createRef<HTMLInputElement>();
     let roleRef = createRef<HTMLSelectElement>();
+
+    let costDeltaRef = createRef<HTMLInputElement>();
+    let costDeltaCommentRef = createRef<HTMLTextAreaElement>();
+
+    
+    let updScoreAddBtnRef = createRef<HTMLButtonElement>();
+    let updScoreRemoveBtnRef = createRef<HTMLButtonElement>();
+
+    function updUserScore(action: "add" | "remove") {
+        updScoreAddBtnRef.current?.setAttribute("disabled", "true")
+        updScoreRemoveBtnRef.current?.setAttribute("disabled", "true");
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/editScoreByDeltaScore/`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({
+                token: currentUser.userParams.token,
+                user_id: user_id,
+                cost_delta: costDeltaRef.current?.value,
+                cost_delta_comment: costDeltaCommentRef.current?.value,
+                action:action
+            })
+        }).then(res=>res.json().then(response=>{
+            alert(`Баллы успешно ${action=="add"?"добавлены":"сняты"}!`);
+            document.location.reload();
+        }))
+    }
 
     function resetPassword() {
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reset_user_password/`, {
@@ -131,6 +159,35 @@ export default function EditUserPage() {
                         <Button variant="outlined" className="w-100">
                             Cбросить пароль
                         </Button>
+                    </div>
+                    <div className="col-md-7 col-10">
+                        <Button variant="outlined" className={`w-100 ${currentUser.userParams.role != userRoles.Администратор ? "d-none" : ""}`} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScore" aria-controls="offcanvasScore">
+                            Изменить баллы
+                        </Button>
+
+                        <div className="offcanvas offcanvas-top" tabIndex={-1} id="offcanvasScore" aria-labelledby="offcanvasScoreLabel" style={{ height: "80%" }}>
+                            <div className="offcanvas-header">
+                                <h5 className="offcanvas-title" id="offcanvasScoreLabel">Изменить количество баллов</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div className="offcanvas-body">
+                                <div className="row g-2">
+                                    <div className="col-md-6 col-12">
+                                        <input className="form-control" type="number" name="scoreDelta" placeholder="Количество баллов" ref={costDeltaRef} />
+                                        <textarea className="form-control" name="scoreDeltaComment" placeholder="Коментарий" rows={10} style={{ marginTop: "10px" }} ref={costDeltaCommentRef} />
+                                    </div>
+                                    <div className="col-md-6 col-12">
+                                        <h3 className="text-center">Выберите действие</h3>
+                                        <Button variant="contained" className="w-100" color="success" onClick={()=>{updUserScore("add")}} ref={updScoreAddBtnRef}>
+                                            Добавить баллы
+                                        </Button>
+                                        <Button variant="contained" className="w-100" color="error" style={{ marginTop: "10px" }} onClick={()=>{updUserScore("remove")}} ref={updScoreRemoveBtnRef}>
+                                            Снять баллы
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
