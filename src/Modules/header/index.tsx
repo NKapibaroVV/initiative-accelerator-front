@@ -1,5 +1,5 @@
 import { userRoles } from "../../enums/userRoles";
-import NotifContainer from "../notifContainer";
+import NotifContainer from "../NotifContainer";
 import { useGlobalUserState } from "../User/User";
 
 function Header() {
