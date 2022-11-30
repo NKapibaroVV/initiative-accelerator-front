@@ -5,7 +5,7 @@ import IShopLogItem from "../../interfaces/shopLogItem";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import { initiativeProgress } from "../../Modules/initiativeBrick";
 import preloader from "../../Modules/preloader";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import {  useGlobalUserState } from "../../Modules/User/User";
 
 export default function CheckUserInfoPage() {
     const { user_id } = useParams();

@@ -2,9 +2,10 @@ import { Button } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import Select from 'react-select';
 import { json } from "stream/consumers";
+import IUser from "../../interfaces/user";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import { useGlobalUserState } from "../../Modules/User/User";
 function AddPrivateInitiativePage() {
     const currentUser = useGlobalUserState();
 
@@ -37,7 +38,7 @@ function AddPrivateInitiativePage() {
     function createInitiative() {
         selectedUsers = []
         usersSelectsRefs.current.forEach((el: any) => {
-            if (el.props.value&&!!el.props.value.value) {
+            if (el.props.value && !!el.props.value.value) {
                 selectedUsers?.push(JSON.parse(el.props.value.value));
             }
 

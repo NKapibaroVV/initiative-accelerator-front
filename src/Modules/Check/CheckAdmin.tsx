@@ -1,4 +1,5 @@
-import { useGlobalUserState, userRoles } from "../User/User";
+import { userRoles } from "../../enums/userRoles";
+import { useGlobalUserState, } from "../User/User";
 
 function CheckAdmin(props:{children:JSX.Element}){
     let user = useGlobalUserState();

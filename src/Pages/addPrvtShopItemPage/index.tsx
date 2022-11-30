@@ -2,7 +2,8 @@ import { Button } from "@mui/material";
 import Select from 'react-select';
 import React, { useEffect, useRef, useState } from "react";
 import CheckModerator from "../../Modules/Check/CheckModerator";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import { useGlobalUserState } from "../../Modules/User/User";
+import IUser from "../../interfaces/user";
 
 export default function AddPrvtShopItemPage() {
 
@@ -126,7 +127,7 @@ export default function AddPrvtShopItemPage() {
             </div>
             <div className="col-12">
                 <label htmlFor="inputDate">Ограничение по кол-ву покупок:</label>
-                <input type="number" className="form-control my-2" value={countOfUsers} disabled={true} ref={usersLimitRef}/>
+                <input type="number" className="form-control my-2" value={countOfUsers} disabled={true} ref={usersLimitRef} />
             </div>
             <div className="col-12">
                 <label>Пользователь:</label>

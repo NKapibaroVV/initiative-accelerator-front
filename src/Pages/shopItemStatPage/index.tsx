@@ -2,8 +2,9 @@ import { TableCell, Table, TableBody, TableContainer, TableHead, TableRow, Butto
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import IShopLogItem from "../../interfaces/shopLogItem";
+import IUser from "../../interfaces/user";
 import CheckModerator from "../../Modules/Check/CheckModerator";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import { useGlobalUserState } from "../../Modules/User/User";
 
 export default function ShopItemStatPage() {
     const { item_id } = useParams();

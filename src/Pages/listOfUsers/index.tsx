@@ -4,9 +4,10 @@ import Select, { GroupBase } from 'react-select'
 import CheckAdmin from "../../Modules/Check/CheckAdmin";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";
-import { defaultUserParams, IUser, useGlobalUserState } from "../../Modules/User/User";
+import { defaultUserParams, useGlobalUserState } from "../../Modules/User/User";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import IUser from "../../interfaces/user";
 
 export default function ListOfUsersPage() {
     const currentUser = useGlobalUserState();

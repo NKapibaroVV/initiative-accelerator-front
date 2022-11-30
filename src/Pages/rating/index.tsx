@@ -1,7 +1,8 @@
 import { Avatar, Card, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import IUser from "../../interfaces/user";
 import CheckAuth from "../../Modules/Check/CheckAuthorized";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import { useGlobalUserState } from "../../Modules/User/User";
 
 function RatingPage() {
     const user = useGlobalUserState();

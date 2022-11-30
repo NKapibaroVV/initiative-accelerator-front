@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
 import { createRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
+import { userRoles } from "../../enums/userRoles";
+import IUser from "../../interfaces/user";
 import CheckAdmin from "../../Modules/Check/CheckAdmin";
 import preloader from "../../Modules/preloader";
-import { IUser, useGlobalUserState, userRoles } from "../../Modules/User/User";
+import {useGlobalUserState } from "../../Modules/User/User";
 
 export default function EditUserPage() {
     const { user_id } = useParams();

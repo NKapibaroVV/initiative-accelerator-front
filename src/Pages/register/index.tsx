@@ -1,7 +1,8 @@
 import { Button } from "@mui/material";
 import { createRef } from "react";
+import IUser from "../../interfaces/user";
 import { globalAny } from "../../Modules/globalAny";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import { useGlobalUserState } from "../../Modules/User/User";
 
 function RegPage() {
 

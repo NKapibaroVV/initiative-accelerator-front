@@ -1,7 +1,8 @@
 import { Avatar, Button } from "@mui/material";
 import { createRef, useEffect, useState } from "react";
+import IUser from "../../interfaces/user";
 import CheckAuth from "../../Modules/Check/CheckAuthorized";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import { useGlobalUserState } from "../../Modules/User/User";
 
 export default function ProfilePage() {
 

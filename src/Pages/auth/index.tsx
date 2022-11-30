@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import React, { useEffect } from "react";
-import { IUser } from "../../Modules/User/User";
 import {SHA512} from "crypto-js";
 import { globalAny } from "../../Modules/globalAny";
+import IUser from "../../interfaces/user";
 
 function AuthPage() {
 

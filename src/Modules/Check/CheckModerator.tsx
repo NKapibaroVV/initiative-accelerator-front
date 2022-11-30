@@ -1,12 +1,13 @@
-import { useGlobalUserState, userRoles } from "../User/User";
+import { userRoles } from "../../enums/userRoles";
+import { useGlobalUserState } from "../User/User";
 
-function CheckModerator(props:{children:JSX.Element}){
+function CheckModerator(props: { children: JSX.Element }) {
     let user = useGlobalUserState();
-    if (user.userParams.role==userRoles.Администратор||user.userParams.role==userRoles.Модератор) {
+    if (user.userParams.role == userRoles.Администратор || user.userParams.role == userRoles.Модератор) {
         return props.children
-    }else{
+    } else {
         window.location.assign("/cab");
-        return<></>
+        return <></>
     }
 }
 export default CheckModerator;

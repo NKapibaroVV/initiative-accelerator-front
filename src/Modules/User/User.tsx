@@ -1,28 +1,14 @@
 import { stat } from 'fs';
 import React, { Children, Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
+import { userRoles } from '../../enums/userRoles';
+import IUser from '../../interfaces/user';
 /**Интерфейс provider'а данных о пользователе */
 export interface IUserProviderProps {
     children: React.ReactNode
 }
 /**Интерфейс пользователя */
-export interface IUser {
-    name: string,
-    surname: string,
-    email: string,
-    id: string,
-    token: string,
-    birth: Date,
-    role: userRoles,
-    score: number,
-    avatarURI?: string | null,
-    edu_group: string | null,
-}
-export enum userRoles {
-    "Администратор" = "Администратор",
-    "Студент" = "Студент",
-    "default" = "default",
-    "Модератор" = "Модератор"
-}
+
+
 
 /**Параметры пользователя по умолчанию*/
 export let defaultUserParams: IUser = {
@@ -35,7 +21,9 @@ export let defaultUserParams: IUser = {
     birth: new Date("2000-01-01"),
     edu_group: null,
     avatarURI: null,
-    score: 0
+    score: 0,
+    email_verified:0,
+    notifs_checked:1
 }
 
 /**Интерфейс для контекста пользователя */

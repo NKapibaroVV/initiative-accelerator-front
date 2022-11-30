@@ -2,9 +2,10 @@ import { TableRow, TableCell, Table, TableHead, TableBody, TableContainer, Card,
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import Iinitiative from "../../interfaces/initiative";
+import IUser from "../../interfaces/user";
 import CheckModerator from "../../Modules/Check/CheckModerator";
 import preloader from "../../Modules/preloader";
-import { IUser, useGlobalUserState } from "../../Modules/User/User";
+import { useGlobalUserState } from "../../Modules/User/User";
 
 export default function InitiativeStatPage() {
     const currentUser = useGlobalUserState();

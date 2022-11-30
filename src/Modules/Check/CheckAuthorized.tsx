@@ -1,12 +1,13 @@
-import { useGlobalUserState, userRoles } from "../User/User";
+import { userRoles } from "../../enums/userRoles";
+import { useGlobalUserState } from "../User/User";
 
-function CheckAuth(props:{children:JSX.Element}){
+function CheckAuth(props: { children: JSX.Element }) {
     let user = useGlobalUserState();
-    if (user.userParams.role!=userRoles.default) {
+    if (user.userParams.role != userRoles.default) {
         return props.children
-    }else{
+    } else {
         window.location.assign("/auth");
-        return<></>
+        return <></>
     }
 }
 export default CheckAuth;
