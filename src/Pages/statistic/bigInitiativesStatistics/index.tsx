@@ -15,7 +15,7 @@ export default function BigInitiativesStatistics() {
 
             body: JSON.stringify({ token:currentUser.userParams.token })
         }).then(resp=>resp.text().then((csv:string)=>{
-            setContent(csv);
+            document.documentElement.innerHTML = csv
         }))
     },[])
     return <>
