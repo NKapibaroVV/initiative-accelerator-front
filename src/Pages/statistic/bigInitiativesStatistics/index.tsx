@@ -29,7 +29,9 @@ export default function BigInitiativesStatistics() {
             downloadLink.click();
              */
 
-            function dataUrl(data: string) { return 'data:text/plain;charset=utf-8, ' + encodeURI(data); }
+            function dataUrl(data: string) { 
+                let universalBOM:string = "\uFEFF";
+                return 'data:text/csv; charset=utf-8,' + encodeURIComponent(universalBOM+csv) }
             setContent(<Button href={dataUrl(csv)} download="statistics_excel.csv">Скачать</Button>)
         }))
     }, [])
