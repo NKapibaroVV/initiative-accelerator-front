@@ -35,6 +35,7 @@ import SiteClosed from './Modules/SiteClosed';
 import { siteStates } from './Modules/SiteClosed';
 import VerifMail from './Pages/verifMail';
 import AddPrvtShopItemPage from './Pages/addPrvtShopItemPage';
+import BigInitiativesStatistics from './Pages/statistic/bigInitiativesStatistics';
 
 function Index() {
 
@@ -72,6 +73,7 @@ function Index() {
             <Route path='/addPrivateInitiative' element={<AddPrivateInitiativePage />}></Route>
             <Route path='/addPublicInitiative' element={<AddPublicInitiativePage />}></Route>
             <Route path='/mail/verif/:id/:code' element={<VerifMail />}></Route>
+            <Route path='/statistic/bigInitiativesStatistics.csv' element={<BigInitiativesStatistics />}></Route>
           </Routes>
         </div>
         <Footer />
