@@ -1,5 +1,7 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react"
+import CheckAdmin from "../../../Modules/Check/CheckAdmin";
+import CheckAuth from "../../../Modules/Check/CheckAuthorized";
 import { useGlobalUserState } from "../../../Modules/User/User"
 
 export default function BigInitiativesStatistics() {
@@ -32,6 +34,10 @@ export default function BigInitiativesStatistics() {
         }))
     }, [])
     return <>
-        {content}
+        <CheckAuth>
+            <CheckAdmin>
+                {content}
+            </CheckAdmin>
+        </CheckAuth>
     </>
 }
