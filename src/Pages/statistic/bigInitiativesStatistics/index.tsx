@@ -15,7 +15,26 @@ export default function BigInitiativesStatistics() {
 
             body: JSON.stringify({ token:currentUser.userParams.token })
         }).then(resp=>resp.text().then((csv:string)=>{
-            document.documentElement.innerHTML = csv
+            let textFileAsBlob:Blob = new Blob([csv], {type:'text/plain'}); 
+            var downloadLink = document.createElement("a");
+    	downloadLink.download = "file.csv";
+    	downloadLink.innerHTML = "Download File";
+    	if (window.webkitURL != null)
+    	{
+    		// Chrome allows the link to be clicked
+    		// without actually adding it to the DOM.
+    		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    	}
+    	else
+    	{
+    		// Firefox requires the link to be added to the DOM
+    		// before it can be clicked.
+    		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    		downloadLink.style.display = "none";
+    		document.body.appendChild(downloadLink);
+    	}
+    
+    	downloadLink.click();
         }))
     },[])
     return <>
