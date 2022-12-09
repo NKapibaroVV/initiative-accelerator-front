@@ -32,7 +32,7 @@ export default function BigInitiativesStatistics() {
             function dataUrl(data: string) { 
                 let universalBOM:string = "\uFEFF";
                 return 'data:text/csv; charset=utf-8,' + encodeURIComponent(universalBOM+csv) }
-            setContent(<Button href={dataUrl(csv)} download="statistics_excel.csv">Скачать</Button>)
+            setContent(<Button href={dataUrl(csv)} download="bigInitiativesStatistics.csv">Скачать</Button>)
         }))
     }, [])
     return <>
