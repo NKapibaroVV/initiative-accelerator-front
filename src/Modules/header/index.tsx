@@ -40,6 +40,9 @@ function Header() {
                             <li className="nav-item">
                                 <a className="nav-link p-1 text-start" href="/users">Редактировать участников</a>
                             </li>
+                            <li className="nav-item">
+                                <a className="nav-link p-1 text-start" href="/statistic/bigInitiativesStatistics.csv">Статистика</a>
+                            </li>
                         </> : <></>}
                         {user.userParams.role == userRoles.Модератор || user.userParams.role == userRoles.Администратор ?
                             <>
