@@ -32,9 +32,9 @@ export default function ProfilePage() {
 
 
 
-        if (passwordRef.current!.value!=""&&passwordRef.current!.value.length > 4 && passwordRef.current!.value == passwordRepeatedRef.current!.value) {
+        if (passwordRef.current!.value.length > 4 && passwordRef.current!.value == passwordRepeatedRef.current!.value) {
             reqBody.password = passwordRef.current!.value;
-        } else {
+        } else if(passwordRef.current!.value.length!=0) {
             alert("Пароль короче 5 символов или введённые пароли не совпадают!")
         }
         if (!/http.?:\/\/.*\.(jpg|png)/g.test(avatarRef.current!.value)) {
