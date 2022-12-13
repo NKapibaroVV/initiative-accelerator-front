@@ -30,17 +30,14 @@ export default function ProfilePage() {
             avatar: avatarRef.current!.value
         }
 
-
-
-        if (passwordRef.current!.value.length > 4 && passwordRef.current!.value == passwordRepeatedRef.current!.value) {
-            reqBody.password = passwordRef.current!.value;
-        } else if(passwordRef.current!.value.length!=0) {
-            alert("Пароль короче 5 символов или введённые пароли не совпадают!")
-        }
+        
         if (!/http.?:\/\/.*\.(jpg|png)/g.test(avatarRef.current!.value)) {
             alert("Ссылка на автар не соответствует требованиям!")
+        }else if(passwordRef.current!.value.length != 0&&!(passwordRef.current!.value.length > 4 && passwordRef.current!.value == passwordRepeatedRef.current!.value)){
+            alert("Пароль короче 5 символов или введённые пароли не совпадают!")
         }
         else {
+            reqBody.password = passwordRef.current!.value;
             fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/update_profile/`, {
                 headers: {
                     'Content-Type': 'application/json'
