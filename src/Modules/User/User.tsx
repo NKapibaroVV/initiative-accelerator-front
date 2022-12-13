@@ -59,7 +59,7 @@ export const GlobalUserStateContextProvider = (props: IUserProviderProps) => {
         }).then(resp => resp.json()).then((user: IUser) => {
             if (state != user) {
                 localStorage.setItem("userData", JSON.stringify(user))
-                if (state!=user) {
+                if (state!=JSON.parse(localStorage.getItem("userData")!)) {
                     dispatch(user);
                 }
             }
