@@ -5,7 +5,7 @@ import { userRoles } from "../../enums/userRoles";
 import IUser from "../../interfaces/user";
 import CheckAdmin from "../../Modules/Check/CheckAdmin";
 import preloader from "../../Modules/preloader";
-import {useGlobalUserState } from "../../Modules/User/User";
+import { useGlobalUserState } from "../../Modules/User/User";
 
 export default function EditUserPage() {
     const { user_id } = useParams();
@@ -22,7 +22,7 @@ export default function EditUserPage() {
     let costDeltaRef = createRef<HTMLInputElement>();
     let costDeltaCommentRef = createRef<HTMLTextAreaElement>();
 
-    
+
     let updScoreAddBtnRef = createRef<HTMLButtonElement>();
     let updScoreRemoveBtnRef = createRef<HTMLButtonElement>();
 
@@ -39,10 +39,10 @@ export default function EditUserPage() {
                 user_id: user_id,
                 cost_delta: costDeltaRef.current?.value,
                 cost_delta_comment: costDeltaCommentRef.current?.value,
-                action:action
+                action: action
             })
-        }).then(res=>res.json().then(response=>{
-            alert(`Баллы успешно ${action=="add"?"добавлены":"сняты"}!`);
+        }).then(res => res.json().then(response => {
+            alert(`Баллы успешно ${action == "add" ? "добавлены" : "сняты"}!`);
             document.location.reload();
         }))
     }
@@ -59,7 +59,6 @@ export default function EditUserPage() {
                 user_id: user_id
             })
         }).then(res => res.json().then(response => {
-            alert("Пароль успешно сброшен! Вам нужно передать пароль пользователю, он указан ниже!")
             setPasswordText(<div className="rounded p-2 m-2 w-100 bg-white text-dark text-center">
                 {response.newPassword}
             </div>)
@@ -180,10 +179,10 @@ export default function EditUserPage() {
                                     </div>
                                     <div className="col-md-6 col-12">
                                         <h3 className="text-center">Выберите действие</h3>
-                                        <Button variant="contained" className="w-100" color="success" onClick={()=>{updUserScore("add")}} ref={updScoreAddBtnRef}>
+                                        <Button variant="contained" className="w-100" color="success" onClick={() => { updUserScore("add") }} ref={updScoreAddBtnRef}>
                                             Добавить баллы
                                         </Button>
-                                        <Button variant="contained" className="w-100" color="error" style={{ marginTop: "10px" }} onClick={()=>{updUserScore("remove")}} ref={updScoreRemoveBtnRef}>
+                                        <Button variant="contained" className="w-100" color="error" style={{ marginTop: "10px" }} onClick={() => { updUserScore("remove") }} ref={updScoreRemoveBtnRef}>
                                             Снять баллы
                                         </Button>
                                     </div>
