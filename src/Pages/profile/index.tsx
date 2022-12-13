@@ -46,6 +46,19 @@ export default function ProfilePage() {
 
                 body: JSON.stringify(reqBody)
             }).then(resp => resp.json().then((response) => {
+                user.UpdateUser(
+                    (prev:IUser)=>{
+                        return{
+                            ...prev, 
+                            name:firstNameRef.current!.value, 
+                            surname: secondNameRef.current!.value,
+                            email:emailRef.current!.value,
+                            birth:new Date(birthRef.current!.value),
+                            avatarURI:avatarRef.current!.value,
+                            edu_group:groupRef.current!.value,
+                            email_verified:emailRef.current!.value==prev.email?1:0
+                        }
+                    })
                 alert("Профиль обновлен!");
                 document.location.reload();
             }))
