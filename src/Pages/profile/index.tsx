@@ -48,7 +48,7 @@ export default function ProfilePage() {
             }).then(resp => resp.json().then((response) => {
                 user.UpdateUser(
                     (prev:IUser)=>{
-                        return{
+                        let newUser:IUser = {
                             ...prev, 
                             name:firstNameRef.current!.value, 
                             surname: secondNameRef.current!.value,
@@ -58,6 +58,8 @@ export default function ProfilePage() {
                             edu_group:groupRef.current!.value,
                             email_verified:emailRef.current!.value==prev.email?1:0
                         }
+                        localStorage.setItem("userData", JSON.stringify(newUser))
+                        return newUser
                     })
                 alert("Профиль обновлен!");
                 document.location.reload();
