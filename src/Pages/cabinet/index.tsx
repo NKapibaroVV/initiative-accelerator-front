@@ -368,7 +368,7 @@ function CabinetPage() {
                             }}>
                             <div className="col-12"
                                 style={{
-                                    height: 125
+                                    height: "100%"
                                 }}>
                                 {indicators}
                             </div>
