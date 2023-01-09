@@ -75,7 +75,7 @@ export default function AddPrvtShopItemPage() {
         if (deadlineTakeDateRef.current!.value.length > 1 && deadlineTakeTimeRef.current!.value.length > 1) {
             reqBody["deadline_take"] = new Date(`${deadlineTakeDateRef.current!.value} ${deadlineTakeTimeRef.current!.value}`).getTime()
         }
-        !!usersLimitRef.current!.value ? reqBody["users_limit"] = usersLimitRef.current!.value : console.log("users_limit is null");
+        reqBody["users_limit"] = 1;
         if (costRef.current!.value.length > 0 && titleRef.current!.value.length > 0 && descriptionRef.current!.value.length > 0) {
 
             let countToSend: number = 0;

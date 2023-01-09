@@ -10,9 +10,12 @@ export default function ShopItemStatPage() {
     const { item_id } = useParams();
     const currentUser = useGlobalUserState();
 
-    const [users, setUsers] = useState([<TableRow key="834ghbf"><TableCell></TableCell></TableRow>])
+    const [customers, setCustomers] = useState([<TableRow key="834ghbf"><TableCell></TableCell></TableRow>])
+    const [owners, setOwners] = useState([<TableRow key="834ghbf"><TableCell></TableCell></TableRow>])
 
     useEffect(() => {
+
+        //getting customers
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_shop_item_stat/`, {
             headers: {
                 'Content-Type': 'application/json'
@@ -24,11 +27,38 @@ export default function ShopItemStatPage() {
                 item_id: item_id
             })
         }).then(res => res.json().then(response => {
-            setUsers([])
+            setCustomers([])
             response.forEach((shopLog: IShopLogItem & IUser) => {
-                setUsers(prev => [...prev, <TableRow key={`0-${shopLog.identifer}-${shopLog.id}`}>
+                setCustomers(prev => [...prev, <TableRow key={`0-${shopLog.identifer}-${shopLog.id}`}>
                     <TableCell>#</TableCell>
                     <TableCell>{new Date(shopLog.time).toLocaleString()}</TableCell>
+                    <TableCell>{shopLog.name}</TableCell>
+                    <TableCell>{shopLog.surname}</TableCell>
+                    <TableCell>{shopLog.edu_group}</TableCell>
+                    <TableCell>{shopLog.email}</TableCell>
+                    <TableCell>{shopLog.role}</TableCell>
+                    <TableCell><Button variant="outlined" href={`/users/check/${shopLog.user_id}`} className="w-100">Инфо</Button></TableCell>
+                </TableRow>])
+            });
+        }))
+
+
+        //getting owners
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_shop_item_users/`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+
+            body: JSON.stringify({
+                token: currentUser.userParams.token,
+                item_id: item_id
+            })
+        }).then(res => res.json().then(response => {
+            setOwners([])
+            response.forEach((shopLog: IShopLogItem & IUser) => {
+                setOwners(prev => [...prev, <TableRow key={`0-${shopLog.identifer}-${shopLog.id}`}>
+                    <TableCell>#</TableCell>
                     <TableCell>{shopLog.name}</TableCell>
                     <TableCell>{shopLog.surname}</TableCell>
                     <TableCell>{shopLog.edu_group}</TableCell>
@@ -44,7 +74,28 @@ export default function ShopItemStatPage() {
     return <CheckModerator>
         <div>
             <div className="fs-3 m-2 p-2 text-center">
-                Статистика по предмету магазина
+                Назначенные пользователи
+            </div>
+            <TableContainer>
+                <Table className="table ">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell scope="col">#</TableCell>
+                            <TableCell scope="col">Имя</TableCell>
+                            <TableCell scope="col">Фамилия</TableCell>
+                            <TableCell scope="col">Группа</TableCell>
+                            <TableCell scope="col">Почта</TableCell>
+                            <TableCell scope="col">Роль</TableCell>
+                            <TableCell scope="col">Действия</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {owners}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <div className="fs-3 m-2 p-2 text-center">
+                Покупки предмета магазина
             </div>
             <TableContainer>
                 <Table className="table ">
@@ -61,7 +112,7 @@ export default function ShopItemStatPage() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users}
+                        {customers}
                     </TableBody>
                 </Table>
             </TableContainer>
