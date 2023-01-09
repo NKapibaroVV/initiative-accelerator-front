@@ -11,7 +11,7 @@ export default function ShopItemStatPage() {
     const currentUser = useGlobalUserState();
 
     const [customers, setCustomers] = useState([<TableRow key="834ghbf"><TableCell></TableCell></TableRow>])
-    const [owners, setOwners] = useState([<TableRow key="834ghbf"><TableCell></TableCell></TableRow>])
+    const [owners, setOwners] = useState([<TableRow key="834ghb1f"><TableCell></TableCell></TableRow>])
 
     useEffect(() => {
 
@@ -55,18 +55,36 @@ export default function ShopItemStatPage() {
                 item_id: item_id
             })
         }).then(res => res.json().then(response => {
-            setOwners([])
-            response.forEach((shopLog: IShopLogItem & IUser) => {
-                setOwners(prev => [...prev, <TableRow key={`0-${shopLog.identifer}-${shopLog.id}`}>
-                    <TableCell>#</TableCell>
-                    <TableCell>{shopLog.name}</TableCell>
-                    <TableCell>{shopLog.surname}</TableCell>
-                    <TableCell>{shopLog.edu_group}</TableCell>
-                    <TableCell>{shopLog.email}</TableCell>
-                    <TableCell>{shopLog.role}</TableCell>
-                    <TableCell><Button variant="outlined" href={`/users/check/${shopLog.user_id}`} className="w-100">Инфо</Button></TableCell>
-                </TableRow>])
-            });
+            res.text().then(respText => {
+                setOwners([])
+                if (respText != "Доступно всем") {
+                    response.forEach((shopLog: IShopLogItem & IUser) => {
+                        setOwners(prev => [...prev, <TableRow key={`0-${shopLog.identifer}-${shopLog.id}`}>
+                            <TableCell>#</TableCell>
+                            <TableCell>{shopLog.name}</TableCell>
+                            <TableCell>{shopLog.surname}</TableCell>
+                            <TableCell>{shopLog.edu_group}</TableCell>
+                            <TableCell>{shopLog.email}</TableCell>
+                            <TableCell>{shopLog.role}</TableCell>
+                            <TableCell><Button variant="outlined" href={`/users/check/${shopLog.user_id}`} className="w-100">Инфо</Button></TableCell>
+                        </TableRow>])
+                    });
+                }
+                else {
+                    response.forEach((shopLog: IShopLogItem & IUser) => {
+                        setOwners(prev => [...prev, <TableRow key={`0-${shopLog.identifer}-${shopLog.id}`}>
+                            <TableCell>#</TableCell>
+                            <TableCell>Это</TableCell>
+                            <TableCell>задание</TableCell>
+                            <TableCell>доступно</TableCell>
+                            <TableCell>всем</TableCell>
+                            <TableCell>пользователям</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>])
+                    });
+                }
+            })
+
 
         }))
     }, [])
