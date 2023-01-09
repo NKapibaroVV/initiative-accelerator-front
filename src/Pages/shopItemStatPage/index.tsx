@@ -43,6 +43,8 @@ export default function ShopItemStatPage() {
         }))
 
 
+
+        setOwners([])
         //getting owners
         fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/get_shop_item_users/`, {
             headers: {
@@ -55,9 +57,6 @@ export default function ShopItemStatPage() {
                 item_id: item_id
             })
         }).then(res => res.json().then(response => {
-            res.text().then(respText => {
-                setOwners([])
-                if (respText != "Доступно всем") {
                     response.forEach((shopLog: IShopLogItem & IUser) => {
                         setOwners(prev => [...prev, <TableRow key={`0-${shopLog.identifer}-${shopLog.id}`}>
                             <TableCell>#</TableCell>
@@ -69,23 +68,16 @@ export default function ShopItemStatPage() {
                             <TableCell><Button variant="outlined" href={`/users/check/${shopLog.user_id}`} className="w-100">Инфо</Button></TableCell>
                         </TableRow>])
                     });
-                }
-                else {
-                    response.forEach((shopLog: IShopLogItem & IUser) => {
-                        setOwners(prev => [...prev, <TableRow key={`0-${shopLog.identifer}-${shopLog.id}`}>
-                            <TableCell>#</TableCell>
-                            <TableCell>Это</TableCell>
-                            <TableCell>задание</TableCell>
-                            <TableCell>доступно</TableCell>
-                            <TableCell>всем</TableCell>
-                            <TableCell>пользователям</TableCell>
-                            <TableCell></TableCell>
-                        </TableRow>])
-                    });
-                }
-            })
-
-
+        }).catch(err=>{
+                setOwners(prev => [...prev, <TableRow key={`0-sdfw-e48ue`}>
+                    <TableCell>#</TableCell>
+                    <TableCell>Это</TableCell>
+                    <TableCell>задание</TableCell>
+                    <TableCell>доступно</TableCell>
+                    <TableCell>всем</TableCell>
+                    <TableCell>пользователям</TableCell>
+                    <TableCell></TableCell>
+                </TableRow>])
         }))
     }, [])
 
