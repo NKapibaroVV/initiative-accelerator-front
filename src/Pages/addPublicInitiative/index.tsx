@@ -22,31 +22,32 @@ export default function AddPublicInitiativePage() {
     let categoryRef = React.createRef<HTMLSelectElement>();
 
     function createInitiative() {
-        if (titleRef.current!.value.length > 0) {
+        const bodyObject = {
+            token: user.userParams.token,
+            title: titleRef.current?.value,
+            income: incomeRef.current?.value,
+            take_deadline: new Date(`${takeDayRef.current?.value} ${takeTimeRef.current?.value}`).getTime(),
+            complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
+            content: contentRef.current?.value,
+            category: categoryRef.current?.value,
+            isPrivate: false,
+            users_limit: usersCountRef.current?.value == "" || usersCountRef.current?.value == "0" ? null : usersCountRef.current?.value
+        }
+        if (!!bodyObject.title && !!bodyObject.take_deadline && !!bodyObject.complete_deadline && !!bodyObject.content && !!bodyObject.income) {
             fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/add_initiative/`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
 
-                body: JSON.stringify({
-                    token: user.userParams.token,
-                    title: titleRef.current?.value,
-                    income: incomeRef.current?.value,
-                    take_deadline: new Date(`${takeDayRef.current?.value} ${takeTimeRef.current?.value}`).getTime(),
-                    complete_deadline: new Date(`${completeDayRef.current?.value} ${completeTimeRef.current?.value}`).getTime(),
-                    content: contentRef.current?.value,
-                    category: categoryRef.current?.value,
-                    isPrivate:false,
-                    users_limit: usersCountRef.current?.value == "" || usersCountRef.current?.value == "0" ? null : usersCountRef.current?.value
-                })
+                body: JSON.stringify(bodyObject)
             }).then(res => res.json().then((response: any) => {
                 console.log(response)
                 alert("Создано!");
                 document.location.reload();
             }))
         } else {
-            alert("Длинна заголовка меньше 1 символа!");
+            alert("Проверьте правильность заполнения полей!");
             setBtnDisabled(false)
         }
     }
