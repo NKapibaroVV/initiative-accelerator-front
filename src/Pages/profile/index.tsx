@@ -31,7 +31,7 @@ export default function ProfilePage() {
         }
 
         
-        if (!/http.?:\/\/.*\.(jpg|png)/g.test(avatarRef.current!.value)) {
+        if (!/http.?:\/\/.*\.(jpg|png)/g.test(avatarRef.current!.value)&&avatarRef.current!.value.length>3) {
             alert("Ссылка на автар не соответствует требованиям!")
         }else if(passwordRef.current!.value.length != 0&&!(passwordRef.current!.value.length > 4 && passwordRef.current!.value == passwordRepeatedRef.current!.value)){
             alert("Пароль короче 5 символов или введённые пароли не совпадают!")
