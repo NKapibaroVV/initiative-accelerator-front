@@ -27,7 +27,7 @@ export default function ProfilePage() {
             email: emailRef.current!.value,
             edu_group: groupRef.current!.value,
             birth: birthRef.current!.value,
-            avatar: avatarRef.current!.value
+            avatar: avatarRef.current!.value+" "
         }
 
         
