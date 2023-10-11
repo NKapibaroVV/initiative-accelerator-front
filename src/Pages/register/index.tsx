@@ -26,7 +26,7 @@ function RegPage() {
             fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg/`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin', '*'
+                    'Access-Control-Allow-Origin': '*'
                 },
                 method: "POST",
 
