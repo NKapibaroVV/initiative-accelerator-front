@@ -24,7 +24,6 @@ function RegPage() {
             globalAny.ym(90968310, 'reachGoal', 'REGISTERED WITH ERROR');
         } else {
             fetch(`${process.env.REACT_APP_BACKEND_SERVER_DOMAIN}/api/reg/`, {
-                mode: "no-cors",
                 headers: {
                     'Content-Type': 'application/json'
                 },
